@@ -1,0 +1,57 @@
+create table exam_student(
+studId number primary key,
+fname varchar2(80),
+lname varchar2(80),
+city varchar2(80),
+state varchar2(80),
+gender varchar2(80),
+dob varchar2(400),
+stud_photo varchar2(3000),
+email varchar2(100),
+mobno varchar2(10),
+password varchar2(20)
+)
+
+create table exam_faculty(
+facId number primary key,
+fname varchar2(80),
+lname varchar2(80),
+education varchar2(80),
+gender varchar2(80),
+dob varchar2(100),
+stud_photo varchar2(3000),
+email varchar2(100),
+mobno varchar2(10),
+password varchar2(20),
+flag number
+)
+
+create table exam_addcourses
+(
+      coursecode number primary key,
+      coursename varchar2(80),
+      add_date varchar2(100),
+      facid number references exam_faculty(facid)
+);
+
+create table exam_question(
+		ques_id number primary key,
+		question varchar2(4000),
+		opt1 varchar2(4000),
+		opt2 varchar2(4000),
+		opt3 varchar2(4000),
+		opt4 varchar2(4000),
+		answer varchar2(4000),
+		coursecode number references exam_addcourses(coursecode)
+	)
+	
+	
+create table exam_setexam(
+e_code varchar2(4000) primary key,
+e_name varchar2(400),
+e_date varchar2(4000),
+e_time varchar2(4000),
+c_name varchar2(2000),
+facid number,
+c_code number references exam_addcourses(coursecode)
+);
