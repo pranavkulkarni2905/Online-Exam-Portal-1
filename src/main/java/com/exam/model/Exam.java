@@ -1,6 +1,5 @@
 package com.exam.model;
 
-import java.sql.Time;
 
 public class Exam {
 
@@ -12,11 +11,11 @@ public class Exam {
 	public Exam() {
 		
 	}
-	public Exam(String examCode, String examName, String examDate, String examTime) {
+	public Exam(String examCode, String examName,  String examTime) {
 		super();
 		this.examCode = examCode;
 		this.examName = examName;
-		this.examDate = examDate;
+		
 		this.examTime = examTime;
 	}
 	public String getExamCode() {
@@ -34,8 +33,8 @@ public class Exam {
 	public String getExamDate() {
 		return examDate;
 	}
-	public void setExamDate(String examDate) {
-		this.examDate = examDate;
+	public void setExamDate(String string) {
+		this.examDate = string;
 	}
 	public String getExamTime() {
 		return examTime;

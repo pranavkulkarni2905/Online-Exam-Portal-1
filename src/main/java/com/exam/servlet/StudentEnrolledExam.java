@@ -1,12 +1,13 @@
 package com.exam.servlet;
 
 import java.io.IOException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.servlet.ServletContext;
@@ -17,22 +18,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.exam.DAO.courseDAO;
+import com.exam.DAO.RequestDAO;
 import com.exam.DAO.examDAO;
-import com.exam.model.Exam;
-import com.exam.model.Faculty;
+import com.exam.model.Student;
 
 /**
- * Servlet implementation class AddExamServlet
+ * Servlet implementation class StudentEnrolledExam
  */
-@WebServlet("/AddExamServlet")
-public class AddExamServlet extends HttpServlet {
+@WebServlet("/StudentEnrolledExam")
+public class StudentEnrolledExam extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddExamServlet() {
+    public StudentEnrolledExam() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,47 +41,44 @@ public class AddExamServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String code=request.getParameter("examcode");
-		String name=request.getParameter("examname");
-		String date=request.getParameter("date");
 		
-		String time=request.getParameter("optradio");
-		String cName=request.getParameter("cname");
 		
-		int cid=0;
-		courseDAO cd=new courseDAO();
-		ResultSet rs=cd.getAllData();
+		
+		ServletContext sc=request.getServletContext();
+		Student stud=(Student)sc.getAttribute("student-obj");
+		
+		
+		RequestDAO rd=new RequestDAO();
+		ResultSet rs=rd.getDataByStudId("Accepted", stud.getStudId());
 		try {
 			while(rs.next()) {
-				if(rs.getString(2).contentEquals(cName)) {
-					cid=rs.getInt(1);
-					System.out.println(cid);
+				
+//					SimpleDateFormat ft=new SimpleDateFormat("dd/MM/yyyy");
+//					Date now=new Date();
+				//DateTimeFormatter df=DateTimeFormatter.ofPattern(")
+				LocalDate now=LocalDate.now();
+					System.out.println(now);
+					//Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(today);
+					//Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(10));
+					//int num=date1.compareTo(today);
+					LocalDate date1=LocalDate.parse(rs.getString(10));
+					System.out.println(date1);
+					
+					if(date1.isBefore(now)){
+						rd.updateFlag(1, rs.getInt(1));
+					}
 				}
-			}
+				
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		HttpSession session=request.getSession();
-		ServletContext sc=request.getServletContext();
-		Faculty f=(Faculty)sc.getAttribute("faculty-obj");
-		int facId=f.getFacId();
-		String facName = f.getFname()+" "+f.getLname();
-		Exam e=new Exam(code, name, time);
+		} 
+	
+		response.sendRedirect("StudentEnrolledExam.jsp");
 		
-		examDAO ed=new examDAO();
-
 		
-
-		boolean b=ed.addExam(e,facId,cName,cid, facName,date);
-
-		if(b) {
-			session.setAttribute("exam-set-success", true);
-			response.sendRedirect("SetExam.jsp");
-		}else {
-			session.setAttribute("exam-set-fail", false);
-			response.sendRedirect("SetExam.jsp");
-		}
+		
 	}
 
 	/**

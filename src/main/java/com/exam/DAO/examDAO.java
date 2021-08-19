@@ -1,9 +1,11 @@
 package com.exam.DAO;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +15,16 @@ import com.exam.model.Faculty;
 public class examDAO {
 Connection con=null;
 PreparedStatement ps=null;
-	public boolean addExam(Exam e,int facId,String cName,int cId, String facName) {
+	public boolean addExam(Exam e,int facId,String cName,int cId, String facName,String date) {
 		boolean b=false;
+		
 		con=DBconnection.getConnection();
 		try {
+			
 			ps=con.prepareStatement("insert into exam_setexam values(?,?,?,?,?,?,?,?)");
 			ps.setString(1, e.getExamCode());
 			ps.setString(2, e.getExamName());
-			ps.setString(3, e.getExamDate());
+			ps.setString(3, date);
 			ps.setString(4, e.getExamTime());
 			ps.setString(5, cName);
 			ps.setInt(6, facId);
@@ -33,7 +37,7 @@ PreparedStatement ps=null;
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		} 
 		return b;
 	}
 	public ResultSet getAllData() {

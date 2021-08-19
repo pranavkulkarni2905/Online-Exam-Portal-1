@@ -46,7 +46,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini ">
 	<div class="wrapper">
 
 
@@ -144,7 +144,7 @@
 									class="nav-link "> <i class="fa fa-eye"></i>
 										<p>View All Exams</p>
 								</a></li>
-								<li class="nav-item"><a href="StudentEnrolledExam.jsp"
+								<li class="nav-item"><a href="StudentEnrolledExam"
 									class="nav-link"> <i class="fa fa-registered"></i>
 										<p>Enrolled Exams</p>
 								</a></li>
@@ -153,6 +153,8 @@
 									class="nav-link"> <i class="fa fa-list-alt"></i>
 										<p>View Result</p>
 								</a></li>
+								
+								
 								<br>
 								<br>
 

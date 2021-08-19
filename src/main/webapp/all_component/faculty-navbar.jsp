@@ -57,7 +57,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini ">
 	<div class="wrapper">
 
 
@@ -164,7 +164,7 @@
 								<li class="nav-item"><a href="DisplayCourse.jsp"
 									class="nav-link"> <i class="fa fa-eye"></i>
 										<p>View All Course</p>
-								</a></li>
+								</a></li><hr>
 								<li class="nav-item"><a href="AddQuestions.jsp"
 									class="nav-link"> <i class="fa fa-plus"></i>
 										<p>Add Questions</p>
@@ -172,11 +172,21 @@
 								<li class="nav-item"><a href="DisplayQuestion.jsp"
 									class="nav-link"> <i class="fa fa-eye"></i>
 										<p>View All Questions</p>
-								</a></li>
+								</a></li><hr>
 								<li class="nav-item"><a href="SetExam.jsp"
 									class="nav-link"> <i class="fa fa-university"></i>
 										<p>Manage Exam</p>
-								</a></li><hr>
+								</a></li>
+								<li class="nav-item"><a href="SetExam.jsp"
+									class="nav-link"> <i class="fa fa-bullhorn"></i>
+										<p>Declare Result</p>
+								</a></li>
+								<hr>
+								<li class="nav-item"><a href="FacultyEnrolledStudents.jsp"
+									class="nav-link"> <i class="fa fa-registered"></i>
+										<p>Enrolled Students<br><i style="font-size:12px;">(For Your Courses)</i></p>
+
+								</a></li>
 								<li class="nav-item"><a href="DisplayStudents.jsp"
 									class="nav-link"> <i class="fa fa-user"></i>
 										<p>View All students</p>

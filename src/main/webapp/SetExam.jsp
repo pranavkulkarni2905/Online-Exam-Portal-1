@@ -103,7 +103,7 @@ input, label {
 }
 </style>
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
 	<%@ include file="all_component/faculty-navbar.jsp"%>
 
 

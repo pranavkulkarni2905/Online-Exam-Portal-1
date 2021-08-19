@@ -10,13 +10,13 @@ import com.exam.model.Request;
 public class RequestDAO {
 	Connection con = null;
 	PreparedStatement ps = null;
-	public boolean addRequest(String e_code,int stud_id, int facId, int reqId,String studName,String cName)
+	public boolean addRequest(String e_code,int stud_id, int facId, int reqId,String studName,String cName,String eName,String date)
 	{
 		boolean b = false;
 		String status="Enroll";
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("insert into exam_requests values(?,?,?,?,?,?,?,?)");
+			ps = con.prepareStatement("insert into exam_requests values(?,?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1, reqId);
 			ps.setString(2, e_code);
 			ps.setInt(3, stud_id);
@@ -25,6 +25,8 @@ public class RequestDAO {
 			ps.setString(6, studName);
 			ps.setString(7, cName);
 			ps.setString(8, status);
+			ps.setString(9, eName);
+			ps.setString(10, date);
 			int i = ps.executeUpdate();
 			if(i>0)
 				b = true;
@@ -74,6 +76,34 @@ public class RequestDAO {
 		}
 		return rs;
 	}
+	public ResultSet getDataByStudId2(String str, int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and flag=0");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public ResultSet getDataByFlag(int flag, int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select * from exam_requests where flag=? and studid=?");
+			ps.setInt(1, flag);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 	public Request getDataByReqId(int id) {
 		con=DBconnection.getConnection();
 		ResultSet rs=null;
@@ -105,6 +135,23 @@ public class RequestDAO {
 		try {
 			ps=con.prepareStatement("update exam_requests set status=? where req_id=?");
 			ps.setString(1, string);
+			ps.setInt(2, id);
+			int i=ps.executeUpdate();
+			if(i>0) {
+				b=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
+	public boolean updateFlag(int flag,int id) {
+		boolean b=false;
+		con=DBconnection.getConnection();
+		try {
+			ps=con.prepareStatement("update exam_requests set flag=? where req_id=?");
+			ps.setInt(1, flag);
 			ps.setInt(2, id);
 			int i=ps.executeUpdate();
 			if(i>0) {

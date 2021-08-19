@@ -40,7 +40,7 @@ if (f == null) {
 }
 </style>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini ">
 <%! int stud,question,course,en_stud,exam,size1;
 List<Integer> lst1; 
 %>

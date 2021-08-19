@@ -1,12 +1,14 @@
+<%@page import="com.exam.model.Student"%>
 <%@page import="com.exam.DAO.studentDAO"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page import="com.exam.DAO.RequestDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>View Students | ThinkExam</title>
+<title>Enrolled Students</title>
 <%
 	ServletContext sc1=request.getServletContext();
 	Faculty f=(Faculty)sc1.getAttribute("faculty-obj");
@@ -70,47 +72,6 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
-	<%
-	try {
-		boolean msg3 = (boolean) session.getAttribute("delete-stud-success");
-		if (msg3 == true) {
-	%>
-	<div id="div1">
-		<script type="text/javascript">
-			Swal.fire('Done.!!&#9989', 'Student Successfully removed',
-					'success')
-		</script>
-	</div>
-
-	<%
-	}
-	} catch (Exception e) {
-	//e.printStackTrace();
-	}
-	session.removeAttribute("delete-stud-success");
-	%>
-
-	<%
-	try {
-		boolean msg4 = (boolean) session.getAttribute("delete-stud-fail");
-		if (msg4 == false) {
-	%>
-	<div id="div1">
-		<script type="text/javascript">
-			Swal.fire('Ooops.!!', 'Something went wrog on server.', 'warning')
-		</script>
-	</div>
-	<%
-	}
-	} catch (Exception e) {
-	//e.printStackTrace();
-	}
-	session.removeAttribute("delete-stud-fail");
-	%>
-
-<%
-response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-%>
 
 	<div class="wrapper">
 		<%@ include file="all_component/faculty-navbar.jsp"%>
@@ -120,10 +81,10 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		<nav aria-label="breadcrumb" class="main-breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="FacultyDashboard.jsp">Dashboard</a></li>
-				<li class="breadcrumb-item active" aria-current="page">View Students</li>
+				<li class="breadcrumb-item active" aria-current="page">View Enrolled Students</li>
 			</ol>
 		</nav>
-		<div class="text-center" style="color:red;"> List Of All Registered Students. ): </div><br>
+		<div class="text-center" style="color:red;"> List Of All Enrolled Students For Your Courses. ): </div><br>
 		<div class="container">
 			<table class="table table-hover">
 				<thead>
@@ -133,23 +94,24 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 						<th scope="col">Gender</th>
 						<th scope="col">Email</th>
 						<th scope="col">Mobile no</th>
-						<th scope="col">Action</th>
+						<th scope="col">Course Name</th>
 					</tr>
 				</thead>
 				<%
 				try {
-					studentDAO sd = new studentDAO();
-					ResultSet rs = sd.getAllData();
-					while (rs.next()) {
+					RequestDAO rd=new RequestDAO();
+					ResultSet rs=rd.getDataByStatusFilter("Accepted", f.getFacId());
+					while (rs.next()){
+						studentDAO sd=new studentDAO();
+						Student s=sd.getDataById(rs.getInt(3));
 				%>
 				<tr>
-					<td><%=rs.getInt(1)%></td>
-					<td><%=rs.getString(2)%>&nbsp<%=rs.getString(3)%></td>
-					<td><%=rs.getString(6)%></td>
-					<td><%=rs.getString(9)%></td>
-					<td><%=rs.getString(10)%></td>
-					<td><a href="DeleteStudentServlet?stud_id=<%=rs.getInt(1)%>"><button
-								class="btn btn-danger" data-toggle="modal"><i class="fa fa-trash"></i>Remove</button> </a></td>
+					<td><%=s.getStudId()%></td>
+					<td><%=s.getfName()%>&nbsp<%=s.getlName()%></td>
+					<td><%=s.getGender()%></td>
+					<td><%=s.getEmail()%></td>
+					<td><%=s.getMobNo()%></td>
+					<td><%=rs.getString(7)%></td>
 				</tr>
 
 				<%

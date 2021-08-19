@@ -48,7 +48,8 @@ public class RequestExamServlet extends HttpServlet {
 
 			String cName = null;
 			int facId = 0;
-
+			String examName=null;
+			String date=null;
 			examDAO ed = new examDAO();
 			ResultSet rs = ed.getAllData();
 			try {
@@ -56,6 +57,8 @@ public class RequestExamServlet extends HttpServlet {
 					if (exam_code.equals(rs.getString(1))) {
 						cName = rs.getString(5);
 						facId = rs.getInt(6);
+						examName=rs.getString(2);
+						date=rs.getString(3);
 					}
 				}
 			} catch (SQLException e) {
@@ -82,12 +85,12 @@ public class RequestExamServlet extends HttpServlet {
 					}
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
 			if (bool == false) {
-				boolean b = red.addRequest(exam_code, studId, facId, reqId, studName, cName);
+				boolean b = red.addRequest(exam_code, studId, facId, reqId, studName, cName,examName,date);
 
 				if (b) {
 					session.setAttribute("request-success", true);

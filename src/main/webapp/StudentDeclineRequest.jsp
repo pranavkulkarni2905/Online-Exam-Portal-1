@@ -70,7 +70,7 @@ if (s2 == null) {
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 		<%@ include file="all_component/student-navbar.jsp"%>
 

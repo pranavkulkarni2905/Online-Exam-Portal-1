@@ -72,7 +72,7 @@ if (f2 == null) {
 	<style>
 .class {
 	margin-left: 200px;
-	margin-top:100px;
+	margin-top:60px;
 }
 
 .card {
@@ -84,7 +84,7 @@ if (f2 == null) {
 
 </style>
 </head>
-<body >
+<body class="hold-transition sidebar-mini layout-fixed">
 
 	<div class="wrapper">
 		<%@ include file="all_component/faculty-navbar.jsp"%>
@@ -126,6 +126,7 @@ if (f2 == null) {
 			session.removeAttribute("req-decline");
 			%>
 		<div class="card"><br>
+			<div class="text-center" style="color:blue;font-size: 50px;"><i class="fa fa-paper-plane"></i></div>
 			<b><h1 class="text-center" style="color:red;">Get Filter Data</h1></b>
 		<div class="class">
 				<div class="form-group row">
