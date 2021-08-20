@@ -42,8 +42,11 @@ create table exam_question(
 		opt3 varchar2(4000),
 		opt4 varchar2(4000),
 		answer varchar2(4000),
-		coursecode number references exam_addcourses(coursecode)
-	)
+		coursecode number references exam_addcourses(coursecode),
+        coursename varchar2(4000),
+        facid number references exam_faculty(facid)
+	);
+
 	
 	
 create table exam_setexam(
@@ -54,4 +57,34 @@ e_time varchar2(4000),
 c_name varchar2(2000),
 facid number,
 c_code number references exam_addcourses(coursecode)
+);
+
+create table exam_requests(
+req_id number primary key,
+e_code varchar2(4000) references exam_setexam(e_code),
+studid number references exam_student(studid),
+facid number references exam_faculty(facid),
+flag number,
+studname varchar2(4000),
+cName varchar2(4000),
+status varchar2(4000),
+eName varchar2(4000),
+e_date varchar2(4000)
+);
+
+create table exam_currentq
+(
+curr number default 0
+);
+
+create table exam_counter
+(
+attempt number,
+correct number,
+incorrect number
+);
+
+create table exam_size
+(
+len number
 );

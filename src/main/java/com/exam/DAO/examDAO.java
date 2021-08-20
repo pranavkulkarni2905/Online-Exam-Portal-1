@@ -75,4 +75,21 @@ PreparedStatement ps=null;
 		}
 		return lst;
 	}
+	public int getCourseId(String exam_code)
+	{
+		int cid = 0;
+		con = DBconnection.getConnection();
+		try {
+			ps = con.prepareStatement("select c_code from exam_setexam where e_code = ?");
+			ps.setString(1, exam_code);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			cid = rs.getInt(1);
+			System.out.println(cid);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cid;
+	}
 }
