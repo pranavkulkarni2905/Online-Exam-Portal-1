@@ -1,18 +1,31 @@
+<%@page import="com.exam.model.Faculty"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%!Student s2;
+    Faculty f2;
+    %>
     	<%
+    	try{
 	ServletContext sc2=request.getServletContext();
-	Student s2=(Student)sc2.getAttribute("student-obj");
+	s2=(Student)sc2.getAttribute("student-obj");
 	if(s2==null){
 		session.setAttribute("pls-login", "Please Login Here...");
 		response.sendRedirect("Login.jsp");
 	}
+	 f2=(Faculty)sc2.getAttribute("faculty-obj");
+	if(f2==null){
+		session.setAttribute("pls-login", "Please Login Here...");
+		response.sendRedirect("Login.jsp");
+	}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
 	%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Change Password</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -127,7 +140,35 @@ button[disabled] {
 
 </head>
 <body>
-<%@include file="all_component/student-navbar.jsp"%>
+<%
+if(s2!=null){
+	%>
+	<%@include file="all_component/student-navbar.jsp"%>
+	<nav aria-label="breadcrumb" class="main-breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="StudentDashboard.jsp">Dashboard</a></li>
+
+				<li class="breadcrumb-item active" aria-current="page">Change Password
+					</li>
+			</ol>
+		</nav>
+	<% 
+}
+if(f2!=null){
+	%>
+	<%@include file="all_component/faculty-navbar.jsp"%>
+	<nav aria-label="breadcrumb" class="main-breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="FacultyDashboard.jsp">Dashboard</a></li>
+
+				<li class="breadcrumb-item active" aria-current="page">Change Password
+					</li>
+			</ol>
+		</nav>
+	<% 
+}
+%>
+
 <div class="mainDiv">
   <div class="cardStyle">
     <form action="ChangepasswordServlet" method="post" name="signupForm" id="signupForm">

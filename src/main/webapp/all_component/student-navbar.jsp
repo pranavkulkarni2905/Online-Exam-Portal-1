@@ -140,8 +140,8 @@
 										<p>Declined Request</p>
 								</a></li>
 								<li class="nav-item"><a href="Changepassword.jsp"
-									class="nav-link "> <i class="fa fa-close"></i>
-										<p>Changepassword</p>
+									class="nav-link "> <i class="fa fa-key"></i>
+										<p>Change password</p>
 								</a></li>
 								<hr>
 								<li class="nav-item"><a href="RequestExam.jsp"

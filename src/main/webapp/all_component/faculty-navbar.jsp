@@ -154,6 +154,10 @@
 									class="nav-link "> <i class="fa fa-paper-plane"></i>
 										<p>All Requests </p>
 								</a></li>
+								<li class="nav-item"><a href="Changepassword.jsp"
+									class="nav-link "> <i class="fa fa-key"></i>
+										<p>Change Password </p>
+								</a></li>
 								
 								<hr>
 								
