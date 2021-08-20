@@ -139,6 +139,10 @@
 									class="nav-link "> <i class="fa fa-close"></i>
 										<p>Declined Request</p>
 								</a></li>
+								<li class="nav-item"><a href="Changepassword.jsp"
+									class="nav-link "> <i class="fa fa-close"></i>
+										<p>Changepassword</p>
+								</a></li>
 								<hr>
 								<li class="nav-item"><a href="RequestExam.jsp"
 									class="nav-link "> <i class="fa fa-eye"></i>
