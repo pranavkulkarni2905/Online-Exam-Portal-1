@@ -4,8 +4,8 @@
 
 <%
 ServletContext sc2 = request.getServletContext();
-Student s2 = (Student) sc2.getAttribute("student-obj");
-if (s2 == null) {
+Faculty f2 = (Faculty) sc2.getAttribute("faculty-obj");
+if (f2 == null) {
 	session.setAttribute("pls-login", "Please Login Here...");
 	response.sendRedirect("Login.jsp");
 }
@@ -150,17 +150,15 @@ rotate(
 </head>
 <body>
 
-	<%@include file="all_component/student-navbar.jsp"%>
+	<%@include file="all_component/faculty-navbar.jsp"%>
 	<nav aria-label="breadcrumb" class="main-breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="StudentDashboard.jsp">Dashboard</a></li>
+			<li class="breadcrumb-item"><a href="FacultyDashboard.jsp">Dashboard</a></li>
 
 			<li class="breadcrumb-item active" aria-current="page">Change
 				Password</li>
 		</ol>
 	</nav>
-
-	
 
 
 

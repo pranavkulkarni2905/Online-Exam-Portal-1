@@ -18,11 +18,14 @@ import com.exam.model.Question;
 @WebServlet("/SaveServlet")
 public class SaveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	public SaveServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			ServletContext sc = request.getServletContext();
 			StartExamDAO exd = new StartExamDAO();
@@ -30,57 +33,55 @@ public class SaveServlet extends HttpServlet {
 			int i = Integer.parseInt(request.getParameter("curr"));
 			String ans = request.getParameter("ans");
 			int size = qd.getLength();
+			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
 			ResultSet rs = exd.getCounter();
-			if(i<size)
-			{
-				if(rs.next())
-				{
-					int attempted = rs.getInt(1); 
-					int corrected = rs.getInt(2);
-					//int non_attempted = rs.getInt(4);
-					int incorrected = rs.getInt(3);
-					System.out.println("corr" +q.getCorrect());
-					if(!ans.equals(null))
-					{
-						if(ans.equals(q.getCorrect()))
-						{
-							++attempted;
-							++corrected;
-							exd.updateCounter(attempted, corrected, incorrected);
-							System.out.println("Correct : "+corrected);
-						}
-						else {
-							++attempted;
-							++incorrected;
-							exd.updateCounter(attempted, corrected, incorrected);
-						}
 
+			if (rs.next()) {
+				int attempted = rs.getInt(1);
+				int corrected = rs.getInt(2);
+				// int non_attempted = rs.getInt(4);
+				int incorrected = rs.getInt(3);
+				System.out.println("corr" + q.getCorrect());
+				if (!ans.equals(null)) {
+					if (ans.equals(q.getCorrect())) {
+						++attempted;
+						++corrected;
+						exd.updateCounter(attempted, corrected, incorrected);
+						System.out.println("Correct : " + corrected);
+					} else {
+						++attempted;
+						++incorrected;
+						exd.updateCounter(attempted, corrected, incorrected);
 					}
-					System.out.println("i : "+i);
-					int curr = i+1;
-					System.out.println(curr);
 
+				}
+				if (i<size-1)//0<=2---1<=2---2<2
+				{
+					System.out.println("i : " + i);
+					int curr = i + 1;
+					System.out.println(curr);//2
 					exd.update_currque(curr);
 					response.sendRedirect("StartExam.jsp");
+				} else {
+					exd.truncateAll();
+					response.sendRedirect("StudentDashboard.jsp");
 				}
 			}
-			else {
-				exd.truncateAll();
-				response.sendRedirect("StudentDashboard.jsp");
-			}
+
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}catch(SQLException e)
-		{
+		} catch (SQLException e) {
 
 		}
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -1,7 +1,7 @@
 <%@page import="com.exam.model.Question"%>
 <%@page import="com.exam.DAO.StartExamDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +9,24 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="questionexamui.css">
 <link rel="stylesheet" href="css/style.css">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+	type="text/javascript">
 </script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
 </script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel=”stylesheet” href=”css/bootstrap.css”>
 <link rel=”stylesheet” href=”css/bootstrap-responsive.css”>
 <title>Start Exam</title>
@@ -25,15 +34,15 @@
 </head>
 <body>
 	<div class="header">
-        <div class="header-right">
-          <a  href="#home">Student Name</a>
-          <a href="#contact">Course Name</a>
-          <a href="#about">Course Code</a>
-         <div class="img"><img src="c2.png" style="width: 30px; height: 30px;"></div>
-        </div>
-<p id="demo">
-  
-<script>
+		<div class="header-right">
+			<a href="#" style="color: blue; font: 40px;">ThinkExam</a> <a
+				href="#home">Student Name</a> <a href="#contact">Course Name</a> <a
+				href="#about">Course Code</a>
+		</div>
+
+		<p id="demo">
+
+			<script>
   
 //Set the date we're counting down to
 var countDownDate = new Date("Sept 5, 2022 15:37:25").getTime();
@@ -66,26 +75,25 @@ var x = setInterval(function() {
 }, 1000);
 
 </script>
-</p>
+		</p>
 
- </div>
-<div class="container">
-    <div class="video">
-    <div class="row">
-        <div class="col-sm-12">    
-                <div class="card-body">
-                    <div class="booth">
-                        <video id="video" width="40%" 
-                            height="40%" autoplay>
-                        </video>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>
-</div>
-   
-<script>
+	</div>
+	<div class="container">
+		<div class="video">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card-body">
+						<div class="booth">
+							<video id="video" width="40%" height="60%" autoplay>
+							</video>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
     var stop = function () {
         var stream = video.srcObject;
         var tracks = stream.getTracks();
@@ -111,88 +119,133 @@ var x = setInterval(function() {
         start();
     });  
 </script>
-<%
+	<%
 	ServletContext sc = request.getServletContext();
 	Question que[] = (Question[]) sc.getAttribute("que");
 	StartExamDAO exd = new StartExamDAO();
 	int i = exd.getCurr_que();
-	sc.setAttribute("question",que[i]);
-%>
-<form>
-<div class="container-fluid">
-  <div class="row">
-      <div class="col-lg-6">
-        <div class="container5">
-        <div class="d-flex justify-content-center row">
-          <div class="col-md-10 col-lg-10">
-              <div class="border">
-                  <div class="question bg-white p-3 border-bottom">
-                      <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                          <h4><span>Q. : <%=i+1 %></span></h4>
-                      </div>
-                  </div>
-                  
-                  <div class="question bg-white p-3 border-bottom">
-                      <div class="d-flex flex-row align-items-center question-title">
-                          <h3 class="text-danger"></h3>
-                          <h5 class="mt-1 ml-2"><%=que[i].getqName() %></h5>
-                      </div>
-                      <div class="ans ml-2">
-                          <label class="radio"> <input type="radio" name="ans" value="<%=que[i].getOpt1() %>"> <span><%=que[i].getOpt1() %></span>
-                          </label>
-                      </div>
-                      <div class="ans ml-2">
-                          <label class="radio"> <input type="radio" name="ans" value="<%=que[i].getOpt2() %>"> <span><%=que[i].getOpt2() %></span>
-                          </label>
-                      </div>
-                      <div class="ans ml-2">
-                          <label class="radio"> <input type="radio" name="ans" value="<%=que[i].getOpt3() %>"> <span><%=que[i].getOpt3() %></span>
-                          </label>
-                      </div>
-                      <div class="ans ml-2">
-                          <label class="radio"> <input type="radio" name="ans" value="<%=que[i].getOpt4() %>"> <span><%=que[i].getOpt4() %></span>
-                          </label>
-                        </div>
-						
-                    </div>
+	sc.setAttribute("question", que[i]);
+	%>
+	<form action="SaveServlet" method="post">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="container5">
+						<div class="d-flex justify-content-center row">
+							<div class="col-md-10 col-lg-10">
+								<div class="border">
+									<div class="question bg-white p-3 border-bottom">
+										<div
+											class="d-flex flex-row justify-content-between align-items-center mcq">
+											<h3>
+												<span>Q. : <%=i + 1%></span>
+											</h3>
 
-                </div>
-    
-            </div>
-        </div>
-        </div>
-  		<input type="hidden" name="curr" value="<%=i%>">
-        <button type="button" style="margin-left: 150px; margin-top: 40px;" class="btn btn-info">Previous</button>
-        <button type="submit" formaction="SaveServlet" style="margin-left: 50px; margin-top: 40px;"class="btn btn-info">Save & Next</button></a>
-        <h5 style="color: red; margin-left: 300px; margin-top: 40px;" ><b>End Exam button will be available on Last Question</b></h5>
-      </div>
-    </form> 
+										</div>
+										<h3><%=que[i].getqName()%></h3>
+									</div>
 
-      <div class="col-lg-6">
-        <div class="container3">
-          <div class="border">
-          <button type="button" class="btn btn-info"><a href="questionexamui.html">1</a></button>
-          <button type="button" class="btn btn-info"><a href="que1.html">2</a></button>
-          <button type="button" class="btn btn-info"><a href="que2.html">3</a></button>
-          <button type="button" class="btn btn-info"><a href="que3.html">4</a></button>
-          <button type="button" class="btn btn-info"><a href="que4.html">5</a></button>
-          <button type="button" class="btn btn-info"><a href="que5.html">6</a></button>
-          <button type="button"  style="margin-top: 15px;" class="btn btn-info"><a href="que6.html">7</a></button>
-          <button type="button"  style="margin-top: 15px;" class="btn btn-info"><a href="que7.html">8</a></button>
-          <button type="button" style="margin-top: 15px;"  class="btn btn-info"><a href="que8.html">9</a></button>
-          <button type="button" style="margin-top: 15px;" class="btn btn-info"><a href="que9.html">10</a></button>
-          <hr>
-          <button type="button" style="background-color: red;" class="btn btn-info">5</button> <p style="float: right; margin-right: 85px; margin-top:10px;">Current Question</p>
-          <hr>
-          <p>Total Attempted</p>
-           <hr>
-          <button type="button" style="background-color:green;" class="btn btn-info">2</button><p style="float: right; margin-right: 20px; margin-top: 10px;">Attempted And Not Reviewed</p>
-          <hr>
-          <button type="button" style="background-color: blue; margin-bottom: 10px;" class="btn btn-info">1</button><p style="float: right; margin-right:40px; margin-top: 10px; margin-bottom: 10px;">Attempted And Reviewed</p>        
-          </div>
- </div>
- </div>
-  </div>
-</div>
+									<div class="question bg-white p-3 border-bottom">
+										
+										<div class="ans ml-2">
+											<label class="radio"> <input type="radio" name="ans"
+												value="<%=que[i].getOpt1()%>"> <span><%=que[i].getOpt1()%></span>
+											</label>
+										</div>
+										<div class="ans ml-2">
+											<label class="radio"> <input type="radio" name="ans"
+												value="<%=que[i].getOpt2()%>"> <span><%=que[i].getOpt2()%></span>
+											</label>
+										</div>
+										<div class="ans ml-2">
+											<label class="radio"> <input type="radio" name="ans"
+												value="<%=que[i].getOpt3()%>"> <span><%=que[i].getOpt3()%></span>
+											</label>
+										</div>
+										<div class="ans ml-2">
+											<label class="radio"> <input type="radio" name="ans"
+												value="<%=que[i].getOpt4()%>"> <span><%=que[i].getOpt4()%></span>
+											</label>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<input type="hidden" name="curr" value="<%=i%>"> <a
+						href="PreviousServlet"><button type="button"
+							style="margin-left: 450px; margin-top: 40px; background-color: blue;"
+							class="btn btn-info">Previous</button></a>
+					<button type="submit" formaction="SaveServlet"
+						style="margin-left: 50px; margin-top: 40px; background-color: green;"
+						class="btn btn-success">Save & Next</button>
+					<h5 style="color: red; margin-left: 300px; margin-top: 40px;">
+						<b>End Exam button will be available on Last Question</b>
+					</h5>
+				</div>
+		
+
+	</form>
+
+	<div class="col-lg-6">
+		<div class="container3">
+			<div class="border">
+				<button type="button" class="btn btn-info">
+					<a href="questionexamui.html">1</a>
+				</button>
+				<button type="button" class="btn btn-info">
+					<a href="que1.html">2</a>
+				</button>
+				<button type="button" class="btn btn-info">
+					<a href="que2.html">3</a>
+				</button>
+				<button type="button" class="btn btn-info">
+					<a href="que3.html">4</a>
+				</button>
+				<button type="button" class="btn btn-info">
+					<a href="que4.html">5</a>
+				</button>
+				<button type="button" class="btn btn-info">
+					<a href="que5.html">6</a>
+				</button>
+				<button type="button" style="margin-top: 15px;" class="btn btn-info">
+					<a href="que6.html">7</a>
+				</button>
+				<button type="button" style="margin-top: 15px;" class="btn btn-info">
+					<a href="que7.html">8</a>
+				</button>
+				<button type="button" style="margin-top: 15px;" class="btn btn-info">
+					<a href="que8.html">9</a>
+				</button>
+				<button type="button" style="margin-top: 15px;" class="btn btn-info">
+					<a href="que9.html">10</a>
+				</button>
+				<hr>
+				<button type="button" style="background-color: red;"
+					class="btn btn-info">5</button>
+				<p style="float: right; margin-right: 85px; margin-top: 10px;">Current
+					Question</p>
+				<hr>
+				<p>Total Attempted</p>
+				<hr>
+				<button type="button" style="background-color: green;"
+					class="btn btn-info">2</button>
+				<p style="float: right; margin-right: 20px; margin-top: 10px;">Attempted
+					And Not Reviewed</p>
+				<hr>
+				<button type="button"
+					style="background-color: blue; margin-bottom: 10px;"
+					class="btn btn-info">1</button>
+				<p
+					style="float: right; margin-right: 40px; margin-top: 10px; margin-bottom: 10px;">Attempted
+					And Reviewed</p>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

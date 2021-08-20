@@ -28,10 +28,6 @@
 	font-weight: bold;
 }
 
-.header a:hover {
-	background-color: #ddd;
-	color: black;
-}
 
 .header a.active {
 	background-color: dodgerblue;
@@ -111,16 +107,18 @@
 	width: 1000px;
 	margin-top: 5px;
 	margin-right: 500px;
+	border:2px solid black;
 }
 
 .container3 {
 	overflow: hidden;
 	margin-left: 270px;
-	width: 250px;
+	width: 270px;
 	margin-top: 5px;
-	height: 500px;
-	border: 5px;
+	height: 600px;
+	border: 2px solid black;
 	margin-bottom: 0%;
+	
 }
 
 .btn-info {
