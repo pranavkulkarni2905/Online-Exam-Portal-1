@@ -317,8 +317,7 @@ if (s2 == null) {
 					<td><%=rs.getString(9)%></td>
 					<td><%=rs.getString(10)%></td>
 					<td><%=rs.getString(7)%></td>
-					<td><a href="StartExam?exam_code=<%=rs.getString(2) %>" class="btn btn-success"><i class="fa fa-unlock"></i> Start Exam</a></td>
-				
+					<td><a href="Instructions.jsp?exam_code=<%=rs.getString(2) %>" class="btn btn-success"><i class="fa fa-unlock"></i> Start Exam</a></td>
 				</tr>
 
 				<%
