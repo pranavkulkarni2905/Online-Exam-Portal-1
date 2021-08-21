@@ -93,3 +93,20 @@ create table exam_queid
 (
 que_id number
 );
+
+create table exam_result(
+result_id number primary key,
+stud_id number references exam_student(studId),
+stud_name varchar2(4000),
+exam_code varchar2(2000),
+course_name varchar2(2000),
+total_marks number,
+obtained_marks number,
+total_question number,
+attempted number,
+non_attempted number,
+corrected number,
+incorrected number,
+grade float,
+result varchar2(1000)
+);

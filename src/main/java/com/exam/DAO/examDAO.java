@@ -46,6 +46,7 @@ PreparedStatement ps=null;
 		try {
 			ps=con.prepareStatement("select * from exam_setexam");
 			rs = ps.executeQuery();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -161,10 +161,12 @@ public class questionDAO {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())
 				size = rs.getInt(1);
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return size;
 	}
 	public Question[] getQueByCid(String exam_code)

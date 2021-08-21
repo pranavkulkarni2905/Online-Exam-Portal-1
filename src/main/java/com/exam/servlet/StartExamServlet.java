@@ -32,6 +32,7 @@ public class StartExamServlet extends HttpServlet {
 		int size = que.length;
 		qd.setLength(size);
 		ServletContext sc = request.getServletContext();
+		sc.setAttribute("exam-code",exam_code);
 		StartExamDAO std = new StartExamDAO();
 		std.setValue();
 		std.setValue_counter();

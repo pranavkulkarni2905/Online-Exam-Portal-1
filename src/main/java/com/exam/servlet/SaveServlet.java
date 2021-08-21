@@ -3,6 +3,8 @@ package com.exam.servlet;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,8 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.exam.DAO.StartExamDAO;
+import com.exam.DAO.examDAO;
 import com.exam.DAO.questionDAO;
+import com.exam.DAO.resultDAO;
 import com.exam.model.Question;
+import com.exam.model.Student;
 
 @WebServlet("/SaveServlet")
 public class SaveServlet extends HttpServlet {
@@ -38,7 +43,7 @@ public class SaveServlet extends HttpServlet {
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
 			int que_id = q.getqId();
-			boolean b = exd.check_que(que_id);
+			//boolean b = exd.check_que(que_id);
 			/*if(b)
 			{
 				//message
@@ -46,12 +51,14 @@ public class SaveServlet extends HttpServlet {
 				response.sendRedirect("StartExam.jsp");
 			}*/
 			ResultSet rs = exd.getCounter();
-
+			int attempted=0;
+			int corrected=0;
+			int incorrected=0;
 			if (rs.next()) {
-				int attempted = rs.getInt(1);
-				int corrected = rs.getInt(2);
+				 attempted = rs.getInt(1);
+				 corrected = rs.getInt(2);
 				// int non_attempted = rs.getInt(4);
-				int incorrected = rs.getInt(3);
+				 incorrected = rs.getInt(3);
 				System.out.println("corr" + q.getCorrect());
 				if (!ans.equals(null)) {
 					if (ans.equals(q.getCorrect())) {
@@ -69,6 +76,7 @@ public class SaveServlet extends HttpServlet {
 
 				}
 			}
+			
 			if (i<size-1)//0<=2---1<=2---2<2
 			{
 				System.out.println("i : " + i);
@@ -76,7 +84,47 @@ public class SaveServlet extends HttpServlet {
 				System.out.println(curr);//2
 				exd.update_currque(curr);
 				response.sendRedirect("StartExam.jsp");
-			} else {
+			} 
+			else {
+				int resultId = 0;
+				ArrayList<Integer> list = new ArrayList<Integer>();
+				for (int i1 = 1; i1 < 500000; i1++) {
+					list.add(new Integer(i1));
+				}
+				Collections.shuffle(list);
+				for (int i1 = 1; i1 <= 8000; i1++) {
+					resultId = list.get(i1);
+				}
+				Student stud=(Student)sc.getAttribute("student-obj");
+				int sid=stud.getStudId();
+				String sName=stud.getfName()+" "+stud.getlName();
+				System.out.println(sid+sName);
+				String exam_code=(String)sc.getAttribute("exam-code");
+				examDAO ed=new examDAO();
+				System.out.println(exam_code);
+				
+				String cName=null;
+				ResultSet rs1=ed.getAllData();
+				while(rs1.next()) {
+					if(rs1.getString(1).equals(exam_code)) {
+						cName=rs.getString(5);
+					}
+				}
+				System.out.println(cName);
+				int total_marks=size*2;
+				int obtained_marks=corrected*2;
+				int non_attempt=size-attempted;
+				double per=obtained_marks/total_marks*100;
+				System.out.println(total_marks+" "+per);
+				String result=null;
+				if(per>=40) {
+					result="Pass";
+				}else {
+					result="Fail";
+				}
+				resultDAO rd=new resultDAO();
+				rd.insertResult(resultId,sid,sName,exam_code,cName,total_marks,obtained_marks,size,attempted,non_attempt,corrected,incorrected,per,result);
+				
 				exd.truncateAll();
 				response.sendRedirect("StudentDashboard.jsp");
 			}

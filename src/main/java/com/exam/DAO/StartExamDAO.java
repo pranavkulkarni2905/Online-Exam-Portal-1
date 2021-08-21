@@ -42,6 +42,7 @@ public class StartExamDAO {
 			ps = con.prepareStatement("update exam_currentq set curr = ?");
 			ps.setInt(1, curr);
 			int i = ps.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,6 +57,7 @@ public class StartExamDAO {
 			ps.setInt(2, 0);
 			ps.setInt(3, 0);
 			int i = ps.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,6 +73,7 @@ public class StartExamDAO {
 			ps.setInt(3, incorrect);
 			//ps.setInt(4, non_attempt);
 			int i = ps.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

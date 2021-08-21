@@ -137,7 +137,7 @@ var x = setInterval(function() {
 						<div class="d-flex justify-content-center row">
 							<div class="col-md-10 col-lg-10">
 								<div class="border">
-									<div class="question bg-white p-3 border-bottom">
+									
 										<div
 											class="d-flex flex-row justify-content-between align-items-center mcq">
 											<h3>
@@ -145,10 +145,10 @@ var x = setInterval(function() {
 											</h3>
 
 										</div>
-										<h3><%=que[i].getqName()%></h3>
-									</div>
+										<h3><%=que[i].getqName()%></h3><hr>
+									
 
-									<div class="question bg-white p-3 border-bottom">
+									
 										
 										<div class="ans ml-2">
 											<label class="radio"> <input type="radio" name="ans"
@@ -171,7 +171,7 @@ var x = setInterval(function() {
 											</label>
 										</div>
 
-									</div>
+									
 
 								</div>
 
@@ -179,19 +179,19 @@ var x = setInterval(function() {
 						</div>
 					</div>
 					<input type="hidden" name="curr" value="<%=i%>"> 
-					<button type="submit" style="margin-left: 400px; margin-top: 40px; background-color: blue;"
+					<button type="submit" style="margin-left: 350px; margin-top: 40px; background-color: blue;"
 							class="btn btn-info">Previous</button>
 					<button type="submit" formaction="SaveServlet"
 						style="margin-left: 50px; margin-top: 40px; background-color: green;"
 						class="btn btn-success" class="next">Save</button>
-					<button type="submit" formaction="NextServlet"
+					<button type="submit" formaction="StudentDashboard.jsp"
 						style="margin-left: 50px; margin-top: 40px; background-color: blue;"
 						class="btn btn-success" class="next">Next</button>
 						<%
 							if(i==size-1)
 							{
 						%>
-						<button type="submit" style="margin-left: 50px; margin-top: 40px; background-color: red;"
+						<button type="submit" formaction="SaveServlet" style="margin-left:20px; margin-top: 40px; background-color: red;"
 						class="btn btn-success" class="next">End Exam</button>
 						<%	}
 						%>
