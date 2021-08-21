@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.exam.DAO.StartExamDAO;
 import com.exam.DAO.questionDAO;
@@ -27,6 +28,7 @@ public class SaveServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			HttpSession session = request.getSession();
 			ServletContext sc = request.getServletContext();
 			StartExamDAO exd = new StartExamDAO();
 			questionDAO qd = new questionDAO();
@@ -35,6 +37,14 @@ public class SaveServlet extends HttpServlet {
 			int size = qd.getLength();
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
+			int que_id = q.getqId();
+			boolean b = exd.check_que(que_id);
+			/*if(b)
+			{
+				//message
+				session.setAttribute("answered","You have already attempted this question");
+				response.sendRedirect("StartExam.jsp");
+			}*/
 			ResultSet rs = exd.getCounter();
 
 			if (rs.next()) {
@@ -48,35 +58,39 @@ public class SaveServlet extends HttpServlet {
 						++attempted;
 						++corrected;
 						exd.updateCounter(attempted, corrected, incorrected);
+						//exd.add_que(que_id);
 						System.out.println("Correct : " + corrected);
 					} else {
+						//exd.add_que(que_id);
 						++attempted;
 						++incorrected;
 						exd.updateCounter(attempted, corrected, incorrected);
 					}
 
 				}
-				if (i<size-1)//0<=2---1<=2---2<2
-				{
-					System.out.println("i : " + i);
-					int curr = i + 1;
-					System.out.println(curr);//2
-					exd.update_currque(curr);
-					response.sendRedirect("StartExam.jsp");
-				} else {
-					exd.truncateAll();
-					response.sendRedirect("StudentDashboard.jsp");
-				}
+			}
+			if (i<size-1)//0<=2---1<=2---2<2
+			{
+				System.out.println("i : " + i);
+				int curr = i + 1;
+				System.out.println(curr);//2
+				exd.update_currque(curr);
+				response.sendRedirect("StartExam.jsp");
+			} else {
+				exd.truncateAll();
+				response.sendRedirect("StudentDashboard.jsp");
 			}
 
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (SQLException e) {
 
+		}catch(NullPointerException e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -88,3 +88,8 @@ create table exam_size
 (
 len number
 );
+
+create table exam_queid
+(
+que_id number
+);

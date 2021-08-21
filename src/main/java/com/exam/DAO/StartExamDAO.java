@@ -105,4 +105,38 @@ public class StartExamDAO {
 			e.printStackTrace();
 		}
 	}
+	public void add_que(int que_id)
+	{
+		con = DBconnection.getConnection();
+		try {
+			ps = con.prepareStatement("insert into exam_queid values(?)");
+			ps.setInt(1, que_id);
+			int i = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public boolean check_que(int que_id)
+	{
+		boolean b = false;
+		ResultSet rs = null;
+		con = DBconnection.getConnection();
+		try {
+			ps = con.prepareStatement("select * from exam_queid");
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				if(que_id==rs.getInt(1))
+				{
+					b = true;
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
 }

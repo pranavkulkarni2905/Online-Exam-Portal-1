@@ -1,3 +1,4 @@
+<%@page import="com.exam.DAO.questionDAO"%>
 <%@page import="com.exam.model.Question"%>
 <%@page import="com.exam.DAO.StartExamDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -123,10 +124,12 @@ var x = setInterval(function() {
 	ServletContext sc = request.getServletContext();
 	Question que[] = (Question[]) sc.getAttribute("que");
 	StartExamDAO exd = new StartExamDAO();
+	questionDAO qd = new questionDAO();
+	int size = qd.getLength();
 	int i = exd.getCurr_que();
 	sc.setAttribute("question", que[i]);
 	%>
-	<form action="SaveServlet" method="post">
+	<form>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6">
@@ -149,22 +152,22 @@ var x = setInterval(function() {
 										
 										<div class="ans ml-2">
 											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt1()%>"> <span><%=que[i].getOpt1()%></span>
+												value="<%=que[i].getOpt1()%>" id="opt1"> <span><%=que[i].getOpt1()%></span>
 											</label>
 										</div>
 										<div class="ans ml-2">
 											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt2()%>"> <span><%=que[i].getOpt2()%></span>
+												value="<%=que[i].getOpt2()%>" id="opt1"> <span><%=que[i].getOpt2()%></span>
 											</label>
 										</div>
 										<div class="ans ml-2">
 											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt3()%>"> <span><%=que[i].getOpt3()%></span>
+												value="<%=que[i].getOpt3()%>" id="opt3"> <span><%=que[i].getOpt3()%></span>
 											</label>
 										</div>
 										<div class="ans ml-2">
 											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt4()%>"> <span><%=que[i].getOpt4()%></span>
+												value="<%=que[i].getOpt4()%>" id="opt4"> <span><%=que[i].getOpt4()%></span>
 											</label>
 										</div>
 
@@ -175,13 +178,23 @@ var x = setInterval(function() {
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="curr" value="<%=i%>"> <a
-						href="PreviousServlet"><button type="button"
-							style="margin-left: 450px; margin-top: 40px; background-color: blue;"
-							class="btn btn-info">Previous</button></a>
+					<input type="hidden" name="curr" value="<%=i%>"> 
+					<button type="submit" style="margin-left: 400px; margin-top: 40px; background-color: blue;"
+							class="btn btn-info">Previous</button>
 					<button type="submit" formaction="SaveServlet"
 						style="margin-left: 50px; margin-top: 40px; background-color: green;"
-						class="btn btn-success">Save & Next</button>
+						class="btn btn-success" class="next">Save</button>
+					<button type="submit" formaction="NextServlet"
+						style="margin-left: 50px; margin-top: 40px; background-color: blue;"
+						class="btn btn-success" class="next">Next</button>
+						<%
+							if(i==size-1)
+							{
+						%>
+						<button type="submit" style="margin-left: 50px; margin-top: 40px; background-color: red;"
+						class="btn btn-success" class="next">End Exam</button>
+						<%	}
+						%>
 					<h5 style="color: red; margin-left: 300px; margin-top: 40px;">
 						<b>End Exam button will be available on Last Question</b>
 					</h5>
