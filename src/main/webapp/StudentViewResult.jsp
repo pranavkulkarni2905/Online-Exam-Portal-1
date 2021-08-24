@@ -1,22 +1,21 @@
-<%@page import="com.exam.model.Student"%>
-<%@page import="com.exam.DAO.studentDAO"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="com.exam.DAO.RequestDAO"%>
+<%@page import="com.exam.DAO.resultDAO"%>
+<%@page import="com.exam.model.Student"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Enrolled Students</title>
-<%
-	ServletContext sc1=request.getServletContext();
-	Faculty f=(Faculty)sc1.getAttribute("faculty-obj");
-	if(f==null){
+     <%
+	ServletContext sc2=request.getServletContext();
+	Student s2=(Student)sc2.getAttribute("student-obj");
+	if(s2==null){
 		session.setAttribute("pls-login", "Please Login Here...");
 		response.sendRedirect("Login.jsp");
 	}
 	%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>View Result | ThinkExam</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -53,6 +52,8 @@
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet"
@@ -66,68 +67,84 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-
-</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-
-
-	<div class="wrapper">
-		<%@ include file="all_component/faculty-navbar.jsp"%>
+<div class="wrapper">
+		<%@ include file="all_component/student-navbar.jsp"%>
 
 		<!-- Main content -->
 		<!-- Breadcrumb -->
 		<nav aria-label="breadcrumb" class="main-breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="FacultyDashboard.jsp">Dashboard</a></li>
-				<li class="breadcrumb-item active" aria-current="page">View Enrolled Students</li>
+
+				<li class="breadcrumb-item active" aria-current="page">View
+					Results</li>
 			</ol>
 		</nav>
-		<div class="text-center" style="color:red;"> List Of All Enrolled Students For Your Courses. ): </div><br>
 		<div class="container">
 			<table class="table table-hover">
 				<thead>
 					<tr>
-					<th scope="col">#</th>
-						<th scope="col">Student ID</th>
-						<th scope="col">Student name</th>
-						<th scope="col">Gender</th>
-						<th scope="col">Email</th>
-						<th scope="col">Mobile no</th>
+						<th scope="col">#</th>
+						<th scope="col">Exam Code</th>
+						<th scope="col">Exam Date</th>
 						<th scope="col">Course Name</th>
+						<th scope="col">Obtained Marks</th>
+						<th scope="col">Total Marks</th>
+						<th scope="col">Result</th>
+						<th scope="col">Details</th>
 					</tr>
 				</thead>
+
+
 				<%
 				try {
-					int i=1;
-					RequestDAO rd=new RequestDAO();
-					ResultSet rs=rd.getDataByStatusFilter("Accepted", f.getFacId());
-					session.setAttribute("enroll-stud", i);
-					while (rs.next()){
-						studentDAO sd=new studentDAO();
-						Student s=sd.getDataById(rs.getInt(3));
+					//ServletContext sc=request.getServletContext();
+	                //Student stud=(Student)sc.getAttribute("student-obj");
+	                //String exam_code=(String)sc.getAttribute("exam-code");
+	               // String date=(String)sc.getAttribute("exam-date");
+	                //int resId=(int)sc.getAttribute("result-id");
+	                int i=1;
+	                resultDAO rd=new resultDAO();
+	                ResultSet rs=rd.getResultByStudId(s2.getStudId());
+	                while(rs.next()){
 				%>
+
+
 				<tr>
-				<td><%=i++ %></td>
-					<td><%=s.getStudId()%></td>
-					<td><%=s.getfName()%>&nbsp<%=s.getlName()%></td>
-					<td><%=s.getGender()%></td>
-					<td><%=s.getEmail()%></td>
-					<td><%=s.getMobNo()%></td>
+					<th scope="row"><%=i++%></th>
+					<td><%=rs.getString(4)%></td>
+					<td><%=rs.getString(15)%></td>
+					<td><%=rs.getString(5)%></td>
 					<td><%=rs.getString(7)%></td>
+					<td><%=rs.getString(6)%></td>
+					<td><%=rs.getString(14)%></td>
+					
+					<td><a href="ViewResultDetails.jsp?res_id=<%=rs.getInt(1)%>&stud_id=<%=rs.getInt(2)%>"><button
+								class="btn btn-primary" > <i class="fa fa-eye"></i> View More</button> </a></td>
+					
 				</tr>
 
-				<%
-				}
-				} catch (Exception e) {
 
+
+				<%
+				//System.out.print(rs.getInt(1));
 				}
-				%>
+				
+	
+
+	} catch (Exception e) {
+
+	}
+	%>
 			</table>
+
+
 		</div>
 		<script src="plugins/jquery/jquery.min.js"></script>
 		<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+
 		<script>
 			$.widget.bridge('uibutton', $.ui.button)
 		</script>

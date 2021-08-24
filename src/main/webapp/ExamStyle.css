@@ -66,11 +66,11 @@
 }
 
 #demo {
-	margin-left: 1350px;
-	color: black;
-	background-color: red;
-	width: 100px;
-	height: 35px;
+	margin-left: 1250px;
+	color: red;
+	background-color:white ;
+	width: 200px;
+	height: 45px;
 	margin-bottom: 5px;
 }
 
@@ -103,10 +103,11 @@
 
 .container5 {
 	overflow: hidden;
-	margin-left: 0px;
-	width: 1000px;
+	
+	width: 850px;
 	margin-top: 5px;
 	margin-right: 500px;
+	margin-left:60px;
 	border:2px solid black;
 }
 

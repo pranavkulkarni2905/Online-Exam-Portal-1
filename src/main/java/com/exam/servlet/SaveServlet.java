@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exam.DAO.RequestDAO;
 import com.exam.DAO.StartExamDAO;
 import com.exam.DAO.examDAO;
 import com.exam.DAO.questionDAO;
@@ -42,7 +43,7 @@ public class SaveServlet extends HttpServlet {
 			int size = qd.getLength();
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
-			int que_id = q.getqId();
+			//int que_id = q.getqId();
 			//boolean b = exd.check_que(que_id);
 			/*if(b)
 			{
@@ -60,7 +61,16 @@ public class SaveServlet extends HttpServlet {
 				// int non_attempted = rs.getInt(4);
 				 incorrected = rs.getInt(3);
 				System.out.println("corr" + q.getCorrect());
-				if (!ans.equals(null)) {
+				if (ans==null) {
+					
+					System.out.println("i : " + i);
+					int curr = i + 1;
+					System.out.println(curr);//2
+					exd.update_currque(curr);
+					response.sendRedirect("StartExam.jsp");
+
+				}
+				else {
 					if (ans.equals(q.getCorrect())) {
 						++attempted;
 						++corrected;
@@ -73,7 +83,6 @@ public class SaveServlet extends HttpServlet {
 						++incorrected;
 						exd.updateCounter(attempted, corrected, incorrected);
 					}
-
 				}
 			}
 			
@@ -103,18 +112,13 @@ public class SaveServlet extends HttpServlet {
 				examDAO ed=new examDAO();
 				System.out.println(exam_code);
 				
-				String cName=null;
-				ResultSet rs1=ed.getAllData();
-				while(rs1.next()) {
-					if(rs1.getString(1).equals(exam_code)) {
-						cName=rs.getString(5);
-					}
-				}
+				String cName = (String)sc.getAttribute("course-name");
+				String date=(String)sc.getAttribute("exam-date");
 				System.out.println(cName);
 				int total_marks=size*2;
 				int obtained_marks=corrected*2;
 				int non_attempt=size-attempted;
-				double per=obtained_marks/total_marks*100;
+				double per=(obtained_marks*100)/total_marks;
 				System.out.println(total_marks+" "+per);
 				String result=null;
 				if(per>=40) {
@@ -123,10 +127,13 @@ public class SaveServlet extends HttpServlet {
 					result="Fail";
 				}
 				resultDAO rd=new resultDAO();
-				rd.insertResult(resultId,sid,sName,exam_code,cName,total_marks,obtained_marks,size,attempted,non_attempt,corrected,incorrected,per,result);
-				
+				rd.insertResult(resultId,sid,sName,exam_code,cName,total_marks,obtained_marks,size,attempted,non_attempt,corrected,incorrected,per,result,date);
+				sc.setAttribute("result-id", resultId);	
+				RequestDAO rd1=new RequestDAO();
+				rd1.updateExamCompletedStatus("Yes",sid,exam_code);
 				exd.truncateAll();
-				response.sendRedirect("StudentDashboard.jsp");
+				session.removeAttribute("exam-time");
+				response.sendRedirect("ExamSummary.jsp");
 			}
 
 		} catch (NumberFormatException e) {
@@ -137,7 +144,7 @@ public class SaveServlet extends HttpServlet {
 			//e.printStackTrace();
 		} catch (SQLException e) {
 
-		}catch(NullPointerException e) {
+		}catch(NullPointerException | IllegalStateException e) {
 			e.printStackTrace();
 		}
 	}

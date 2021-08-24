@@ -13,6 +13,7 @@ public class questionDAO {
 
 	Connection con=null;
 	PreparedStatement ps=null;
+	
 	public boolean addQuestion(Question q,int cid,String cName,int facId) {
 		boolean b=false;
 		con=DBconnection.getConnection();
@@ -155,7 +156,7 @@ public class questionDAO {
 	public int getLength()
 	{
 		int size = 0;
-		con = DBconnection.getConnection();
+		con=DBconnection.getConnection();
 		try {
 			ps = con.prepareStatement("select * from exam_size");
 			ResultSet rs = ps.executeQuery();
@@ -199,5 +200,20 @@ public class questionDAO {
 			e.printStackTrace();
 		}
 		return que;
+	}
+	public int quesCounter(int facId) {
+		con=DBconnection.getConnection();
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_question where facid=?");
+			ps.setInt(1, facId);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 }

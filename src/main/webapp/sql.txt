@@ -110,3 +110,5 @@ incorrected number,
 grade float,
 result varchar2(1000)
 );
+
+alter table exam_requests add exam_completed varchar2(2000);

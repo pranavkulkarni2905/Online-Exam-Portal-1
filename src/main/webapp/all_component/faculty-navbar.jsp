@@ -1,3 +1,4 @@
+<%@page import="com.exam.DAO.RequestDAO"%>
 <%@page import="com.exam.model.Faculty"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -121,7 +122,15 @@
 
 				</div>
 				<hr>
-
+<%
+int cnt=0;
+try{
+	RequestDAO rd=new RequestDAO();
+	cnt=rd.notificationCounter("Sent", fac.getFacId());
+}catch(Exception e){
+	e.printStackTrace();
+}
+%>
 
 
 
@@ -147,7 +156,7 @@
 								
 								<li class="nav-item"><a href="FacultyNotification.jsp"
 									class="nav-link "> <i class="fa fa-bell"></i>
-										<p>Notification</p><span class="badge">3</span>
+										<p>Notification</p><span class="badge"><%=cnt %></span>
 								</a></li>
 								
 								<li class="nav-item"><a href="FacultyRequest.jsp"

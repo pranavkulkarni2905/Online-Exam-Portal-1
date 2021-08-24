@@ -1,3 +1,7 @@
+<%@page import="com.exam.DAO.courseDAO"%>
+<%@page import="com.exam.DAO.questionDAO"%>
+<%@page import="com.exam.DAO.examDAO"%>
+<%@page import="com.exam.DAO.studentDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.exam.DAO.facultyDAO"%>
@@ -41,9 +45,7 @@ if (f == null) {
 </style>
 </head>
 <body class="hold-transition sidebar-mini ">
-<%! int stud,question,course,en_stud,exam,size1;
-List<Integer> lst1; 
-%>
+
 	<%
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 	%>
@@ -67,7 +69,27 @@ List<Integer> lst1;
 	}
 	session.removeAttribute("fac-obj");
 	%>
+	<%int i=0,studCount=0,examCounter=0,quesCount=0,courseCount=0;
+	try{
+	studentDAO s=new studentDAO();
+	 studCount=s.studCounter();
 	
+	examDAO ed=new examDAO();
+	 examCounter=ed.examCounter(f.getFacId());
+	
+	questionDAO qd=new questionDAO();
+	 quesCount=qd.quesCounter(f.getFacId());
+	
+	courseDAO cd=new courseDAO();
+	 courseCount=cd.courseCounter(f.getFacId());
+	
+	
+	
+	 i=(int)session.getAttribute("enroll-stud");
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	%>
 	<div class="wrapper">
 
 		<%@ include file="all_component/faculty-navbar.jsp"%>
@@ -80,7 +102,7 @@ List<Integer> lst1;
 						<!-- small box -->
 						<div class="small-box bg-info">
 							<div class="inner">
-								<h3><%=stud %></h3>
+								<h3><%=studCount %></h3>
 
 								<p>Total Registered Students</p>
 							</div>
@@ -96,7 +118,7 @@ List<Integer> lst1;
 						<!-- small box -->
 						<div class="small-box bg-success">
 							<div class="inner">
-								<h3><%=en_stud %></h3>
+								<h3><%=i %></h3>
 
 								<p>Total Enrolled Students</p>
 							</div>
@@ -112,7 +134,7 @@ List<Integer> lst1;
 						<!-- small box -->
 						<div class="small-box bg-warning">
 							<div class="inner">
-								<h3><%=exam %></h3>
+								<h3><%=examCounter %></h3>
 
 								<p>Total Exams</p>
 							</div>
@@ -128,7 +150,7 @@ List<Integer> lst1;
 						<!-- small box -->
 						<div class="small-box bg-danger">
 							<div class="inner">
-								<h3><%=question %></h3>
+								<h3><%=quesCount %></h3>
 
 								<p>Total Questions</p>
 							</div>
@@ -143,7 +165,7 @@ List<Integer> lst1;
 						<!-- small box -->
 						<div class="small-box bg-secondary">
 							<div class="inner">
-								<h3><%=course %></h3>
+								<h3><%=courseCount %></h3>
 
 								<p>Total Courses</p>
 							</div>

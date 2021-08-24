@@ -153,9 +153,9 @@
 										<p>Enrolled Exams</p>
 								</a></li>
 								<hr>
-								<li class="nav-item"><a href="Viewcourses.jsp"
+								<li class="nav-item"><a href="StudentViewResult.jsp"
 									class="nav-link"> <i class="fa fa-list-alt"></i>
-										<p>View Result</p>
+										<p>View Results</p>
 								</a></li>
 								
 								

@@ -2,6 +2,7 @@ package com.exam.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class resultDAO {
@@ -11,11 +12,11 @@ public class resultDAO {
 	
 	public boolean insertResult(int resultId, int sid, String sName, String exam_code, String cName, int total_marks,
 			int obtained_marks, int size, int attempted, int non_attempt, int corrected, int incorrected, double percentage,
-			String result) {
+			String result,String date) {
 		boolean b = false;
 		con=DBconnection.getConnection();
 		try {
-			ps=con.prepareStatement("insert into exam_result values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			ps=con.prepareStatement("insert into exam_result values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1,resultId);
 			ps.setInt(2,sid);
 			ps.setString(3, sName);
@@ -30,6 +31,7 @@ public class resultDAO {
 			ps.setInt(12, incorrected);
 			ps.setDouble(13, percentage);
 			ps.setString(14, result);
+			ps.setString(15, date);
 			int i=ps.executeUpdate();
 			if(i>0) {
 				b=true;
@@ -39,5 +41,33 @@ public class resultDAO {
 			e.printStackTrace();
 		}
 		return b;
+	}
+	public ResultSet getResult(int resId,int studId) {
+		ResultSet rs=null;
+		con=DBconnection.getConnection();
+		try {
+			ps=con.prepareStatement("select * from exam_result where result_id=? and stud_id=?");
+			ps.setInt(1, resId);
+			ps.setInt(2, studId);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public ResultSet getResultByStudId(int studId) {
+		ResultSet rs=null;
+		con=DBconnection.getConnection();
+		try {
+			ps=con.prepareStatement("select * from exam_result where stud_id=?");
+			
+			ps.setInt(1, studId);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
 	}
 }

@@ -183,4 +183,18 @@ public class studentDAO {
 		}
 		return b;
 	}
+	public int studCounter() {
+		con=DBconnection.getConnection();
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_student");
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

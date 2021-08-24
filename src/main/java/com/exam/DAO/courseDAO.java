@@ -123,5 +123,20 @@ public class courseDAO {
 		}
 		return lst;
 	}
+	public int courseCounter(int facId) {
+		con=DBconnection.getConnection();
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_addcourses where facid=?");
+			ps.setInt(1, facId);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
 	
 }

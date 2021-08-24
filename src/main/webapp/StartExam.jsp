@@ -1,13 +1,46 @@
+
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.exam.model.Student"%>
 <%@page import="com.exam.DAO.questionDAO"%>
 <%@page import="com.exam.model.Question"%>
 <%@page import="com.exam.DAO.StartExamDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%
+ServletContext sc2 = request.getServletContext();
+Student s2 = (Student) sc2.getAttribute("student-obj");
+if (s2 == null) {
+	session.setAttribute("pls-login", "Please Login Here...");
+	response.sendRedirect("Login.jsp");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
+<title>Start Exam</title>
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
+<%
+response.setHeader("Cache-Control", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setHeader("Pragma", "no-cache");
+response.setDateHeader("Expires", 0);
+if (session.getAttribute("token") == null) {
+	//response.sendRedirect(request.getContextPath() + "/LogOut.jsp");
+
+}
+%>
+<script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <link rel="stylesheet" href="questionexamui.css">
 <link rel="stylesheet" href="css/style.css">
 <link
@@ -30,53 +63,65 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel=”stylesheet” href=”css/bootstrap.css”>
 <link rel=”stylesheet” href=”css/bootstrap-responsive.css”>
-<title>Start Exam</title>
+
 <link rel="stylesheet" type="text/css" href="ExamStyle.css">
 </head>
-<body>
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();"
+	onunload="">
+	<%
+	ServletContext sc = request.getServletContext();
+	Question que[] = (Question[]) sc.getAttribute("que");
+	String exam_code = (String) sc.getAttribute("exam-code");
+	String cName = (String) sc.getAttribute("course-name");
+	String time = (String) session.getAttribute("exam-time");
+	System.out.print(time);
+	StartExamDAO exd = new StartExamDAO();
+	questionDAO qd = new questionDAO();
+	int size = qd.getLength();
+	int i = exd.getCurr_que();
+	sc.setAttribute("question", que[i]);
+	%>
 	<div class="header">
 		<div class="header-right">
-			<a href="#" style="color: blue; font: 40px;">ThinkExam</a> <a
-				href="#home">Student Name</a> <a href="#contact">Course Name</a> <a
-				href="#about">Course Code</a>
+			<a href="#" style="color: blue; font: 40px;">ThinkExam </a> <a
+				href="#home"><b>Student Name :</b> <%=s2.getfName()%>&nbsp&nbsp<%=s2.getlName()%></a>
+			<a href="#contact"><b>Course Name : </b><%=cName%></a> <a
+				href="#about"><b>Exam Code :</b> <%=exam_code%> </a>
 		</div>
+		<input type="hidden" value="<%=time%>" id="time">
+		<p id="demo"></p>
 
-		<p id="demo">
-
-			<script>
-  
-//Set the date we're counting down to
-var countDownDate = new Date("Sept 5, 2022 15:37:25").getTime();
-
-
-// Update the count down every 1 second
-var x = setInterval(function() {
-
-  // Get today's date and time
-  var now = new Date().getTime();
+		<script>
+var a=document.getElementById("time").value;
+if(localStorage.getItem("count_timer")){
+    var count_timer = localStorage.getItem("count_timer");
+} else {
+    var count_timer = parseInt(a*60);
+}
+var minutes = parseInt(count_timer/60);
+var seconds = parseInt(count_timer%60);
+function countDownTimer(){
+    if(seconds < 10){
+        seconds= "0"+ seconds ;
+    }if(minutes < 10){
+        minutes= "0"+ minutes ;
+    }
     
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
-    
-  // Time calculations for days, hours, minutes and seconds
-  
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-  // Output the result in an element with id="demo"
-  document.getElementById("demo").innerHTML =hours + "h "
-  + minutes + "m " + seconds + "s ";
-    
-  // If the count down is over, write some text 
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
+    document.getElementById("demo").innerHTML = "Time Left : "+minutes+" Minutes "+seconds+" Seconds";
+    if(count_timer <= 0){
+         localStorage.clear("count_timer");
+    } else {
+        count_timer = count_timer -1 ;
+        minutes = parseInt(count_timer/60);
+        seconds = parseInt(count_timer%60);
+        localStorage.setItem("count_timer",count_timer);
+        setTimeout("countDownTimer()",1000);
+    }
+}
+setTimeout("countDownTimer()",1000);
 
 </script>
-		</p>
+
 
 	</div>
 	<div class="container">
@@ -120,145 +165,182 @@ var x = setInterval(function() {
         start();
     });  
 </script>
-	<%
-	ServletContext sc = request.getServletContext();
-	Question que[] = (Question[]) sc.getAttribute("que");
-	StartExamDAO exd = new StartExamDAO();
-	questionDAO qd = new questionDAO();
-	int size = qd.getLength();
-	int i = exd.getCurr_que();
-	sc.setAttribute("question", que[i]);
-	%>
+
 	<form>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="container5">
 						<div class="d-flex justify-content-center row">
-							<div class="col-md-10 col-lg-10">
-								<div class="border">
-									
-										<div
-											class="d-flex flex-row justify-content-between align-items-center mcq">
-											<h3>
-												<span>Q. : <%=i + 1%></span>
-											</h3>
+							<div class="col-md-10 col-lg-8">
 
-										</div>
-										<h3><%=que[i].getqName()%></h3><hr>
-									
 
-									
-										
-										<div class="ans ml-2">
-											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt1()%>" id="opt1"> <span><%=que[i].getOpt1()%></span>
-											</label>
-										</div>
-										<div class="ans ml-2">
-											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt2()%>" id="opt1"> <span><%=que[i].getOpt2()%></span>
-											</label>
-										</div>
-										<div class="ans ml-2">
-											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt3()%>" id="opt3"> <span><%=que[i].getOpt3()%></span>
-											</label>
-										</div>
-										<div class="ans ml-2">
-											<label class="radio"> <input type="radio" name="ans"
-												value="<%=que[i].getOpt4()%>" id="opt4"> <span><%=que[i].getOpt4()%></span>
-											</label>
-										</div>
+								<div
+									class="d-flex flex-row justify-content-between align-items-center mcq">
+									<h3>
+										<button style="background-color: yellow;">
+											Q.<%=i + 1%></button>
 
-									
+									</h3>
 
 								</div>
+								<h3>
+									<b><%=que[i].getqName()%></b>
+								</h3>
+								<hr>
+								<br>
+
+
+
+
+								<div class="ans ml-2">
+									<label class="radio"> <input type="radio" name="ans"
+										value="<%=que[i].getOpt1()%>" id="opt1"> <span><%=que[i].getOpt1()%></span>
+									</label>
+								</div>
+								<hr>
+								<div class="ans ml-2">
+									<label class="radio"> <input type="radio" name="ans"
+										value="<%=que[i].getOpt2()%>" id="opt1"> <span><%=que[i].getOpt2()%></span>
+									</label>
+								</div>
+								<hr>
+								<div class="ans ml-2">
+									<label class="radio"> <input type="radio" name="ans"
+										value="<%=que[i].getOpt3()%>" id="opt3"> <span><%=que[i].getOpt3()%></span>
+									</label>
+								</div>
+								<hr>
+								<div class="ans ml-2">
+									<label class="radio"> <input type="radio" name="ans"
+										value="<%=que[i].getOpt4()%>" id="opt4"> <span><%=que[i].getOpt4()%></span>
+									</label>
+								</div>
+
+
+
+
 
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="curr" value="<%=i%>"> 
-					<button type="submit" style="margin-left: 350px; margin-top: 40px; background-color: blue;"
-							class="btn btn-info">Previous</button>
+					<input type="hidden" name="curr" value="<%=i%>">
+					<button type="submit"
+						style="margin-left: 350px; margin-top: 40px; background-color: blue;"
+						class="btn btn-info">Previous</button>
 					<button type="submit" formaction="SaveServlet"
 						style="margin-left: 50px; margin-top: 40px; background-color: green;"
 						class="btn btn-success" class="next">Save</button>
-					<button type="submit" formaction="StudentDashboard.jsp"
+					<button type="submit" formaction="NextServlet"
 						style="margin-left: 50px; margin-top: 40px; background-color: blue;"
 						class="btn btn-success" class="next">Next</button>
-						<%
-							if(i==size-1)
-							{
-						%>
-						<button type="submit" formaction="SaveServlet" style="margin-left:20px; margin-top: 40px; background-color: red;"
+					<%
+					if (i == size - 1) {
+					%>
+					<button type="submit" formaction="SaveServlet"
+						style="margin-left: 2px; margin-top: 40px; background-color: red;"
 						class="btn btn-success" class="next">End Exam</button>
-						<%	}
-						%>
+					<%
+					}
+					%>
 					<h5 style="color: red; margin-left: 300px; margin-top: 40px;">
 						<b>End Exam button will be available on Last Question</b>
 					</h5>
 				</div>
-		
-
 	</form>
 
 	<div class="col-lg-6">
 		<div class="container3">
 			<div class="border">
-				<button type="button" class="btn btn-info">
-					<a href="questionexamui.html">1</a>
+				<h3 class="text-center">Total Questions</h3>
+				<%
+				for (int j = 1; j <= size; j++) {
+				%>
+				<button type="button" class="btn btn-info"
+					style="background-color: yellow">
+					<a href=""><%=j%></a>
 				</button>
-				<button type="button" class="btn btn-info">
-					<a href="que1.html">2</a>
-				</button>
-				<button type="button" class="btn btn-info">
-					<a href="que2.html">3</a>
-				</button>
-				<button type="button" class="btn btn-info">
-					<a href="que3.html">4</a>
-				</button>
-				<button type="button" class="btn btn-info">
-					<a href="que4.html">5</a>
-				</button>
-				<button type="button" class="btn btn-info">
-					<a href="que5.html">6</a>
-				</button>
-				<button type="button" style="margin-top: 15px;" class="btn btn-info">
-					<a href="que6.html">7</a>
-				</button>
-				<button type="button" style="margin-top: 15px;" class="btn btn-info">
-					<a href="que7.html">8</a>
-				</button>
-				<button type="button" style="margin-top: 15px;" class="btn btn-info">
-					<a href="que8.html">9</a>
-				</button>
-				<button type="button" style="margin-top: 15px;" class="btn btn-info">
-					<a href="que9.html">10</a>
-				</button>
+				<%
+				}
+				%>
+
 				<hr>
 				<button type="button" style="background-color: red;"
-					class="btn btn-info">5</button>
-				<p style="float: right; margin-right: 85px; margin-top: 10px;">Current
-					Question</p>
+					class="btn btn-info"><%=i + 1%></button>
+				<p style="float: right; margin-right: 85px; margin-top: 10px;">
+					<b>Current Question</b>
+				</p>
 				<hr>
-				<p>Total Attempted</p>
+				<p>
+					<b>Total Attempted</b>
+				</p>
 				<hr>
+				<%
+				StartExamDAO sd = new StartExamDAO();
+				ResultSet rs = sd.getCounter();
+				if (rs.next()) {
+				%>
 				<button type="button" style="background-color: green;"
-					class="btn btn-info">2</button>
-				<p style="float: right; margin-right: 20px; margin-top: 10px;">Attempted
-					And Not Reviewed</p>
+					class="btn btn-info"><%=rs.getInt(1)%></button>
+				<p style="float: right; margin-right: 110px; margin-top: 10px;">
+					<b>Attempted</b>
+				</p>
 				<hr>
 				<button type="button"
 					style="background-color: blue; margin-bottom: 10px;"
-					class="btn btn-info">1</button>
+					class="btn btn-info"><%=size - rs.getInt(1)%></button>
 				<p
-					style="float: right; margin-right: 40px; margin-top: 10px; margin-bottom: 10px;">Attempted
-					And Reviewed</p>
+					style="float: right; margin-right: 90px; margin-top: 10px; margin-bottom: 10px;">
+					<b>Non-Attempted</b>
+				</p>
+				<%
+				}
+				%>
+
 			</div>
 		</div>
 	</div>
 	</div>
 	</div>
+	<script>
+	 $(document).ready(function() {
+	        $('body').bind('cut copy paste', function(e) {
+	            e.preventDefault();
+	        })
+	        $('body').on("contextmenu", function(e) {
+	            return false;
+	        })
+	    })
+	    document.onselectstart=()=>{
+	    	event.preventDefault();
+	    	swal.fire({
+	    		  title: "Warning / Alert!!!",
+	    		  text: "You Appear to get the help from other sources during examination. This may lead to registering copy case against you.",
+	    		  icon: "warning",
+	    		  confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: "Okay..Noted it.!",
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+	    }
+	   
+	</script>
+	<script>
+	document.addEventListener('visibilitychange',function(){
+		document.title=document.visibilityState;
+		var state = document.visibilityState;
+		if(state ==='hidden'){
+			swal.fire({
+	    		  title: "Warning / Alert!!!",
+	    		  text: "You are switching tabs.Please dont do this. This may lead to registering copy case against you.",
+	    		  icon: "warning",
+	    		  confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: "Okay..Noted it.!",
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+		}
+	});
+	</script>
 </body>
 </html>

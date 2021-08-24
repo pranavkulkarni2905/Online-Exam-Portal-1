@@ -46,7 +46,7 @@ PreparedStatement ps=null;
 		try {
 			ps=con.prepareStatement("select * from exam_setexam");
 			rs = ps.executeQuery();
-			con.close();
+			//con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,5 +92,34 @@ PreparedStatement ps=null;
 			e.printStackTrace();
 		}
 		return cid;
+	}
+	public int examCounter(int facId) {
+		con=DBconnection.getConnection();
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_setexam where facid=?");
+			ps.setInt(1, facId);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public int totalExam() {
+		int count=0;
+		con=DBconnection.getConnection();
+		try {
+			ps=con.prepareStatement("select count(*) from exam_setexam");
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 }

@@ -72,8 +72,28 @@ if (s2 == null) {
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<%try{
+			boolean msg1 = (boolean) session.getAttribute("exam-date-check");
+			if (msg1==true) {
+			%>
+			<div id="div1">
+				<script type="text/javascript">
+					Swal.fire('Ooops.!!',
+				'Please Check Exam Date Once Again..'
+					, 'warning')
+				</script>
+			</div>
+
+			<%
+			}
+			}catch(Exception e){
+				//e.printStackTrace();
+			}
+			session.removeAttribute("exam-date-check");
+			%>
 <div class="wrapper">
 		<%@ include file="all_component/student-navbar.jsp"%>
 
@@ -85,7 +105,7 @@ if (s2 == null) {
 
 				<li class="breadcrumb-item active" aria-current="page">Enrolled Exams
 					</li>
-					<button class="btn btn-success" style="margin-left:40%;" data-toggle="modal"
+					<button class="btn btn-success" style="margin-left:25%;" data-toggle="modal"
 							data-target=".example"><i class="fa fa-camera-retro"></i> Current Exams</button>
 					<div class="modal fade bd-example-modal-lg example" tabindex="-1" role="dialog"
 		aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -147,7 +167,7 @@ if (s2 == null) {
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
+					<button type="button" class="btn btn-success"
 						data-dismiss="modal">Close</button>
 
 				</div>
@@ -213,7 +233,7 @@ if (s2 == null) {
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
+					<button type="button" class="btn btn-primary"
 						data-dismiss="modal">Close</button>
 
 				</div>
@@ -276,6 +296,70 @@ if (s2 == null) {
 					</table>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-warning"
+						data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<button class="btn btn-secondary" style="margin-left:3%;" data-toggle="modal"
+							data-target=".example4"><i class="fa fa-check-square-o"></i> Completed Exam</button>
+					<div class="modal fade bd-example-modal-lg example4" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div
+			class="modal-dialog  modal-dialog-centered modal-dialog-scrollable modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Completed Exams</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<th scope="row">#</th>
+								<th scope="row">Exam Code</th>
+								<th scope="row">Exam Name</th>
+								<th scope="row">Exam Date</th>
+								
+								<th scope="row">Course</th>
+
+							</tr>
+						</tbody>
+						<%
+						try {
+							int sr4 = 1;
+							RequestDAO rd4=new RequestDAO();
+							ResultSet rs4=rd4.getDataOfCompletedExamByStudId("Accepted", s2.getStudId(), "Yes");
+							 while(rs4.next()) {
+						%>
+
+						<tbody>
+							<tr>
+								<td><%=sr4++%></td>
+								<td><%=rs4.getString(2)%></td>
+					<td><%=rs4.getString(9)%></td>
+					<td><%=rs4.getString(10)%></td>
+					<td><%=rs4.getString(7)%></td>
+							</tr>
+						</tbody>
+
+
+						<%
+						}
+						
+						} catch (Exception e) {
+						e.printStackTrace();
+						}
+						%>
+					</table>
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
 
@@ -286,7 +370,7 @@ if (s2 == null) {
 			</ol>
 			
 		</nav>
-		<div class="text-center" style="color:red;"> List Of Enrolled & Currently Available Exams. ): </div><br>
+		<div class="text-center" style="color:red;"> List Of Available Enrolled Exams. ): </div><br>
 		<div class="container">
 			<table class="table table-hover">
 				<thead>
@@ -304,12 +388,9 @@ if (s2 == null) {
 				<%
 				try {
 						int i = 1;
-					
 						RequestDAO rd=new RequestDAO();
 						ResultSet rs=rd.getDataByStudId2("Accepted", s2.getStudId());
 						while(rs.next()){
-						
-							
 				%>
 				<tr>
 					<th scope="row"><%=i++%></th>

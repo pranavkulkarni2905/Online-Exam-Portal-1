@@ -14,9 +14,10 @@ public class RequestDAO {
 	{
 		boolean b = false;
 		String status="Enroll";
+		String Exam_completed="No";
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("insert into exam_requests values(?,?,?,?,?,?,?,?,?,?)");
+			ps = con.prepareStatement("insert into exam_requests values(?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1, reqId);
 			ps.setString(2, e_code);
 			ps.setInt(3, stud_id);
@@ -27,6 +28,7 @@ public class RequestDAO {
 			ps.setString(8, status);
 			ps.setString(9, eName);
 			ps.setString(10, date);
+			ps.setString(11, Exam_completed);
 			int i = ps.executeUpdate();
 			if(i>0)
 				b = true;
@@ -76,13 +78,30 @@ public class RequestDAO {
 		}
 		return rs;
 	}
-	public ResultSet getDataByStudId2(String str, int id) {
+	public ResultSet getDataOfCompletedExamByStudId(String str, int id,String complete) {
 		con=DBconnection.getConnection();
 		ResultSet rs=null;
 		try {
-			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and flag=0");
+			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and exam_completed=?");
 			ps.setString(1, str);
 			ps.setInt(2, id);
+			ps.setString(3, complete);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public ResultSet getDataByStudId2(String str, int id) {
+		con=DBconnection.getConnection();
+		String complete="No";
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and flag=0 and exam_completed=?");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			ps.setString(3, complete);
 			rs=ps.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -146,6 +165,24 @@ public class RequestDAO {
 		}
 		return b;
 	}
+	public boolean updateExamCompletedStatus(String string,int sid,String examCode) {
+		boolean b=false;
+		con=DBconnection.getConnection();
+		try {
+			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and exam_code=?");
+			ps.setString(1, string);
+			ps.setInt(2, sid);
+			ps.setString(3, examCode);
+			int i=ps.executeUpdate();
+			if(i>0) {
+				b=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+	}
 	public boolean updateFlag(int flag,int id) {
 		boolean b=false;
 		con=DBconnection.getConnection();
@@ -162,6 +199,57 @@ public class RequestDAO {
 			e.printStackTrace();
 		}
 		return b;
+	}
+	public int requestCounter(String str, int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_requests where status=? and studid=?");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public int notificationCounter(String str, int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_requests where status=? and facid=?");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public int examCompletedCounter(String str, int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		int count=0;
+		try {
+			ps=con.prepareStatement("select count(*) from exam_requests where exam_completed=? and studid=?");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+			if(rs.next())
+				count=rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }
