@@ -315,10 +315,6 @@ response.setDateHeader ("Expires", 0);
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<a href="#" data-target="#pwdModal" data-toggle="modal">Forgot my
-			password</a>
-	</div>
 
 	<!--modal-->
 	<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog"

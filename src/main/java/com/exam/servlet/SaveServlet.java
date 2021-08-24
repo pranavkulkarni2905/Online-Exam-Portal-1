@@ -83,6 +83,7 @@ public class SaveServlet extends HttpServlet {
 						++incorrected;
 						exd.updateCounter(attempted, corrected, incorrected);
 					}
+					exd.add_que(i);
 				}
 			}
 			

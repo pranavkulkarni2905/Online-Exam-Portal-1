@@ -35,14 +35,14 @@ public class PrevServlet extends HttpServlet {
 			int size = qd.getLength();
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
-			int que_id = q.getqId();
-			boolean b = exd.check_que(que_id);
+			//int que_id = q.getqId();
+			boolean b = exd.check_que(i-1);
 			if(b)
 			{
 				//message
 				session.setAttribute("answered","You have already attempted this question");
 				response.sendRedirect("StartExam.jsp");
-			}
+			}else {
 				if (i>0)//0<=2---1<=2---2<2
 				{
 					System.out.println("i : " + i);
@@ -53,6 +53,7 @@ public class PrevServlet extends HttpServlet {
 				} else {
 					response.sendRedirect("StartExam.jsp");
 				}
+			}
 		} catch (Exception e) {
 
 		}

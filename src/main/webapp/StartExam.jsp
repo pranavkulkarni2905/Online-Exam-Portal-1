@@ -63,7 +63,7 @@ if (session.getAttribute("token") == null) {
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel=”stylesheet” href=”css/bootstrap.css”>
 <link rel=”stylesheet” href=”css/bootstrap-responsive.css”>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="ExamStyle.css">
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
@@ -165,7 +165,23 @@ setTimeout("countDownTimer()",1000);
         start();
     });  
 </script>
-
+	<%
+		try{
+		String msg = (String) session.getAttribute("answered");
+		if(msg!=null)
+		{
+			%>
+			<script type="text/javascript">
+			swal("You have already attempted this question");
+			</script>
+			<%
+		}
+		}catch(Exception e)
+	{
+			
+	}
+	session.removeAttribute("answered");
+	%>
 	<form>
 		<div class="container-fluid">
 			<div class="row">
@@ -182,17 +198,12 @@ setTimeout("countDownTimer()",1000);
 											Q.<%=i + 1%></button>
 
 									</h3>
-
 								</div>
 								<h3>
 									<b><%=que[i].getqName()%></b>
 								</h3>
 								<hr>
 								<br>
-
-
-
-
 								<div class="ans ml-2">
 									<label class="radio"> <input type="radio" name="ans"
 										value="<%=que[i].getOpt1()%>" id="opt1"> <span><%=que[i].getOpt1()%></span>
@@ -217,23 +228,14 @@ setTimeout("countDownTimer()",1000);
 									</label>
 								</div>
 
-
-
-
-
 							</div>
 						</div>
 					</div>
 					<input type="hidden" name="curr" value="<%=i%>">
 					<button type="submit"
 						style="margin-left: 350px; margin-top: 40px; background-color: blue;"
-						class="btn btn-info">Previous</button>
-					<button type="submit" formaction="SaveServlet"
-						style="margin-left: 50px; margin-top: 40px; background-color: green;"
-						class="btn btn-success" class="next">Save</button>
-					<button type="submit" formaction="NextServlet"
-						style="margin-left: 50px; margin-top: 40px; background-color: blue;"
-						class="btn btn-success" class="next">Next</button>
+						formaction="PrevServlet" class="btn btn-info">Previous</button>
+
 					<%
 					if (i == size - 1) {
 					%>
@@ -241,8 +243,16 @@ setTimeout("countDownTimer()",1000);
 						style="margin-left: 2px; margin-top: 40px; background-color: red;"
 						class="btn btn-success" class="next">End Exam</button>
 					<%
-					}
+					}else{
 					%>
+					<button type="submit" formaction="SaveServlet"
+						style="margin-left: 50px; margin-top: 40px; background-color: green;"
+						class="btn btn-success" class="next">Save</button>
+					<button type="submit" formaction="NextServlet"
+						style="margin-left: 50px; margin-top: 40px; background-color: blue;"
+						class="btn btn-success" class="next">Next</button>
+						<%	}
+						%>
 					<h5 style="color: red; margin-left: 300px; margin-top: 40px;">
 						<b>End Exam button will be available on Last Question</b>
 					</h5>

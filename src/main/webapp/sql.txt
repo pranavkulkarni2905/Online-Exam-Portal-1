@@ -91,7 +91,7 @@ len number
 
 create table exam_queid
 (
-que_id number
+serial number
 );
 
 create table exam_result(
@@ -112,3 +112,4 @@ result varchar2(1000)
 );
 
 alter table exam_requests add exam_completed varchar2(2000);
+alter table exam_result add exam_date varchar2(2000);

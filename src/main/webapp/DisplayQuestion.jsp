@@ -207,10 +207,10 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 								class="btn btn-danger" data-toggle="modal"> <i class="fa fa-trash"></i>Delete</button> </a></td>
 					<%
 					questionDAO qd1 = new questionDAO();
-					Question q1 = qd1.getDataByQuesId(qid);
+					Question q1 = qd1.getDataByQuesId(q.getqId());
 					%>
 					<td><button type="button" class="btn btn-primary" data-target="#exampleModal"
-							data-toggle="modal" value="<%=q.getqId() %>" > View
+							data-toggle="modal" value="<%=q1.getqId() %>" > View
 							More</button>
 
 
