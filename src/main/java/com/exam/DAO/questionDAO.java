@@ -78,6 +78,32 @@ public class questionDAO {
 		}
 		return lst;
 	}
+	public List<Question> filterData(String result){
+		con=DBconnection.getConnection();
+		Question q=null;
+		List<Question> lst=new ArrayList<Question>();
+		try {
+			ps=con.prepareStatement("select * from exam_question where question like '%" + result + "%' or answer like '%" + result + "%' or coursename like '%" + result + "%' or ques_id like '%" + result + "%' ");
+			
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				q=new Question();
+				q.setqId(rs.getInt(1));
+				q.setqName(rs.getString(2));
+				q.setOpt1(rs.getString(3));
+				q.setOpt2(rs.getString(4));
+				q.setOpt3(rs.getString(5));
+				q.setOpt4(rs.getString(6));
+				q.setCorrect(rs.getString(7));
+				q.setcName(rs.getString(9));
+				lst.add(q);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lst;
+	}
 	public Question getDataByQuesId(int id) {
 		Question q=null;
 		con=DBconnection.getConnection();

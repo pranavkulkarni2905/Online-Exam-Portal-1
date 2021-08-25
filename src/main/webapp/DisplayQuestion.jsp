@@ -4,14 +4,14 @@
 <%@page import="com.exam.DAO.questionDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%
-	ServletContext sc2=request.getServletContext();
-	Faculty f2=(Faculty)sc2.getAttribute("faculty-obj");
-	if(f2==null){
-		session.setAttribute("pls-login", "Please Login Here...");
-		response.sendRedirect("Login.jsp");
-	}
-	%>
+<%
+ServletContext sc2 = request.getServletContext();
+Faculty f2 = (Faculty) sc2.getAttribute("faculty-obj");
+if (f2 == null) {
+	session.setAttribute("pls-login", "Please Login Here...");
+	response.sendRedirect("Login.jsp");
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +54,6 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet"
@@ -70,9 +69,9 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<%
-response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-%>
+	<%
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+	%>
 	<%
 	try {
 		boolean msg1 = (boolean) session.getAttribute("question-edit-success");
@@ -168,6 +167,18 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 					Questions</li>
 			</ol>
 		</nav>
+		<form action="DisplayQuestion.jsp" method="post">
+			<div class="input-group text-center" style="margin-left: 40%;">
+				<div class="form-outline text-center">
+					<input type="search" id="form1" class="form-control text-center"
+						name="query" placeholder="Search Here Question" />
+				</div>
+				<button type="submit" class="btn btn-primary">
+					<i class="fa fa-search"></i>
+				</button>
+			</div>
+		</form>
+		<hr>
 		<div class="container">
 			<table class="table table-hover">
 				<thead>
@@ -188,11 +199,18 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 					ServletContext sc1 = request.getServletContext();
 					Faculty s = (Faculty) sc1.getAttribute("faculty-obj");
 					if (s != null) {
-						int i = 1;
 						questionDAO qd = new questionDAO();
-						List<Question> lst = qd.getAllDataById(s.getFacId());
+						List<Question> lst = null;
+						int i = 1;
+						String result = request.getParameter("query");
+						if (result != null) {
+					
+					lst = qd.filterData(result);
+						} else {
+					lst = qd.getAllDataById(s.getFacId());
+						}
 						for (Question q : lst) {
-							int qid=q.getqId();
+					int qid = q.getqId();
 				%>
 
 
@@ -202,16 +220,20 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 					<td><%=q.getCorrect()%></td>
 					<td><%=q.getcName()%></td>
 					<td><a href="EditQuestion.jsp?q_id=<%=q.getqId()%>"><button
-								type="button" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</button></a></td>
+								type="button" class="btn btn-success">
+								<i class="fa fa-pencil"></i> Edit
+							</button></a></td>
 					<td><a href="DeleteQuestionServlet?q_id=<%=q.getqId()%>"><button
-								class="btn btn-danger" data-toggle="modal"> <i class="fa fa-trash"></i>Delete</button> </a></td>
+								class="btn btn-danger" data-toggle="modal">
+								<i class="fa fa-trash"></i>Delete
+							</button> </a></td>
 					<%
 					questionDAO qd1 = new questionDAO();
 					Question q1 = qd1.getDataByQuesId(q.getqId());
 					%>
-					<td><button type="button" class="btn btn-primary" data-target="#exampleModal"
-							data-toggle="modal" value="<%=q1.getqId() %>" > View
-							More</button>
+					<td><button type="button" class="btn btn-primary"
+							data-target="#exampleModal" data-toggle="modal"
+							value="<%=q1.getqId()%>">View More</button>
 
 
 						<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -296,15 +318,17 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 				}
 				if (lst == null) {
 				%>
-				<tr><td class="text-center">>Result Not Found</td></tr>
-	<%
-	}
-	}
+				<tr>
+					<td class="text-center">>Result Not Found</td>
+				</tr>
+				<%
+				}
+				}
 
-	} catch (Exception e) {
+				} catch (Exception e) {
 
-	}
-	%>
+				}
+				%>
 			</table>
 
 

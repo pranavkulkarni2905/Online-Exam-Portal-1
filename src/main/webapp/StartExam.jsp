@@ -107,7 +107,7 @@ function countDownTimer(){
         minutes= "0"+ minutes ;
     }
     
-    document.getElementById("demo").innerHTML = "Time Left : "+minutes+" Minutes "+seconds+" Seconds";
+    document.getElementById("demo").innerHTML = "Time Left : "+minutes+" min "+seconds+" s";
     if(count_timer <= 0){
          localStorage.clear("count_timer");
     } else {
@@ -172,7 +172,7 @@ setTimeout("countDownTimer()",1000);
 		{
 			%>
 			<script type="text/javascript">
-			swal("You have already attempted this question");
+			swal("You have already attempted this question.");
 			</script>
 			<%
 		}
@@ -240,7 +240,7 @@ setTimeout("countDownTimer()",1000);
 					if (i == size - 1) {
 					%>
 					<button type="submit" formaction="SaveServlet"
-						style="margin-left: 2px; margin-top: 40px; background-color: red;"
+						style="margin-left: 5px; margin-top: 40px; background-color: red;"
 						class="btn btn-success" class="next">End Exam</button>
 					<%
 					}else{
