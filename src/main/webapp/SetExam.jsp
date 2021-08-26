@@ -145,6 +145,80 @@ input, label {
 	session.removeAttribute("exam-set-fail");
 	%>
 	<%
+	try {
+		boolean msg3 = (boolean) session.getAttribute("exam-edit-success");
+		if (msg3 == true) {
+	%>
+	<div id="div1">
+		<script type="text/javascript">
+			Swal.fire('Done.!!&#9989', 'Exam updated Successfully&#128077',
+					'success')
+		</script>
+	</div>
+
+	<%
+	}
+	} catch (Exception e) {
+	//e.printStackTrace();
+	}
+	session.removeAttribute("exam-edit-success");
+	%>
+	<%
+	try {
+		boolean msg4 = (boolean) session.getAttribute("exam-edit-fail");
+		if (msg4 == false) {
+	%>
+	<div id="div1">
+		<script type="text/javascript">
+			Swal.fire('Ooops.!!', 'Something went wrog on server.', 'warning')
+		</script>
+	</div>
+
+	<%
+	}
+	} catch (Exception e) {
+	//e.printStackTrace();
+	}
+	session.removeAttribute("exam-edit-fail");
+	%>
+	<%
+	try {
+		boolean msg5 = (boolean) session.getAttribute("exam-delete-success");
+		if (msg5 == true) {
+	%>
+	<div id="div1">
+		<script type="text/javascript">
+			Swal.fire('Done.!!&#9989', 'Exam deleted Successfully&#128077',
+					'success')
+		</script>
+	</div>
+
+	<%
+	}
+	} catch (Exception e) {
+	//e.printStackTrace();
+	}
+	session.removeAttribute("exam-delete-success");
+	%>
+	<%
+	try {
+		boolean msg6 = (boolean) session.getAttribute("exam-delete-fail");
+		if (msg6 == false) {
+	%>
+	<div id="div1">
+		<script type="text/javascript">
+			Swal.fire('Ooops.!!', 'Cannot delete right now ', 'warning')
+		</script>
+	</div>
+
+	<%
+	}
+	} catch (Exception e) {
+	//e.printStackTrace();
+	}
+	session.removeAttribute("exam-delete-fail");
+	%>
+	<%
 	int eId = 0;
 	ArrayList<Integer> list = new ArrayList<Integer>();
 	for (int i = 1; i < 50000; i++) {
@@ -272,6 +346,8 @@ input, label {
 								<th scope="row">Exam Date</th>
 								<th scope="row">Exam Time</th>
 								<th scope="row">Course</th>
+								<th scope="row">Edit</th>
+								<th scope="row">Delete</th>
 
 							</tr>
 						</tbody>
@@ -292,8 +368,12 @@ input, label {
 								<td><%=e.getExamCode()%></td>
 								<td><%=e.getExamName()%></td>
 								<td><%=e.getExamDate()%></td>
-								<td><%=e.getExamTime()%>Min</td>
+								<td><%=e.getExamTime()%>&nbspMin</td>
 								<td><%=e.getcName()%></td>
+								<td><a href="EditExam.jsp?exam_code=<%=e.getExamCode()%>"><button type="button" class="btn btn-success">
+								<i class="fa fa-pencil"></i> Edit</button></a></td>
+								<td><a href="DeleteExamServlet?exam_code=<%=e.getExamCode()%>"><button class="btn btn-danger" data-toggle="modal">
+									<i class="fa fa-trash"></i> Delete</button> </a>
 							</tr>
 						</tbody>
 
