@@ -103,6 +103,8 @@ public class StartExamDAO {
 			i = ps.executeUpdate();
 			ps = con.prepareStatement("truncate table exam_size");
 			i = ps.executeUpdate();
+			ps = con.prepareStatement("truncate table exam_queid");
+			i = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

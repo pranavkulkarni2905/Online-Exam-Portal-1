@@ -1,9 +1,12 @@
 
+<%@page import="com.exam.DAO.examDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.exam.model.Student"%>
 <%@page import="com.exam.DAO.questionDAO"%>
 <%@page import="com.exam.model.Question"%>
 <%@page import="com.exam.DAO.StartExamDAO"%>
+<jsp:useBean id="ed" class="com.exam.DAO.examDAO" scope="page"/>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
@@ -41,6 +44,11 @@ if (session.getAttribute("token") == null) {
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script src="sweetalert2.all.min.js"></script>
+
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
 <link rel="stylesheet" href="questionexamui.css">
 <link rel="stylesheet" href="css/style.css">
 <link
@@ -63,11 +71,54 @@ if (session.getAttribute("token") == null) {
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel=”stylesheet” href=”css/bootstrap.css”>
 <link rel=”stylesheet” href=”css/bootstrap-responsive.css”>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="ExamStyle.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+	 $(document).ready(function() {
+	        $('body').bind('cut copy paste', function(e) {
+	            e.preventDefault();
+	        })
+	        $('body').on("contextmenu", function(e) {
+	            return false;
+	        })
+	    })
+	    document.onselectstart=()=>{
+	    	event.preventDefault();
+	    	Swal.fire({
+	    		  title: "Warning / Alert!!!",
+	    		  text: "You Appear to get the help from other sources during examination. This may lead to registering copy case against you.",
+	    		  icon: 'warning',
+	    		  confirmButtonColor: '#d33',
+	    		  //confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: 'Okay..Noted it.!',
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+	    }
+	   
+	</script>
+	<script>
+	document.addEventListener('visibilitychange',function(){
+		document.title=document.visibilityState;
+		var state = document.visibilityState;
+		if(state ==='hidden'){
+			Swal.fire({
+	    		  title: "Warning / Alert!!!",
+	    		  text: "You are switching tabs.Please dont do this. This may lead to registering copy case against you.",
+	    		  icon: "warning",
+	    		  confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: "Okay..Noted it.!",
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+		}
+	});
+	</script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
-	onunload="">
+	onunload="" >
 	<%
 	ServletContext sc = request.getServletContext();
 	Question que[] = (Question[]) sc.getAttribute("que");
@@ -80,6 +131,8 @@ if (session.getAttribute("token") == null) {
 	int size = qd.getLength();
 	int i = exd.getCurr_que();
 	sc.setAttribute("question", que[i]);
+	
+	
 	%>
 	<div class="header">
 		<div class="header-right">
@@ -89,37 +142,38 @@ if (session.getAttribute("token") == null) {
 				href="#about"><b>Exam Code :</b> <%=exam_code%> </a>
 		</div>
 		<input type="hidden" value="<%=time%>" id="time">
+		
 		<p id="demo"></p>
 
 		<script>
-var a=document.getElementById("time").value;
-if(localStorage.getItem("count_timer")){
-    var count_timer = localStorage.getItem("count_timer");
-} else {
-    var count_timer = parseInt(a*60);
-}
-var minutes = parseInt(count_timer/60);
-var seconds = parseInt(count_timer%60);
-function countDownTimer(){
-    if(seconds < 10){
-        seconds= "0"+ seconds ;
-    }if(minutes < 10){
-        minutes= "0"+ minutes ;
-    }
-    
-    document.getElementById("demo").innerHTML = "Time Left : "+minutes+" min "+seconds+" s";
-    if(count_timer <= 0){
-         localStorage.clear("count_timer");
-    } else {
-        count_timer = count_timer -1 ;
-        minutes = parseInt(count_timer/60);
-        seconds = parseInt(count_timer%60);
-        localStorage.setItem("count_timer",count_timer);
-        setTimeout("countDownTimer()",1000);
-    }
-}
-setTimeout("countDownTimer()",1000);
+		var min = 1;
+		var sec = 30;
+		var timer;
+		var timeon = 0;
+		
+		//function ActivateTimer() {
+		  if (!timeon) {
+		    timeon = 1;
+		    Timer();
+		  }
+		//}
 
+		function Timer() {
+		  var _time = "Time Left :"+ min + ":" + sec;
+		  document.getElementById("demo").innerHTML = _time;
+		  if (_time != "0:0") {
+		    if (sec == 0) {
+		      min = min - 1;
+		      sec = 59;
+		    } else {
+		      sec = sec - 1;
+		    }
+		    timer = setTimeout("Timer()", 1000);
+		  } else {
+			 
+		    window.location.href = "SaveServlet";
+		  }
+		}
 </script>
 
 
@@ -183,6 +237,7 @@ setTimeout("countDownTimer()",1000);
 	session.removeAttribute("answered");
 	%>
 	<form>
+	
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6">
@@ -242,6 +297,7 @@ setTimeout("countDownTimer()",1000);
 					<button type="submit" formaction="SaveServlet"
 						style="margin-left: 5px; margin-top: 40px; background-color: red;"
 						class="btn btn-success" class="next">End Exam</button>
+						
 					<%
 					}else{
 					%>
@@ -312,45 +368,6 @@ setTimeout("countDownTimer()",1000);
 	</div>
 	</div>
 	</div>
-	<script>
-	 $(document).ready(function() {
-	        $('body').bind('cut copy paste', function(e) {
-	            e.preventDefault();
-	        })
-	        $('body').on("contextmenu", function(e) {
-	            return false;
-	        })
-	    })
-	    document.onselectstart=()=>{
-	    	event.preventDefault();
-	    	swal.fire({
-	    		  title: "Warning / Alert!!!",
-	    		  text: "You Appear to get the help from other sources during examination. This may lead to registering copy case against you.",
-	    		  icon: "warning",
-	    		  confirmButtonClass: "btn-danger",
-	    		  confirmButtonText: "Okay..Noted it.!",
-	    		  closeOnConfirm: true
-	    		}
-	    	)
-	    }
-	   
-	</script>
-	<script>
-	document.addEventListener('visibilitychange',function(){
-		document.title=document.visibilityState;
-		var state = document.visibilityState;
-		if(state ==='hidden'){
-			swal.fire({
-	    		  title: "Warning / Alert!!!",
-	    		  text: "You are switching tabs.Please dont do this. This may lead to registering copy case against you.",
-	    		  icon: "warning",
-	    		  confirmButtonClass: "btn-danger",
-	    		  confirmButtonText: "Okay..Noted it.!",
-	    		  closeOnConfirm: true
-	    		}
-	    	)
-		}
-	});
-	</script>
+	
 </body>
 </html>

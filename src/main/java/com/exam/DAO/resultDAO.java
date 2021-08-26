@@ -42,6 +42,18 @@ public class resultDAO {
 		}
 		return b;
 	}
+	public ResultSet getAllResult() {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select * from exam_result");
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 	public ResultSet getResult(int resId,int studId) {
 		ResultSet rs=null;
 		con=DBconnection.getConnection();

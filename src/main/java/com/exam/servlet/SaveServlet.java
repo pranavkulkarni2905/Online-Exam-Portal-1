@@ -1,6 +1,7 @@
 package com.exam.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -134,6 +135,10 @@ public class SaveServlet extends HttpServlet {
 				rd1.updateExamCompletedStatus("Yes",sid,exam_code);
 				exd.truncateAll();
 				session.removeAttribute("exam-time");
+				//int time=Integer.parseInt(request.getParameter("timer"));
+				//System.out.println(time);
+				PrintWriter pw=response.getWriter();
+				//pw.print("<script>localStorage.clear();</script>");
 				response.sendRedirect("ExamSummary.jsp");
 			}
 
