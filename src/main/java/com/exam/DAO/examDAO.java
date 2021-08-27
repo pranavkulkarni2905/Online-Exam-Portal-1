@@ -122,9 +122,7 @@ public class examDAO {
 		}
 		return count;
 	}
-<<<<<<< HEAD
-	 
-=======
+
 	public Exam getDataByCode(String ecode)
 	{
 		con = DBconnection.getConnection();
@@ -187,5 +185,5 @@ public class examDAO {
 		}
 		return b;
 	}
->>>>>>> 826e555690d3278c9b540c2c46a14f27285b6f67
+
 }
