@@ -17,6 +17,9 @@ if (s2 == null) {
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<script>
+	localStorage.clear();
+</script>
 <SCRIPT type="text/javascript">
 	window.history.forward();
 	function noBack() {
@@ -166,7 +169,7 @@ input[type=text] {
 		<ul>
 			<li>The examination will comprise of Objective type Multiple
 				Choice Questions (MCQ)</li>
-			<li>All questions are compulsory and each carries Two mark.</li>
+			<li>All questions are compulsory and each carries Two marks.</li>
 			<li>The total number of questions, duration of examination, will
 				be different based on the course, the detail is available on your
 				screen.</li>
@@ -176,23 +179,23 @@ input[type=text] {
 			<li>The Time remaining is shown in the Right Top Corner of the
 				screen.</li>
 			<li>The system automatically shuts down when the time limit is
-				over OR alternatively if examinee finishes the exam before time he
+				over OR alternatively if examiner finishes the exam before time he
 				can quit by pressing the 'End Exam' button.</li>
 			<li>'End exam' button will be available at the last question</li>
-			<li><b>Once You will Save Question , you will not able to
-					Edit that question.</b></li>
-			<li><b>Once You Save Last Question , exam will terminate
+			<li><b>Once You have Saved the Answer of any Question, you will not be 
+					able to	Edit your answer.</b></li>
+			<li><b>Once You have Saved Last Question, exam will terminate
 					Automatically.</b></li>
 		</ul>
-		<small>Exam start button will available after 30 sec</small><br>
+		<small>Exam start button will available after 30 seconds</small><br>
 		<hr>
 		<input type="checkbox" required> Read and interpreted all
 		instructions<br>
 		<center>
-			<a href="StartExamServlet?exam_code=<%=exam_code%>"><button
-					type="submit" class="btn btn-success" id="startbtn" disabled>Start
-					Exam</button></a>&nbsp&nbsp&nbsp <a href="StudentDashboard.jsp"
-				class="btn btn-warning">Back </a>
+			<a href="StartExamServlet?exam_code=<%=exam_code%>">
+			<button type="submit" class="btn btn-success" id="startbtn" disabled>
+			Start Exam</button></a>&nbsp&nbsp&nbsp 
+			<a href="StudentDashboard.jsp" class="btn btn-warning">Back </a>
 		</center>
 	</div>
 

@@ -5,8 +5,7 @@
 <%@page import="com.exam.DAO.questionDAO"%>
 <%@page import="com.exam.model.Question"%>
 <%@page import="com.exam.DAO.StartExamDAO"%>
-<jsp:useBean id="ed" class="com.exam.DAO.examDAO" scope="page"/>
-
+<%@page import="com.exam.servlet.SaveServlet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
@@ -157,6 +156,38 @@ if (session.getAttribute("token") == null) {
 		    Timer();
 		  }
 		//}
+var a=document.getElementById("time").value;
+if(localStorage.getItem("count_timer")){
+    var count_timer = localStorage.getItem("count_timer");
+} else {
+    var count_timer = parseInt(a*60);
+}
+var minutes = parseInt(count_timer/60);
+var seconds = parseInt(count_timer%60);
+function countDownTimer(){
+    if(seconds < 10){
+        seconds= "0"+ seconds ;
+    }if(minutes < 10){
+        minutes= "0"+ minutes ;
+    }
+    
+    document.getElementById("demo").innerHTML = "Time Left : "+minutes+" min "+seconds+" s";
+    if(count_timer <= 0){
+         localStorage.clear("count_timer");
+         // alert after time ends
+          alert('time elapsed');
+         <%
+         	// response.sendRedirect("SaveServlet");
+         %>
+    } else {
+        count_timer = count_timer -1 ;
+        minutes = parseInt(count_timer/60);
+        seconds = parseInt(count_timer%60);
+        localStorage.setItem("count_timer",count_timer);
+        setTimeout("countDownTimer()",1000);
+    }
+}
+setTimeout("countDownTimer()",1000);
 
 		function Timer() {
 		  var _time = "Time Left :"+ min + ":" + sec;
@@ -368,6 +399,45 @@ if (session.getAttribute("token") == null) {
 	</div>
 	</div>
 	</div>
-	
+	<script>
+	 $(document).ready(function() {
+	        $('body').bind('cut copy paste', function(e) {
+	            e.preventDefault();
+	        })
+	        $('body').on("contextmenu", function(e) {
+	            return false;
+	        })
+	    })
+	    document.onselectstart=()=>{
+	    	event.preventDefault();
+	    	swal.fire({
+	    		  title: "Warning / Alert!!!",
+	    		  text: "You Appear to get the help from other sources during examination. This may lead to registering copy case against you.",
+	    		  icon: "warning",
+	    		  confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: "Okay..Noted it.!",
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+	    }
+	   
+	</script>
+	<script>
+	document.addEventListener('visibilitychange',function(){
+		document.title=document.visibilityState;
+		var state = document.visibilityState;
+		if(state ==='hidden'){
+			swal.fire({
+	    		  title: "Warning / Alert!!!",
+	    		  text: "You are switching tabs.Please don't do this. This may lead to register copy case against you.",
+	    		  icon: "warning",
+	    		  confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: "Okay..Noted it.!",
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+		}
+	});
+	</script>
 </body>
 </html>
