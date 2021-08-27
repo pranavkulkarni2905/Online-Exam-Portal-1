@@ -169,7 +169,7 @@ public class RequestDAO {
 		boolean b=false;
 		con=DBconnection.getConnection();
 		try {
-			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and exam_code=?");
+			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and e_code=?");
 			ps.setString(1, string);
 			ps.setInt(2, sid);
 			ps.setString(3, examCode);
