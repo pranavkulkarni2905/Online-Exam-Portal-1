@@ -5,12 +5,7 @@
 <%@page import="com.exam.DAO.questionDAO"%>
 <%@page import="com.exam.model.Question"%>
 <%@page import="com.exam.DAO.StartExamDAO"%>
-<<<<<<< HEAD
-<jsp:useBean id="ed" class="com.exam.DAO.examDAO" scope="page"/>
-
-=======
 <%@page import="com.exam.servlet.SaveServlet"%>
->>>>>>> 99418a9 (wrote code for start new timing)
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
@@ -150,7 +145,6 @@ if (session.getAttribute("token") == null) {
 		<p id="demo"></p>
 
 		<script>
-<<<<<<< HEAD
 		var min = 1;
 		var sec = 30;
 		var timer;
@@ -162,7 +156,6 @@ if (session.getAttribute("token") == null) {
 		    Timer();
 		  }
 		//}
-=======
 var a=document.getElementById("time").value;
 if(localStorage.getItem("count_timer")){
     var count_timer = localStorage.getItem("count_timer");
@@ -195,7 +188,6 @@ function countDownTimer(){
     }
 }
 setTimeout("countDownTimer()",1000);
->>>>>>> 99418a9 (wrote code for start new timing)
 
 		function Timer() {
 		  var _time = "Time Left :"+ min + ":" + sec;
@@ -407,9 +399,6 @@ setTimeout("countDownTimer()",1000);
 	</div>
 	</div>
 	</div>
-<<<<<<< HEAD
-	
-=======
 	<script>
 	 $(document).ready(function() {
 	        $('body').bind('cut copy paste', function(e) {
@@ -450,6 +439,5 @@ setTimeout("countDownTimer()",1000);
 		}
 	});
 	</script>
->>>>>>> 99418a9 (wrote code for start new timing)
 </body>
 </html>
