@@ -44,7 +44,24 @@ response.setDateHeader ("Expires", 0);
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-
+ <link ref="http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+    <!-- CSS Bootstrap & Custom -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="css/animate.css" rel="stylesheet" media="screen">
+    
+    <link href="style.css" rel="stylesheet" media="screen">
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -74,7 +91,7 @@ response.setDateHeader ("Expires", 0);
             <ul>
               <li class="active"><a href="Index.jsp">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#team">Team</a></li>
+              <li><a href="#Features">Features</a></li>
               <li class="drop-down"><a href="">Sign Up</a>
                 <ul>
                   <li><a href="Register_student.jsp">Student</a></li>
@@ -103,9 +120,7 @@ response.setDateHeader ("Expires", 0);
 		});
  }
  </script>
-
- 
-            </ul>
+ </ul>
           </nav><!-- .nav-menu -->
 
           <a href="Login.jsp" class="get-started-btn scrollto" >Sign In</a>
@@ -133,12 +148,13 @@ response.setDateHeader ("Expires", 0);
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
           <img src="images/hero-img.jpg" class="img-fluid animated" alt="" width="300px">
+           
         </div>
       </div>
     </div>
 
   </section>
-
+ 
   <main id="main">
       <section id="about" class="about">
       <div class="container">
@@ -170,7 +186,105 @@ We have already developed such a system for our clients. Call +91-99112-44888 fo
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
+    </main>
+     <div class="py-5">
+     <h2 ><center>Features</center></h2>
+    <div class="container" >
+      <div class="row hidden-md-up">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-block" style="margin-left: 30px;">
+              <h4 class="card-title">Webcam</h4>
+              <h6 class="card-subtitle text-muted">Webcam features during exam</h6>
+              <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-block">
+              <h4 class="card-title">Emails</h4>
+              <h6 class="card-subtitle text-muted">Email Verification</h6>
+              <p class="card-text p-y-1">Better experiance with verfied emails</p>
+            </div>
+          </div>
+        </div>
+        
+      </div><br>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-block">
+              <h4 class="card-title">Tab Switching Alerts</h4>
+              <h6 class="card-subtitle text-muted">To avoid cheatings</h6>
+              <p class="card-text p-y-1">Examiner is prohibited to change tabs .</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-block">
+              <h4 class="card-title">Result In PDF Form</h4>
+              <h6 class="card-subtitle text-muted">Save your Result</h6>
+              <p class="card-text p-y-1">Save your Results and see when you want.</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="widget-main" style=" margin-left: 1200px;">
+                        <div class="widget-main-title" style="padding-bottom: 0px; padding-top: 2px;">
+                            <h4 class="" style="color: #003a6a; margin-bottom: 10px;">
+                                <b>Notice Board</b>
+                            </h4>
+                        </div>
+                        <div class="widget-inner">
+                            <marquee direction="up" onmouseover="this.stop();" style="height: 180px;" scrollamount="3" onmouseout="this.start();">
+                                <div class="prof-list-item clearfix">
+    
+                                   				
+                                         <div class="prof-details">
+                                        <h5 class="prof-name-list" style="height: 70px;">
+                                            
+                                            <img src="new-icon-gif-4.jpg" style="height: 30px; width: 35px;"><a href="Register_student.jsp" target="_blanck" style="color: #003a6a; font-size: 14px;">Register for New courses</a></br>
+                                            <img src="image.gif" style="height: 30px; width: 35px;"><a href="Login.jsp" target="_blanck" style="color: #003a6a; font-size: 14px;"> Login here </a></br>
+                                            <img src="new-icon-gif-4.jpg" style="height: 30px; width: 35px;"><a href="gpp/gpp_s20/upload/COEP VIRTAL LAB Registration Steps.pdf" target="_blanck" style="color: #003a6a; font-size: 14px;"> DEMO</a></br>
+                                            <img src="new-icon-gif-4.jpg" style="height: 30px; width: 35px;"><a href="gpp/gpp_s20/upload/COEP VIRTAL LAB Registration Steps.pdf" target="_blanck" style="color: #003a6a; font-size: 14px;"> DEMO </a></br>
+
+                                        </h5>
+                                    </div>
+                                                                    <!-- /.prof-thumb -->
+                                    <!--  <div class="prof-details">
+                                        <h5 class="prof-name-list" style="height: 30px;">
+                                            <img src="images/new.gif" style="height: 30px; width: 35px;">
+                                            <a href="http://gppune.microconnect.in/" target="_blanck"
+                                                style="color: #003a6a">Certified Courses(CEP):IOT / Robotics
+                                                / C & C++</a>
+                                        </h5>
+                                    </div>-->
+                                    <!-- /.prof-details -->
+                                </div>
+                                <!-- /.prof-list-item -->
+                                <!-- /.prof-details -->
+                            </marquee>
+    
+                            <!-- /.prof-list-item -->
+                        </div>
+                        <!-- /.widget-inner -->
+                    </div>
+                  
+    </div>
+   
+                        <!-- /.widget-inner -->
+                   
+                    
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+    <!-- End About Section -->
     <!-- ======= Testimonials Section ======= -->
     <!-- <section id="testimonials" class="testimonials section-bg">
       <div class="container" data-aos="fade-up">

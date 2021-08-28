@@ -12,7 +12,11 @@ public class DBconnection {
 			Class.forName("oracle.jdbc.OracleDriver");
 			//connection to data Base
 
+<<<<<<< HEAD
 			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","pranav2905");
+=======
+			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","12345678");
+>>>>>>> def01029b35ea2cbe06187c7138de03594fcd410
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
