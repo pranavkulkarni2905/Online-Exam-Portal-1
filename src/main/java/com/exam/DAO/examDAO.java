@@ -76,6 +76,19 @@ public class examDAO {
 		}
 		return lst;
 	}
+	public ResultSet getDataForResult(int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select * from exam_setexam where facid=?");
+			ps.setInt(1, id);
+			 rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 	public int getCourseId(String exam_code)
 	{
 		int cid = 0;
@@ -122,10 +135,7 @@ public class examDAO {
 		}
 		return count;
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 1e9caf619d3755823a0efc85f7e5e2b168eb32c2
 	public Exam getDataByCode(String ecode)
 	{
 		con = DBconnection.getConnection();
@@ -188,8 +198,5 @@ public class examDAO {
 		}
 		return b;
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 1e9caf619d3755823a0efc85f7e5e2b168eb32c2
 }

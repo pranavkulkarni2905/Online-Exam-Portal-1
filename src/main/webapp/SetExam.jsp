@@ -307,6 +307,8 @@ input, label {
 								type="radio" value="20" name="optradio">20 Min
 							</label>&nbsp&nbsp&nbsp <label class="radio-inline"> <input
 								type="radio" value="5" name="optradio">5 Min
+							</label>&nbsp&nbsp&nbsp <label class="radio-inline"> <input
+								type="radio" value="1" name="optradio">1 Min
 							</label> <br>
 						</div>
 					</div>

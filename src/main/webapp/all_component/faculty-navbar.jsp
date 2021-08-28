@@ -190,9 +190,9 @@ try{
 									class="nav-link"> <i class="fa fa-university"></i>
 										<p>Manage Exam</p>
 								</a></li>
-								<li class="nav-item"><a href="SetExam.jsp"
+								<li class="nav-item"><a href="FacultyResult.jsp"
 									class="nav-link"> <i class="fa fa-bullhorn"></i>
-										<p>Declare Result</p>
+										<p>View Results</p>
 								</a></li>
 								<hr>
 								<li class="nav-item"><a href="FacultyEnrolledStudents.jsp"

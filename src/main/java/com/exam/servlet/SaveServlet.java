@@ -1,6 +1,7 @@
 package com.exam.servlet;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,6 +36,11 @@ public class SaveServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			
+		
+			System.out.println("h1");
+			//int jsSize=Integer.parseInt(request.getParameter("js-value"));
+			//System.out.println("JS size value:"+jsSize);
 			HttpSession session = request.getSession();
 			ServletContext sc = request.getServletContext();
 			StartExamDAO exd = new StartExamDAO();
@@ -42,8 +48,12 @@ public class SaveServlet extends HttpServlet {
 			int i = Integer.parseInt(request.getParameter("curr"));
 			String ans = request.getParameter("ans");
 			int size = qd.getLength();
+			
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
+			System.out.println("h2");
+			//int timer=Integer.parseInt(request.getParameter("myField")) ;
+			//System.out.println("Timer:"+timer);
 			//int que_id = q.getqId();
 			//boolean b = exd.check_que(que_id);
 			/*if(b)
@@ -52,6 +62,8 @@ public class SaveServlet extends HttpServlet {
 				session.setAttribute("answered","You have already attempted this question");
 				response.sendRedirect("StartExam.jsp");
 			}*/
+			
+			System.out.println("h3");
 			ResultSet rs = exd.getCounter();
 			int attempted=0;
 			int corrected=0;
@@ -87,7 +99,11 @@ public class SaveServlet extends HttpServlet {
 					exd.add_que(i);
 				}
 			}
+			System.out.println("h4");
 			
+//			if(jsSize==size) {
+//				i=size-1;
+////			}
 			if (i<size-1)//0<=2---1<=2---2<2
 			{
 				System.out.println("i : " + i);
@@ -97,6 +113,7 @@ public class SaveServlet extends HttpServlet {
 				response.sendRedirect("StartExam.jsp");
 			} 
 			else {
+				//System.out.println("Timer in else : "+timer);
 				int resultId = 0;
 				ArrayList<Integer> list = new ArrayList<Integer>();
 				for (int i1 = 1; i1 < 500000; i1++) {

@@ -83,7 +83,7 @@ if (s2 == null) {
 				<script type="text/javascript">
 					Swal.fire('Ooops.!!',
 				'Please Check Exam Date Once Again..'
-					, 'warning')
+					, 'error')
 				</script>
 			</div>
 
@@ -136,7 +136,7 @@ if (s2 == null) {
 							
 								int sr1 = 1;
 								RequestDAO rd1=new RequestDAO();
-								ResultSet rs1=rd1.getDataByStudId("Accepted", s2.getStudId());
+								ResultSet rs1=rd1.getDataOfCompletedExamByStudId("Accepted", s2.getStudId(),"No");
 								 while(rs1.next()){
 									 LocalDate now=LocalDate.now();
 									 LocalDate date1=LocalDate.parse(rs1.getString(10));
@@ -205,7 +205,7 @@ if (s2 == null) {
 						try {
 							int sr2 = 1;
 							RequestDAO rd2=new RequestDAO();
-							ResultSet rs2=rd2.getDataByStudId("Accepted", s2.getStudId());
+							ResultSet rs2=rd2.getDataOfCompletedExamByStudId("Accepted", s2.getStudId(),"No");
 							 while(rs2.next()){
 								 LocalDate now=LocalDate.now();
 								 LocalDate date1=LocalDate.parse(rs2.getString(10));
@@ -271,7 +271,7 @@ if (s2 == null) {
 						try {
 							int sr3 = 1;
 							RequestDAO rd3=new RequestDAO();
-							ResultSet rs3=rd3.getDataByFlag(1, s2.getStudId());
+							ResultSet rs3=rd3.getDataByFlag(1, s2.getStudId(),"No");
 							 while(rs3.next()) {
 						%>
 

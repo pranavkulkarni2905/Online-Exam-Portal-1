@@ -109,13 +109,14 @@ public class RequestDAO {
 		}
 		return rs;
 	}
-	public ResultSet getDataByFlag(int flag, int id) {
+	public ResultSet getDataByFlag(int flag, int id,String str) {
 		con=DBconnection.getConnection();
 		ResultSet rs=null;
 		try {
-			ps=con.prepareStatement("select * from exam_requests where flag=? and studid=?");
+			ps=con.prepareStatement("select * from exam_requests where flag=? and studid=? and exam_completed=?");
 			ps.setInt(1, flag);
 			ps.setInt(2, id);
+			ps.setString(3, str);
 			rs=ps.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -169,7 +170,7 @@ public class RequestDAO {
 		boolean b=false;
 		con=DBconnection.getConnection();
 		try {
-			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and e_code=?");
+			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and exam_code=?");
 			ps.setString(1, string);
 			ps.setInt(2, sid);
 			ps.setString(3, examCode);

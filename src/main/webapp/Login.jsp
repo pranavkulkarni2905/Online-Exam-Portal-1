@@ -286,7 +286,7 @@ response.setDateHeader ("Expires", 0);
 							<a href="#" class="ml-auto mb-0 text-sm" data-target="#pwdModal"
 								data-toggle="modal">Forgot Password?</a>
 						</div>
-						<div class="g-recaptcha"
+						 <div class="g-recaptcha"
             data-sitekey="6LdlUPAbAAAAAMfNK6CvzzPIaGZPpGJR4T0KpYz-"></div><br>
 						<div class="row mb-3 px-3">
 							<button type="submit" class="btn btn-blue text-center">Login</button>

@@ -37,11 +37,12 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//System.out.println("hello");
 		HttpSession session = request.getSession();
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		// get reCAPTCHA request param
+		
 		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 		System.out.println(gRecaptchaResponse);
 		boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
@@ -49,17 +50,20 @@ public class LoginServlet extends HttpServlet {
 		studentDAO sd = new studentDAO();
 		facultyDAO fd = new facultyDAO();
 		Student stud = sd.checkStudent(email, password);
+		System.out.println("database..");
 		if(verify) {
 		if (stud != null) {
 			boolean b = sd.checkFlag(email);
-			if (b && verify) {
+			if (b  && verify) {
 				ServletContext sc=request.getServletContext();
 				sc.setAttribute("student-obj", stud);
 				session.setAttribute("stud-obj", stud);
 				System.out.println(stud.getfName());
+				//System.out.println("aaaaa");
 				response.sendRedirect("StudentDashboard.jsp");
 				} else {
 				session.setAttribute("not-verify", false);
+				//System.out.println("bbbbbb");
 				response.sendRedirect("Login.jsp");
 			}
 		} else {
@@ -86,7 +90,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("captacha-fail", "You Missed The Captcha..!!");
 			response.sendRedirect("Login.jsp");
 		}
-		
+		//System.out.println("bye");
 		
 	}
 

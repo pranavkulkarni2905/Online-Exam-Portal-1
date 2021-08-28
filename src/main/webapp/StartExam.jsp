@@ -1,6 +1,7 @@
 
-<%@page import="com.exam.DAO.examDAO"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page import="com.exam.DAO.examDAO"%>
+
 <%@page import="com.exam.model.Student"%>
 <%@page import="com.exam.DAO.questionDAO"%>
 <%@page import="com.exam.model.Question"%>
@@ -98,7 +99,7 @@ if (session.getAttribute("token") == null) {
 	    }
 	   
 	</script>
-	<script>
+<script>
 	document.addEventListener('visibilitychange',function(){
 		document.title=document.visibilityState;
 		var state = document.visibilityState;
@@ -117,7 +118,7 @@ if (session.getAttribute("token") == null) {
 	</script>
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
-	onunload="" >
+	onunload="">
 	<%
 	ServletContext sc = request.getServletContext();
 	Question que[] = (Question[]) sc.getAttribute("que");
@@ -129,9 +130,8 @@ if (session.getAttribute("token") == null) {
 	questionDAO qd = new questionDAO();
 	int size = qd.getLength();
 	int i = exd.getCurr_que();
+	
 	sc.setAttribute("question", que[i]);
-	
-	
 	%>
 	<div class="header">
 		<div class="header-right">
@@ -141,21 +141,11 @@ if (session.getAttribute("token") == null) {
 				href="#about"><b>Exam Code :</b> <%=exam_code%> </a>
 		</div>
 		<input type="hidden" value="<%=time%>" id="time">
-		
+		<input type="hidden" value="<%=size%>" id="size">
 		<p id="demo"></p>
 
 		<script>
-		var min = 1;
-		var sec = 30;
-		var timer;
-		var timeon = 0;
 		
-		//function ActivateTimer() {
-		  if (!timeon) {
-		    timeon = 1;
-		    Timer();
-		  }
-		//}
 var a=document.getElementById("time").value;
 if(localStorage.getItem("count_timer")){
     var count_timer = localStorage.getItem("count_timer");
@@ -174,11 +164,24 @@ function countDownTimer(){
     document.getElementById("demo").innerHTML = "Time Left : "+minutes+" min "+seconds+" s";
     if(count_timer <= 0){
          localStorage.clear("count_timer");
+         
          // alert after time ends
-          alert('time elapsed');
-         <%
-         	// response.sendRedirect("SaveServlet");
-         %>
+         // var size=parseInt(document.getElementById("size").value);
+          Swal.fire({
+	    		  title: "Ooops!!!",
+	    		  text: "Time Elapsed..",
+	    		  icon: "error",
+	    		  confirmButtonClass: "btn-danger",
+	    		  confirmButtonText: "Okay..Noted it.!",
+	    		  closeOnConfirm: true
+	    		}
+	    	)
+          
+         window.location.href="EndExamPage.jsp";
+           //document.location.href='SaveServlet?size='+size;
+          // document.form.submit();
+        // document.getElementById('click').dispatchEvent(new MouseEvent("click"));
+
     } else {
         count_timer = count_timer -1 ;
         minutes = parseInt(count_timer/60);
@@ -186,25 +189,11 @@ function countDownTimer(){
         localStorage.setItem("count_timer",count_timer);
         setTimeout("countDownTimer()",1000);
     }
+    //document.getElementById('myField').value=count_timer;
 }
 setTimeout("countDownTimer()",1000);
 
-		function Timer() {
-		  var _time = "Time Left :"+ min + ":" + sec;
-		  document.getElementById("demo").innerHTML = _time;
-		  if (_time != "0:0") {
-		    if (sec == 0) {
-		      min = min - 1;
-		      sec = 59;
-		    } else {
-		      sec = sec - 1;
-		    }
-		    timer = setTimeout("Timer()", 1000);
-		  } else {
-			 
-		    window.location.href = "SaveServlet";
-		  }
-		}
+	
 </script>
 
 
@@ -251,24 +240,22 @@ setTimeout("countDownTimer()",1000);
     });  
 </script>
 	<%
-		try{
+	try {
 		String msg = (String) session.getAttribute("answered");
-		if(msg!=null)
-		{
-			%>
-			<script type="text/javascript">
+		if (msg != null) {
+	%>
+	<script type="text/javascript">
 			swal("You have already attempted this question.");
 			</script>
-			<%
-		}
-		}catch(Exception e)
-	{
-			
+	<%
+	}
+	} catch (Exception e) {
+
 	}
 	session.removeAttribute("answered");
 	%>
-	<form>
-	
+	<form name="form">
+
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6">
@@ -325,21 +312,42 @@ setTimeout("countDownTimer()",1000);
 					<%
 					if (i == size - 1) {
 					%>
-					<button type="submit" formaction="SaveServlet"
+					<button type="submit" id="click" formaction="SaveServlet"
 						style="margin-left: 5px; margin-top: 40px; background-color: red;"
-						class="btn btn-success" class="next">End Exam</button>
+						class="btn btn-success" class="next" >End Exam</button>
 						
-					<%
-					}else{
+						<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation !!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="color: red">
+       Are You Sure to End Exam ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning" >End Exam</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<%
+					
+					} else {
 					%>
-					<button type="submit" formaction="SaveServlet"
+					<button type="submit"  formaction="SaveServlet"
 						style="margin-left: 50px; margin-top: 40px; background-color: green;"
 						class="btn btn-success" class="next">Save</button>
 					<button type="submit" formaction="NextServlet"
 						style="margin-left: 50px; margin-top: 40px; background-color: blue;"
 						class="btn btn-success" class="next">Next</button>
-						<%	}
-						%>
+					<%
+					}
+					%>
 					<h5 style="color: red; margin-left: 300px; margin-top: 40px;">
 						<b>End Exam button will be available on Last Question</b>
 					</h5>
@@ -399,45 +407,6 @@ setTimeout("countDownTimer()",1000);
 	</div>
 	</div>
 	</div>
-	<script>
-	 $(document).ready(function() {
-	        $('body').bind('cut copy paste', function(e) {
-	            e.preventDefault();
-	        })
-	        $('body').on("contextmenu", function(e) {
-	            return false;
-	        })
-	    })
-	    document.onselectstart=()=>{
-	    	event.preventDefault();
-	    	swal.fire({
-	    		  title: "Warning / Alert!!!",
-	    		  text: "You Appear to get the help from other sources during examination. This may lead to registering copy case against you.",
-	    		  icon: "warning",
-	    		  confirmButtonClass: "btn-danger",
-	    		  confirmButtonText: "Okay..Noted it.!",
-	    		  closeOnConfirm: true
-	    		}
-	    	)
-	    }
-	   
-	</script>
-	<script>
-	document.addEventListener('visibilitychange',function(){
-		document.title=document.visibilityState;
-		var state = document.visibilityState;
-		if(state ==='hidden'){
-			swal.fire({
-	    		  title: "Warning / Alert!!!",
-	    		  text: "You are switching tabs.Please don't do this. This may lead to register copy case against you.",
-	    		  icon: "warning",
-	    		  confirmButtonClass: "btn-danger",
-	    		  confirmButtonText: "Okay..Noted it.!",
-	    		  closeOnConfirm: true
-	    		}
-	    	)
-		}
-	});
-	</script>
+	
 </body>
 </html>
