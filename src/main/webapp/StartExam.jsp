@@ -345,7 +345,7 @@ setTimeout("countDownTimer()",1000);
 					</h5>
 				</div>
 	</form>
-
+	<form>
 	<div class="col-lg-6">
 		<div class="container3">
 			<div class="border">
@@ -353,14 +353,12 @@ setTimeout("countDownTimer()",1000);
 				<%
 				for (int j = 1; j <= size; j++) {
 				%>
-				<button type="button" class="btn btn-info"
-					style="background-color: yellow">
-					<a href=""><%=j%></a>
-				</button>
+				<a href="PaginationServlet?que=<%=j%>" class="btn btn-info" style="background-color: yellow">
+				<%=j%></a>
 				<%
 				}
 				%>
-
+	
 				<hr>
 				<button type="button" style="background-color: red;"
 					class="btn btn-info"><%=i + 1%></button>
@@ -399,6 +397,7 @@ setTimeout("countDownTimer()",1000);
 	</div>
 	</div>
 	</div>
+	</form>
 	<script>
 	 $(document).ready(function() {
 	        $('body').bind('cut copy paste', function(e) {
