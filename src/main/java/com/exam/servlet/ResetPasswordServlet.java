@@ -1,6 +1,9 @@
 package com.exam.servlet;
 
 import java.io.IOException;
+import java.util.Base64;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +35,16 @@ public class ResetPasswordServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String password=request.getParameter("password");
+			String ecryptedPass=Base64.getEncoder().encodeToString(password.getBytes());
 			String confirmPassword=request.getParameter("confirmPassword");
 			HttpSession session=null;
 			if(password.contentEquals(confirmPassword)) {
 				commmonDAO cd=new commmonDAO();
 				session=request.getSession();
-				String email=(String)session.getAttribute("e1");
-				boolean b=cd.resetPassword(password,email);
+				ServletContext sc=request.getServletContext();
+				String email=(String)sc.getAttribute("forgot-email");
+				//String email=(String)session.getAttribute("e1");
+				boolean b=cd.resetPassword(ecryptedPass,email);
 				if(b) {
 					session=request.getSession();
 					session.setAttribute("pass-update-success", true);

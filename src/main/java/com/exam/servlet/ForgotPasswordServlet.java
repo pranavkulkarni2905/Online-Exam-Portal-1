@@ -1,6 +1,8 @@
 package com.exam.servlet;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,7 +51,7 @@ public class ForgotPasswordServlet extends HttpServlet {
 						+ "      <div class=\"cotainer\" style=\"height: 620px;background-color:black;color:white;\">\r\n"
 						+ "      <p style=\"margin-left: 25%;\"><br>Hello, <br> Forgotte'n password.. Don't Worry<br><br>No need to worry,you can reset your ThinkExam password by clicking the button below.<br>You are receiving this email beacause you or someone else has requested a password reset for your account.<br><br>If you did not request a password reset you can safely ignore this email.</p>\r\n"
 						+ "\r\n"
-						+ "     <p style=\"margin-left: 25%;\"><a href=\"http://localhost:8007/Online_Exam_Portal/ResetPassword.jsp\"><button type=\"button\" class=\"button\" style=\"text-align: center; width:270px; height:50px;border: none;outline: 0;display: inline-block;padding: 5px;color:white;background-color:green;text-align: center;cursor: pointer;width: 35%;\">Reset Password</button></a></p><br>\r\n"
+						+ "     <p style=\"margin-left: 25%;\"><a href=\"http://localhost:8086/Online_Exam_Portal1/ResetPassword.jsp\"><button type=\"button\" class=\"button\" style=\"text-align: center; width:270px; height:50px;border: none;outline: 0;display: inline-block;padding: 5px;color:white;background-color:green;text-align: center;cursor: pointer;width: 35%;\">Reset Password</button></a></p><br>\r\n"
 						+ "       \r\n"
 						+ "         <p style=\"margin-left: 25%;\"> If you have any concerns ,please contact us at<br><br>\r\n"
 						+ "          thinkexamportal@gmail.co<br><br></p><p style=\"margin-left: 25%;\">\r\n"
@@ -63,6 +65,8 @@ public class ForgotPasswordServlet extends HttpServlet {
 
 				sm.sendMail(email, sub, msg);
 				HttpSession session = request.getSession();
+				ServletContext sc=request.getServletContext();
+				sc.setAttribute("forgot-email", email);
 				session.setAttribute("e1", "We Have Sent a Email on "+email+" For Reset Password.");
 				response.sendRedirect("Login.jsp");
 			} else {

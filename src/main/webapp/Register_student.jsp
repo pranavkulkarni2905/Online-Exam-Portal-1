@@ -19,11 +19,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
+<script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="sweetalert2.all.min.js"></script>
 <style>
 body {
 	background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
 }
+
 </style>
 </head>
 <body>
@@ -38,8 +45,9 @@ body {
 			%>
 			<div class="alert alert-success alert-dismissible text-center">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<b><h5><%=msg%>Click Here to <a href="https://mail.google.com/">Verify</a>
-				</h5></b>
+				<b><h5><%=msg%>Click Here to <a
+							href="https://mail.google.com/">Verify</a>
+					</h5></b>
 			</div>
 			<%
 			}
@@ -121,12 +129,12 @@ body {
 							<div class="col-sm-6 form-group">
 								<label>First Name</label> <input type="text"
 									placeholder="Enter First Name Here.." class="form-control"
-									name="fname" required="required">
+									name="fname" required="required" id="fname">
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Last Name</label> <input type="text"
 									placeholder="Enter Last Name Here.." class="form-control"
-									name="lname" required="required">
+									name="lname" required="required" id="lname">
 							</div>
 						</div>
 
@@ -174,25 +182,72 @@ body {
 							</div>
 						</div>
 						<div class="form-group">
-							<label>Password</label> <input type="password"
-								placeholder="Enter Password Here.." class="form-control"
-								name="pass" required="required">
+							<div class="col-sm-6 form-group" id="div1">
+								<label>Password</label> <input type="password" id="psw"
+									placeholder="Enter Password Here.." class="form-control"
+									name="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+									title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+									required="required">
+							</div>
+							<div class="col-sm-6 form-group" id="div1">
+								
+							</div>
 						</div>
 						<div class="row">
-						<div class="col-sm-6 form-group">
-							<label>Confirm Password</label> <input type="password"
-								placeholder="Confirm Password Here.." class="form-control"
-								name="cnf_pass" required="required">
+							<div class="col-sm-6 form-group">
+								<label>Confirm Password</label> <input type="password"
+									placeholder="Confirm Password Here.." class="form-control"
+									name="cnf_pass" required="required">
+							</div>
+							<div class="col-sm-6 form-group" id="div1">
+								
+							</div>
 						</div>
-						<div class="col-sm-6 form-group" id="div1"></div>
-						</div>
-						<button type="submit" class="btn btn-success ">Register</button>
+						<button onclick="validate()" type="submit"
+							class="btn btn-success ">Register</button>
 						&nbsp&nbsp&nbsp <a href="Index.jsp" class="btn btn-info">Home</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script>
+		function validate() {
+			var regName = '/^[a-zA-Z]+ [a-zA-Z]+$/';
+			var fname = document.getElementById('fname').value;
+			var lname = document.getElementById('lname').value;
+			if (!regName.test(fname)) {
+				Swal.fire({
+					title : "Error!!!",
+					text : "Please Enter Proper & Correct Name..",
+					icon : "error",
+					confirmButtonClass : "btn-danger",
+					confirmButtonText : "Okay..Noted it.!",
+					closeOnConfirm : true
+				})
+				document.getElementById('fname').focus();
+				return false;
+			} else {
+				//alert('Valid name given.');
+				return true;
+			}
 
+			if (!regName.test(lname)) {
+				Swal.fire({
+					title : "Error!!!",
+					text : "Please Enter Proper & Correct Name..",
+					icon : "error",
+					confirmButtonClass : "btn-danger",
+					confirmButtonText : "Okay..Noted it.!",
+					closeOnConfirm : true
+				})
+				document.getElementById('lname').focus();
+				return false;
+			} else {
+				//alert('Valid name given.');
+				return true;
+			}
+		}
+	</script>
 </body>
 </html>

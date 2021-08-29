@@ -166,7 +166,7 @@ rotate(
 
 	<div class="mainDiv">
 		<div class="cardStyle">
-			<form action="ChangepasswordServlet" method="post" name="signupForm"
+			<form action="ChangePasswordServlet2" method="post" name="signupForm"
 				id="signupForm">
 				<%
 				String msg1 = (String) session.getAttribute("pass-notMatch");
