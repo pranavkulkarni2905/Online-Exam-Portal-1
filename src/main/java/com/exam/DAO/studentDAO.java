@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.servlet.http.Part;
 
@@ -63,10 +64,13 @@ public class studentDAO {
 	public Student checkStudent(String email,String pass) {
 		con=DBconnection.getConnection();
 		Student stud=null;
+	//	String decryptPass=new String(Base64.getMimeDecoder().decode(pass));
+		String ecryptedPass=Base64.getEncoder().encodeToString(pass.getBytes());
+		System.out.println(ecryptedPass);
 		try {
 			ps=con.prepareStatement("select * from exam_student where email=? and password=?");
 			ps.setString(1, email);
-			ps.setString(2, pass);
+			ps.setString(2, ecryptedPass);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()) {
 				stud=new Student();

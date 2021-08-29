@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
@@ -110,8 +111,10 @@ public class RegisterStudentServlet extends HttpServlet {
 			if(password.contentEquals(cnf_pass)) {
 			if (f==true) {
 				if (isValid(mobNo)) {
+					//password ecrypted
+					String ecryptedPass=Base64.getEncoder().encodeToString(password.getBytes());
 					Student stud = new Student(studId, fName, lName, city, state, gender, dob, photo, email, mobNo,
-							password);
+							ecryptedPass);
 					boolean b = sd.registerStudent(stud);
 					int count=1;
 					if (b) {

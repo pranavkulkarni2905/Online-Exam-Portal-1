@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,7 +99,8 @@ public class RegisterFacultyServlet extends HttpServlet {
 			if(password.contentEquals(cnf_pass)) {
 				if (f==true) {
 					if (isValid(mobno)) {
-						Faculty fac = new Faculty(facId, fname, lname, education, gender, dob, photo, mobno, email,password);
+						String ecryptedPass=Base64.getEncoder().encodeToString(password.getBytes());
+						Faculty fac = new Faculty(facId, fname, lname, education, gender, dob, photo, mobno, email,ecryptedPass);
 						boolean b = fd.registerFaculty(fac);
 						if (b) {
 							session=request.getSession();

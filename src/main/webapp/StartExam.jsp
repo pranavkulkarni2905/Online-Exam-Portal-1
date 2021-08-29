@@ -361,7 +361,7 @@ setTimeout("countDownTimer()",1000);
 				<%
 				for (int j = 1; j <= size; j++) {
 				%>
-				<a href="PaginationServlet?que=<%=j%>" class="btn btn-info" style="background-color: yellow">
+				<a href="PaginationServlet?que=<%=j%>" class="btn btn-info" style="background-color:tomato;">
 				<%=j%></a>
 				<%
 				}
@@ -405,50 +405,9 @@ setTimeout("countDownTimer()",1000);
 	</div>
 	</div>
 	</div>
-<<<<<<< HEAD
-	
-=======
+
 	</form>
-	<script>
-	 $(document).ready(function() {
-	        $('body').bind('cut copy paste', function(e) {
-	            e.preventDefault();
-	        })
-	        $('body').on("contextmenu", function(e) {
-	            return false;
-	        })
-	    })
-	    document.onselectstart=()=>{
-	    	event.preventDefault();
-	    	swal.fire({
-	    		  title: "Warning / Alert!!!",
-	    		  text: "You Appear to get the help from other sources during examination. This may lead to registering copy case against you.",
-	    		  icon: "warning",
-	    		  confirmButtonClass: "btn-danger",
-	    		  confirmButtonText: "Okay..Noted it.!",
-	    		  closeOnConfirm: true
-	    		}
-	    	)
-	    }
-	   
-	</script>
-	<script>
-	document.addEventListener('visibilitychange',function(){
-		document.title=document.visibilityState;
-		var state = document.visibilityState;
-		if(state ==='hidden'){
-			swal.fire({
-	    		  title: "Warning / Alert!!!",
-	    		  text: "You are switching tabs.Please don't do this. This may lead to register copy case against you.",
-	    		  icon: "warning",
-	    		  confirmButtonClass: "btn-danger",
-	    		  confirmButtonText: "Okay..Noted it.!",
-	    		  closeOnConfirm: true
-	    		}
-	    	)
-		}
-	});
-	</script>
->>>>>>> def01029b35ea2cbe06187c7138de03594fcd410
+	
+
 </body>
 </html>

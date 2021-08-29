@@ -144,6 +144,13 @@
 										<p>Change password</p>
 								</a></li>
 								<hr>
+								<li class="nav-item"><a href=""
+									class="nav-link "> <i class="fa fa-key"></i>
+										<p>Editor/Compiler</p>
+								</a></li>
+								<a class="nav-link ">HTML/CSS/JS</a>
+								
+								<hr>
 								<li class="nav-item"><a href="RequestExam.jsp"
 									class="nav-link "> <i class="fa fa-eye"></i>
 										<p>View All Exams</p>

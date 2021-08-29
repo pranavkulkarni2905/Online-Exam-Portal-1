@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import com.exam.model.Faculty;
 import com.exam.model.Student;
@@ -52,10 +53,12 @@ public class facultyDAO {
 	public Faculty checkFaculty(String email,String pass) {
 		Connection con=DBconnection.getConnection();
 		Faculty fac=null;
+		String ecryptedPass=Base64.getEncoder().encodeToString(pass.getBytes());
+		System.out.println(ecryptedPass);
 		try {
 			PreparedStatement ps=con.prepareStatement("select * from exam_faculty where email=? and password=?");
 			ps.setString(1, email);
-			ps.setString(2, pass);
+			ps.setString(2, ecryptedPass);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()) {
 				fac=new Faculty();

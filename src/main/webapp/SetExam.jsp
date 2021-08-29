@@ -299,9 +299,7 @@ input, label {
 						<div class="col-sm-8">
 							<label class="radio-inline"> <input type="radio"
 								name="optradio" value="60" checked>60 Min
-							</label>&nbsp&nbsp&nbsp <label class="radio-inline"> <input
-								type="radio" value="40" name="optradio">40 Min
-							</label>&nbsp&nbsp&nbsp <label class="radio-inline"> <input
+							</label>&nbsp&nbsp&nbsp  <label class="radio-inline"> <input
 								type="radio" value="30" name="optradio">30 Min
 							</label>&nbsp&nbsp&nbsp <label class="radio-inline"> <input
 								type="radio" value="20" name="optradio">20 Min
