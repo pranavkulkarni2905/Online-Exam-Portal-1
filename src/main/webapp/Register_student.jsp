@@ -30,7 +30,6 @@
 body {
 	background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
 }
-
 </style>
 </head>
 <body>
@@ -129,12 +128,16 @@ body {
 							<div class="col-sm-6 form-group">
 								<label>First Name</label> <input type="text"
 									placeholder="Enter First Name Here.." class="form-control"
-									name="fname" required="required" id="fname">
+									name="fname" required="required" id="fname"
+									pattern="[A-Za-z]{1,20}"
+									title="First Name should only contain letters. e.g. john">
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Last Name</label> <input type="text"
 									placeholder="Enter Last Name Here.." class="form-control"
-									name="lname" required="required" id="lname">
+									name="lname" required="required" id="lname"
+									pattern="[A-Za-z]{1,20}"
+									title="Last Name should only contain letters. e.g. john">
 							</div>
 						</div>
 
@@ -182,16 +185,13 @@ body {
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-6 form-group" id="div1">
-								<label>Password</label> <input type="password" id="psw"
-									placeholder="Enter Password Here.." class="form-control"
-									name="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-									title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-									required="required">
-							</div>
-							<div class="col-sm-6 form-group" id="div1">
-								
-							</div>
+
+							<label>Password</label> <input type="password" id="psw"
+								placeholder="Enter Password Here.." class="form-control"
+								name="pass" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+								title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+								required="required">
+
 						</div>
 						<div class="row">
 							<div class="col-sm-6 form-group">
@@ -199,9 +199,7 @@ body {
 									placeholder="Confirm Password Here.." class="form-control"
 									name="cnf_pass" required="required">
 							</div>
-							<div class="col-sm-6 form-group" id="div1">
-								
-							</div>
+							<div class="col-sm-6 form-group" id="div1"></div>
 						</div>
 						<button onclick="validate()" type="submit"
 							class="btn btn-success ">Register</button>

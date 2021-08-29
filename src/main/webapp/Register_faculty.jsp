@@ -29,15 +29,18 @@ body {
 <body>
 
 	<div class="container">
-		<h1 class="well"><img src="images/logo.png" class="logo" width="120px">Faculty Registration Form
-		<%
+		<h1 class="well">
+			<img src="images/logo.png" class="logo" width="120px">Faculty
+			Registration Form
+			<%
 			String msg = (String) session.getAttribute("fac-reg-success");
 			if (msg != null) {
 			%>
 			<div class="alert alert-success alert-dismissible text-center">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<b><h5><%=msg%>Click Here to <a href="https://mail.google.com/">Verify</a>
-				</h5></b>
+				<b><h5><%=msg%>Click Here to <a
+							href="https://mail.google.com/">Verify</a>
+					</h5></b>
 			</div>
 			<%
 			}
@@ -56,7 +59,7 @@ body {
 			}
 			session.removeAttribute("fac-reg-fail");
 			%>
-			
+
 			<%
 			String msg3 = (String) session.getAttribute("fac-email-fail");
 			if (msg3 != null) {
@@ -119,19 +122,24 @@ body {
 							<div class="col-sm-6 form-group">
 								<label>First Name</label> <input type="text"
 									placeholder="Enter First Name Here.." class="form-control"
-									name="fname" required>
+									name="fname" pattern="[A-Za-z]{1,20}"
+									title="First Name should only contain letters. e.g. john"
+									required>
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Last Name</label> <input type="text"
 									placeholder="Enter Last Name Here.." class="form-control"
-									name="lname" required>
+									name="lname" pattern="[A-Za-z]{1,20}"
+									title="Last Name should only contain letters. e.g. john"
+									required>
 							</div>
 						</div>
 
 						<div class="row">
 
 							<div class="col-sm-5 form-group">
-								<label>Education</label> <select class="form-control" name="educ" required>
+								<label>Education</label> <select class="form-control"
+									name="educ" required>
 									<option>B.E/B.Tech</option>
 									<option>M.E/M.Tech</option>
 									<option>PhD</option>
@@ -139,7 +147,8 @@ body {
 								</select>
 							</div>
 							<div class="col-sm-5 form-group">
-								<label>Gender</label> <select class="form-control" name="gen" required>
+								<label>Gender</label> <select class="form-control" name="gen"
+									required>
 									<option>Male</option>
 									<option>Female</option>
 									<option>Other</option>
@@ -164,16 +173,21 @@ body {
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Email Address</label> <input type="email"
-									placeholder="Enter Email Address Here.." class="form-control" name="email" required>
+									placeholder="Enter Email Address Here.." class="form-control"
+									name="email" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Password</label> <input type="password"
-								placeholder="Enter Password Here.." class="form-control" name="pass" required>
+								placeholder="Enter Password Here.." class="form-control"
+								name="pass" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+								title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+								required>
 						</div>
 						<div class="form-group">
 							<label>Confirm Password</label> <input type="password"
-								placeholder="Confirm Password Here.." class="form-control" name="cnf_pass" required>
+								placeholder="Confirm Password Here.." class="form-control"
+								name="cnf_pass" required>
 						</div>
 						<button type="submit" class="btn btn-lg btn-success ">Register</button>
 						&nbsp&nbsp&nbsp <a href="Index.jsp" class="btn btn-lg btn-info">Home</a>
