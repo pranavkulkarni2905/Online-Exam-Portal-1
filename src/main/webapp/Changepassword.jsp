@@ -148,7 +148,7 @@ rotate(
 </style>
 
 </head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
 
 	<%@include file="all_component/student-navbar.jsp"%>
 	<nav aria-label="breadcrumb" class="main-breadcrumb">
