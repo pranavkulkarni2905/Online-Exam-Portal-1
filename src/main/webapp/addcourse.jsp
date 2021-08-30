@@ -130,7 +130,7 @@ h3{
 					<form action="AddCourseServlet" method="post">
 						<div class="form-outline mb-4">
 							<label class="form-label" for="form1Example1">Course Code : &nbsp&nbsp</label>
-							<input type="text" id="form1Example1" name="ccode" required />
+							<input type="text" id="form1Example1" name="ccode" pattern="[0-9]{1,15}" title="Must Contain Only Numbers" required />
 						</div>
 
 						<!-- Password input -->

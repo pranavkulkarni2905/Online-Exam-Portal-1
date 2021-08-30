@@ -79,11 +79,11 @@ input[type=text] {
 }
 </style>
 <script>
-	var secs = 5;
+	var secs = 30;
 
 	//countdown function is evoked when page is loaded
 	function countdown() {
-		setTimeout('Decrement()', 5);
+		setTimeout('Decrement()', 30);
 	}
 
 	//Decrement function decrement the value.

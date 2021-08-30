@@ -41,13 +41,18 @@ body {
 			<%
 			String msg = (String) session.getAttribute("stud-reg-success");
 			if (msg != null) {
-			%>
-			<div class="alert alert-success alert-dismissible text-center">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<b><h5><%=msg%>Click Here to <a
-							href="https://mail.google.com/">Verify</a>
-					</h5></b>
-			</div>
+			%><script>
+			Swal.fire({
+		    		  title: "Done..!!",
+		    		  text: "Registration Successfully..We Have Sent a Mail To Verify Your Account.Please Verify Before Login, without verification you can't Login.",
+		    		  icon: 'success',
+		    		  confirmButtonColor: '#d33',
+		    		  //confirmButtonClass: "btn-danger",
+		    		  confirmButtonText: 'Okay!',
+		    		  closeOnConfirm: true
+		    		}
+		    	)
+		    	</script>
 			<%
 			}
 			session.removeAttribute("stud-reg-success");

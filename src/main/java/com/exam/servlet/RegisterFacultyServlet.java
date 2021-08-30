@@ -31,6 +31,7 @@ import com.exam.verify.sendHtmlMail;
 @WebServlet("/RegisterFacultyServlet")
 public class RegisterFacultyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	public boolean isValid(String mobNo) {
 
 		// The given argument to compile() method
@@ -48,12 +49,14 @@ public class RegisterFacultyServlet extends HttpServlet {
 		Matcher m = p.matcher(mobNo);
 		return (m.find() && m.group().equals(mobNo));
 	}
+
 	public RegisterFacultyServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int facId = 0;
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for (int i = 1; i < 500000; i++) {
@@ -76,17 +79,20 @@ public class RegisterFacultyServlet extends HttpServlet {
 			String password = request.getParameter("pass");
 			String cnf_pass = request.getParameter("cnf_pass");
 
-			HttpSession session=null;
+			HttpSession session = null;
 			ExistMail em = new ExistMail();
 			facultyDAO fd = new facultyDAO();
 			ResultSet rs = fd.getAllFaculty();
-			int flag=0;
-			RequestDispatcher rd=request.getRequestDispatcher("Register_faculty.jsp");
+			int flag = 0;
+			boolean h = true;
+			RequestDispatcher rd = request.getRequestDispatcher("Register_faculty.jsp");
 			try {
 				while (rs.next()) {
-					if ((rs.getString(8).contentEquals(email)) && (rs.getString(9).contentEquals(mobno))) {
+					if ((rs.getString(8).contentEquals(email)) || (rs.getString(9).contentEquals(mobno))) {
 						session = request.getSession();
-						session.setAttribute("fac-email-fail","This Email or mobile no is already Registered.Please Enter valid email/mobile no");
+						h = false;
+						session.setAttribute("fac-email-fail",
+								"This Email or mobile no is already Registered.Please Enter valid email/mobile no");
 						response.sendRedirect("Register_faculty.jsp");
 					}
 				}
@@ -95,74 +101,77 @@ public class RegisterFacultyServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			boolean f=em.isAddressValid(email);
-			if(password.contentEquals(cnf_pass)) {
-				if (f==true) {
-					if (isValid(mobno)) {
-						String ecryptedPass=Base64.getEncoder().encodeToString(password.getBytes());
-						Faculty fac = new Faculty(facId, fname, lname, education, gender, dob, photo, mobno, email,ecryptedPass);
-						boolean b = fd.registerFaculty(fac);
-						if (b) {
-							session=request.getSession();
-							String id=String.valueOf(facId);
-							session.setAttribute("facId", id);
-							sendHtmlMail sm=new sendHtmlMail();
-							String sub="[ThinkExam] Verify Your Email";
-							String msg = "<div class=\"card\" style =\"width:70%; height:100%; margin-top: 50px;margin-left:10px; background-color: black;\">\r\n"
-									+ "    <header class=\"header\" style=\"background-color: black;\">\r\n"
-									+ "   <img src=\"https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg\" height=\"200px\" width=\"50%\" style=\"margin-top: 15px; margin-left: 25%; color: black;align:center;\">\r\n"
-									+ "   </header>\r\n"
-									+ "     \r\n"
-									+ "      <div class=\"cotainer\" style=\"height: 620px;background-color:black;color:white;\">\r\n"
-									+ "      <p style=\"margin-left: 25%;\"><br>Hello Faculty, <br> Thank You For Using ThinkExam Portal<br><br>Before we get started please verify your email address.Please click on the link below to verify your email.</p>\r\n"
-									+ "\r\n"
-									+ "     <p style=\"margin-left: 25%;\"><a href=\"http://localhost:8086/Online_Exam_Portal1/VerifyEmail.jsp\"><button type=\"button\" class=\"button\" style=\"text-align: center; width:270px; height:50px;border: none;outline: 0;display: inline-block;padding: 5px;color:white;background-color:green;text-align: center;cursor: pointer;width: 35%;\">Click Here to Verify Your Email</button></a></p><br>\r\n"
-									+ "         <p style=\"margin-left: 25%;\"> OR <br>copy and paste the following link in yourbrowser:<br><br><a href=\"#\">https://xxxxxxxxxxxxxxxxxxxxxxx</a><br><br></p>\r\n"
-									+ "         <p style=\"margin-left: 25%;\"> If you have any concerns ,please contact us at<br><br>\r\n"
-									+ "          thinkexamportal@gmail.co<br><br></p><p style=\"margin-left: 25%;\">Thank you for Regestered on ThinkExam Portal.Please Verify your email.<br>If you beleive you've received this messsage in error,<br>we apologize-feel free to ignore it.<br><br>\r\n"
-									+ "\r\n"
-									+ "          Thanks,<br>\r\n"
-									+ "          Team ThinkExam Portal</p>\r\n"
-									+ "      </p>\r\n"
-									+ "      </div>\r\n"
-									+ "    </div>";
+			boolean f = em.isAddressValid(email);
+			if (h) {
+				if (password.contentEquals(cnf_pass)) {
+					if (f == true) {
+						if (isValid(mobno)) {
+							String ecryptedPass = Base64.getEncoder().encodeToString(password.getBytes());
+							Faculty fac = new Faculty(facId, fname, lname, education, gender, dob, photo, mobno, email,
+									ecryptedPass);
+							boolean b = fd.registerFaculty(fac);
+							if (b) {
+								session = request.getSession();
+								String id = String.valueOf(facId);
+								session.setAttribute("facId", id);
+								sendHtmlMail sm = new sendHtmlMail();
+								String sub = "[ThinkExam] Verify Your Email";
+								String msg = "<div class=\"card\" style =\"width:100%; height:100%; margin-top: 50px;margin-left:10px; background-color: black;\">\r\n"
+										+ "    <header class=\"header\" style=\"background-color: black;\">\r\n"
+										+ "   <img src=\"https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg\" height=\"200px\" width=\"50%\" style=\"margin-top: 15px; margin-left: 25%; color: black;align:center;\">\r\n"
+										+ "   </header>\r\n" + "     \r\n"
+										+ "      <div class=\"cotainer\" style=\"height: 620px;background-color:black;color:white;\">\r\n"
+										+ "      <p style=\"margin-left: 25%;\"><br>Hello Faculty, <br> Thank You For Using ThinkExam Portal<br><br>Before we get started please verify your email address.Please click on the link below to verify your email.</p>\r\n"
+										+ "\r\n"
+										+ "     <p style=\"margin-left: 25%;\"><a href=\"http://localhost:8086/Online_Exam_Portal1/VerifyEmail.jsp\"><button type=\"button\" class=\"button\" style=\"text-align: center; width:270px; height:50px;border: none;outline: 0;display: inline-block;padding: 5px;color:white;background-color:green;text-align: center;cursor: pointer;width: 35%;\">Click Here to Verify Your Email</button></a></p><br>\r\n"
+										+ "         <p style=\"margin-left: 25%;\"> OR <br>copy and paste the following link in yourbrowser:<br><br><a href=\"#\">https://xxxxxxxxxxxxxxxxxxxxxxx</a><br><br></p>\r\n"
+										+ "         <p style=\"margin-left: 25%;\"> If you have any concerns ,please contact us at<br><br>\r\n"
+										+ "          thinkexamportal@gmail.co<br><br></p><p style=\"margin-left: 25%;\">Thank you for Regestered on ThinkExam Portal.Please Verify your email.<br>If you beleive you've received this messsage in error,<br>we apologize-feel free to ignore it.<br><br>\r\n"
+										+ "\r\n" + "          Thanks,<br>\r\n"
+										+ "          Team ThinkExam Portal</p>\r\n" + "      </p>\r\n"
+										+ "      </div>\r\n" + "    </div>";
 
-							sm.sendMail(email, sub, msg);
-							//System.out.println("inserted");
-							session = request.getSession();
-							session.setAttribute("fac-reg-success", "Registered Successfully..We Have Sent an Email On "+email+" .Plese Verify before Login.");
-							response.sendRedirect("Register_faculty.jsp");
+								sm.sendMail(email, sub, msg);
+								// System.out.println("inserted");
+								session = request.getSession();
+								session.setAttribute("fac-reg-success",
+										"Registered Successfully..We Have Sent an Email On " + email
+												+ " .Plese Verify before Login.");
+								response.sendRedirect("Register_faculty.jsp");
+							} else {
+								// System.out.println("not insert");
+								session = request.getSession();
+								session.setAttribute("fac-reg-fail", "Something went wrong on server.");
+								response.sendRedirect("Register_faculty.jsp");
+							}
 						} else {
-							//System.out.println("not insert");
 							session = request.getSession();
-							session.setAttribute("fac-reg-fail", "Something went wrong on server.");
+							session.setAttribute("fac-mob-inValid", "Invalid Mobile No..Please Enter Valid..!");
 							response.sendRedirect("Register_faculty.jsp");
 						}
 					} else {
 						session = request.getSession();
-						session.setAttribute("fac-mob-inValid", "Invalid Mobile No..Please Enter Valid..!");
+						session.setAttribute("fac-email-inValid", "Invalid Email Id..Please Enter Valid..!");
 						response.sendRedirect("Register_faculty.jsp");
 					}
 				} else {
 					session = request.getSession();
-					session.setAttribute("fac-email-inValid", "Invalid Email Id..Please Enter Valid..!");
+					session.setAttribute("password-notMatch", "Password Does Not Match...!!");
 					response.sendRedirect("Register_faculty.jsp");
 				}
-			}else {
-				session = request.getSession();
-				session.setAttribute("password-notMatch", "Password Does Not Match...!!");
-				response.sendRedirect("Register_faculty.jsp");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

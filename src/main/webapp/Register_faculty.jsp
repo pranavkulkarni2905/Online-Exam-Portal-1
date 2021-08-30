@@ -20,6 +20,12 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="sweetalert2.all.min.js"></script>
 <style>
 body {
 	background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
@@ -36,12 +42,18 @@ body {
 			String msg = (String) session.getAttribute("fac-reg-success");
 			if (msg != null) {
 			%>
-			<div class="alert alert-success alert-dismissible text-center">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<b><h5><%=msg%>Click Here to <a
-							href="https://mail.google.com/">Verify</a>
-					</h5></b>
-			</div>
+			<script>
+			Swal.fire({
+		    		  title: "Done..!!",
+		    		  text: "Registration Successfully..We Have Sent a Mail To Verify Your Account.Please Verify Before Login, without verification you can't Login.",
+		    		  icon: 'success',
+		    		  confirmButtonColor: '#d33',
+		    		  //confirmButtonClass: "btn-danger",
+		    		  confirmButtonText: 'Okay!',
+		    		  closeOnConfirm: true
+		    		}
+		    	)
+		    	</script>
 			<%
 			}
 			session.removeAttribute("fac-reg-success");

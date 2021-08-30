@@ -119,8 +119,29 @@ response.setDateHeader ("Expires", 0);
 		     window.location.href="AdminDashboard.jsp";
 		    }
 		    else if (result.value==='') {
-			    alert('Please Fill Password Field..');
+		    	Swal.fire({
+		    		  title: "Error!!",
+		    		  text: "Please fill Password field..!",
+		    		  icon: 'error',
+		    		  confirmButtonColor: '#d33',
+		    		  //confirmButtonClass: "btn-danger",
+		    		  confirmButtonText: 'Okay!',
+		    		  closeOnConfirm: true
+		    		}
+		    	)
 			    }
+		    else{
+		    	Swal.fire({
+		    		  title: "Error!!",
+		    		  text: "Invalid Password.. Please try Again Later..",
+		    		  icon: 'error',
+		    		  confirmButtonColor: '#d33',
+		    		  //confirmButtonClass: "btn-danger",
+		    		  confirmButtonText: 'Okay!',
+		    		  closeOnConfirm: true
+		    		}
+		    	)
+		    }
 		    
 		});
  }
