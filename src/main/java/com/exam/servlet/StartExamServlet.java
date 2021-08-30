@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -60,6 +62,20 @@ public class StartExamServlet extends HttpServlet {
 			questionDAO qd = new questionDAO();
 			Question que[] = qd.getQueByCid(exam_code);
 			int size = que.length;
+			 Random r = new Random();
+	         
+		       //code for shuffle array
+		        for (int i = size-1; i > 0; i--) {
+		             
+		            
+		            int j = r.nextInt(i+1);
+		            
+		            Question temp = que[i];
+		            que[i] = que[j];
+		            que[j] = temp;
+		        }
+		        // Prints the random array
+		        System.out.println(Arrays.toString(que));
 			qd.setLength(size);
 			session.setAttribute("exam-time", time);
 			StartExamDAO std = new StartExamDAO();

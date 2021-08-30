@@ -179,13 +179,6 @@ if (f2 == null) {
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js">
   </script>
    
-  <script type="text/javascript">
-    $(document).ready(function () {
-      setTimeout(function () {
-        //alert('Reloading Page');
-        location.reload(true);
-      }, 2000);
-    });
-  </script>
+ 
 </body>
 </html>
