@@ -19,6 +19,7 @@ import com.exam.DAO.StartExamDAO;
 import com.exam.DAO.examDAO;
 import com.exam.DAO.questionDAO;
 import com.exam.model.Question;
+import com.exam.model.Student;
 
 /**
  * Servlet implementation class StartExamServlet
@@ -34,6 +35,8 @@ public class StartExamServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ServletContext sc=request.getServletContext();
+		Student s=(Student)sc.getAttribute("student-obj");
 		String exam_code = request.getParameter("exam_code");
 		HttpSession session = request.getSession();
 		examDAO ed = new examDAO();
@@ -53,7 +56,7 @@ public class StartExamServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ServletContext sc = request.getServletContext();
+		
 
 		
 			sc.setAttribute("course-name", course_name);
@@ -76,11 +79,11 @@ public class StartExamServlet extends HttpServlet {
 		        }
 		        // Prints the random array
 		        System.out.println(Arrays.toString(que));
-			qd.setLength(size);
+			qd.setLength(size,s.getStudId(),exam_code);
 			session.setAttribute("exam-time", time);
 			StartExamDAO std = new StartExamDAO();
-			std.setValue();
-			std.setValue_counter();
+			std.setValue(s.getStudId(),exam_code);
+			std.setValue_counter(s.getStudId(),exam_code);
 			sc.setAttribute("que", que);
 
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.

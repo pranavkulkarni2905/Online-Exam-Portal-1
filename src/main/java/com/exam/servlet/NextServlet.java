@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.exam.DAO.StartExamDAO;
 import com.exam.DAO.questionDAO;
 import com.exam.model.Question;
+import com.exam.model.Student;
 
 /**
  * Servlet implementation class NextServlet
@@ -34,10 +35,12 @@ public class NextServlet extends HttpServlet {
 		{
 			//HttpSession session = request.getSession();
 			ServletContext sc = request.getServletContext();
+			Student stud=(Student)sc.getAttribute("student-obj");
+			String exam_code=(String)sc.getAttribute("exam-code");
 			StartExamDAO exd = new StartExamDAO();
 			questionDAO qd = new questionDAO();
 			int i = Integer.parseInt(request.getParameter("curr"));
-			int size = qd.getLength();
+			int size = qd.getLength(stud.getStudId(),exam_code);
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
 			//int que_id = q.getqId();
@@ -46,7 +49,7 @@ public class NextServlet extends HttpServlet {
 				System.out.println("i : " + i);
 				int curr = i + 1;
 				System.out.println(curr);//2
-				exd.update_currque(curr);
+				exd.update_currque(curr,stud.getStudId(),exam_code);
 				response.sendRedirect("StartExam.jsp");
 			} else {
 				response.sendRedirect("StartExam.jsp");

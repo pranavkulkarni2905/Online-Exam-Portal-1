@@ -74,24 +74,32 @@ e_date varchar2(4000)
 
 create table exam_currentq
 (
-curr number default 0
+curr number default 0,
+studId number,
+e_code varchar2(4000)
 );
 
 create table exam_counter
 (
 attempt number,
 correct number,
-incorrect number
+incorrect number,
+studId number,
+e_code varchar2(4000)
 );
 
 create table exam_size
 (
-len number
+ len number,
+ studId number,
+e_code varchar2(4000)
 );
 
 create table exam_queid
 (
-serial number
+serial number,
+studId number,
+e_code varchar2(4000)
 );
 
 create table exam_result(
@@ -110,6 +118,7 @@ incorrected number,
 grade float,
 result varchar2(1000)
 );
+
 
 alter table exam_requests add exam_completed varchar2(2000);
 alter table exam_result add exam_date varchar2(2000);

@@ -23,24 +23,28 @@ public class StartExamDAO {
 		}
 		return i;
 	}
-	public void setValue()
+	public void setValue(int StudId,String examcode)
 	{
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("insert into exam_currentq values(?)");
+			ps = con.prepareStatement("insert into exam_currentq values(?,?,?)");
 			ps.setInt(1, 0);
+			ps.setInt(2, StudId);
+			ps.setString(3, examcode);
 			int i = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public void update_currque(int curr)
+	public void update_currque(int curr,int StudId,String examcode)
 	{
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("update exam_currentq set curr = ?");
+			ps = con.prepareStatement("update exam_currentq set curr = ? where e_code=? and studId=?");
 			ps.setInt(1, curr);
+			ps.setInt(2, StudId);
+			ps.setString(3, examcode);
 			int i = ps.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -48,14 +52,16 @@ public class StartExamDAO {
 			e.printStackTrace();
 		}
 	}
-	public void setValue_counter()
+	public void setValue_counter(int StudId,String examcode)
 	{
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("insert into exam_counter values(?,?,?)");
+			ps = con.prepareStatement("insert into exam_counter values(?,?,?,?,?)");
 			ps.setInt(1, 0);
 			ps.setInt(2, 0);
 			ps.setInt(3, 0);
+			ps.setInt(4, StudId);
+			ps.setString(5, examcode);
 			int i = ps.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -63,14 +69,16 @@ public class StartExamDAO {
 			e.printStackTrace();
 		}
 	}
-	public void updateCounter(int attempt, int correct, int incorrect)
+	public void updateCounter(int attempt, int correct, int incorrect,int StudId,String examcode)
 	{
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("update exam_counter set attempt = ? , correct = ?, incorrect = ?");
+			ps = con.prepareStatement("update exam_counter set attempt = ? , correct = ?, incorrect = ? where e_code=? and studId=?");
 			ps.setInt(1, attempt);
 			ps.setInt(2, correct);
 			ps.setInt(3, incorrect);
+			ps.setInt(4, StudId);
+			ps.setString(5, examcode);
 			//ps.setInt(4, non_attempt);
 			int i = ps.executeUpdate();
 			con.close();
@@ -79,12 +87,14 @@ public class StartExamDAO {
 			e.printStackTrace();
 		}
 	}
-	public ResultSet getCounter()
+	public ResultSet getCounter(int StudId,String examcode)
 	{
 		ResultSet rs = null;
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("select * from exam_counter");
+			ps = con.prepareStatement("select * from exam_counter where e_code=? and studId=?");
+			ps.setString(1, examcode);
+			ps.setInt(2, StudId);
 			rs = ps.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,30 +102,40 @@ public class StartExamDAO {
 		}
 		return rs;
 	}
-	public void truncateAll()
+	public void truncateAll(int Studid,String examcode)
 	{
 		int i = 0;
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("truncate table exam_counter");
+			ps = con.prepareStatement("delete from  exam_counter where e_code=? and studId=?");
+			ps.setString(1, examcode);
+			ps.setInt(2,Studid);
 			i = ps.executeUpdate();
-			ps = con.prepareStatement("truncate table exam_currentq");
+			ps = con.prepareStatement("delete from  exam_currentq where e_code=? and studId=?");
+			ps.setString(1, examcode);
+			ps.setInt(2,Studid);
 			i = ps.executeUpdate();
-			ps = con.prepareStatement("truncate table exam_size");
+			ps = con.prepareStatement("delete from  exam_size where e_code=? and studId=?");
+			ps.setString(1, examcode);
+			ps.setInt(2,Studid);
 			i = ps.executeUpdate();
-			ps = con.prepareStatement("truncate table exam_queid");
+			ps = con.prepareStatement("delete from  exam_queid where e_code=? and studId=?");
+			ps.setString(1, examcode);
+			ps.setInt(2,Studid);
 			i = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public void add_que(int que_id)
+	public void add_que(int que_id,int StudId,String examcode)
 	{
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("insert into exam_queid values(?)");
+			ps = con.prepareStatement("insert into exam_queid values(?,?,?)");
 			ps.setInt(1, que_id);
+			ps.setInt(2, StudId);
+			ps.setString(3, examcode);
 			int i = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

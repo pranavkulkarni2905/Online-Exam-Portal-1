@@ -38,7 +38,13 @@ public class AddCourseServlet extends HttpServlet {
 		courseDAO cd = new courseDAO();
 		ResultSet rs = cd.getAllData();
 
-		int courseid = Integer.parseInt(request.getParameter("ccode"));
+		int courseid = 0;
+		try {
+			courseid = Integer.parseInt(request.getParameter("ccode"));
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String coursename = request.getParameter("cname");
 
 		try {

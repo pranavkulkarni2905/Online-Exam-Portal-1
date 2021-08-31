@@ -1,6 +1,8 @@
 package com.exam.servlet;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.exam.DAO.StartExamDAO;
 import com.exam.DAO.questionDAO;
+import com.exam.model.Student;
 
 /**
  * Servlet implementation class PaginationServlet
@@ -25,6 +28,9 @@ public class PaginationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StartExamDAO exd = new StartExamDAO();
 		HttpSession session = request.getSession();
+		ServletContext sc = request.getServletContext();
+		Student stud=(Student)sc.getAttribute("student-obj");
+		String exam_code=(String)sc.getAttribute("exam-code");
 		System.out.println("In servlet...");
 		//questionDAO qd = new questionDAO();
 		//int size = qd.getLength();
@@ -54,7 +60,7 @@ public class PaginationServlet extends HttpServlet {
 				}
 				System.out.println(curr);
 			}
-			exd.update_currque(curr);
+			exd.update_currque(curr,stud.getStudId(),exam_code);
 			response.sendRedirect("StartExam.jsp"); 
 		}
 	}

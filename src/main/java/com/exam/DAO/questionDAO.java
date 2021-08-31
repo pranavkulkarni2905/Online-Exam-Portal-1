@@ -167,25 +167,30 @@ public class questionDAO {
 		}
 		return b;
 		}
-	public void setLength(int size)
+	public void setLength(int size,int StudId,String examcode)
 	{
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("insert into exam_size values(?)");
+			ps = con.prepareStatement("insert into exam_size values(?,?,?)");
 			ps.setInt(1, size);
+			ps.setInt(2, StudId);
+			ps.setString(3, examcode);
 			int i = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public int getLength()
+	public int getLength(int StudId,String examcode)
 	{
 		int size = 0;
 		con=DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("select * from exam_size");
+			ps = con.prepareStatement("select * from exam_size where e_code=? and studId=?");
+			ps.setString(1, examcode);
+			ps.setInt(2, StudId);
 			ResultSet rs = ps.executeQuery();
+			
 			if(rs.next())
 				size = rs.getInt(1);
 			con.close();

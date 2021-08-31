@@ -43,11 +43,14 @@ public class SaveServlet extends HttpServlet {
 			//System.out.println("JS size value:"+jsSize);
 			HttpSession session = request.getSession();
 			ServletContext sc = request.getServletContext();
+			Student stud=(Student)sc.getAttribute("student-obj");
+			String exam_code=(String)sc.getAttribute("exam-code");
+			
 			StartExamDAO exd = new StartExamDAO();
 			questionDAO qd = new questionDAO();
 			int i = Integer.parseInt(request.getParameter("curr"));
 			String ans = request.getParameter("ans");
-			int size = qd.getLength();
+			int size = qd.getLength(stud.getStudId(),exam_code);
 			
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
@@ -64,7 +67,7 @@ public class SaveServlet extends HttpServlet {
 			}*/
 			
 			System.out.println("h3");
-			ResultSet rs = exd.getCounter();
+			ResultSet rs = exd.getCounter(stud.getStudId(),exam_code);
 			int attempted=0;
 			int corrected=0;
 			int incorrected=0;
@@ -79,7 +82,7 @@ public class SaveServlet extends HttpServlet {
 					System.out.println("i : " + i);
 					int curr = i + 1;
 					System.out.println(curr);//2
-					exd.update_currque(curr);
+					exd.update_currque(curr,stud.getStudId(),exam_code);
 					response.sendRedirect("StartExam.jsp");
 
 				}
@@ -87,16 +90,16 @@ public class SaveServlet extends HttpServlet {
 					if (ans.equals(q.getCorrect())) {
 						++attempted;
 						++corrected;
-						exd.updateCounter(attempted, corrected, incorrected);
+						exd.updateCounter(attempted, corrected, incorrected,stud.getStudId(),exam_code);
 						//exd.add_que(que_id);
 						System.out.println("Correct : " + corrected);
 					} else {
 						//exd.add_que(que_id);
 						++attempted;
 						++incorrected;
-						exd.updateCounter(attempted, corrected, incorrected);
+						exd.updateCounter(attempted, corrected, incorrected,stud.getStudId(),exam_code);
 					}
-					exd.add_que(i);
+					exd.add_que(i,stud.getStudId(),exam_code);
 				}
 			}
 			System.out.println("h4");
@@ -109,7 +112,7 @@ public class SaveServlet extends HttpServlet {
 				System.out.println("i : " + i);
 				int curr = i + 1;
 				System.out.println(curr);//2
-				exd.update_currque(curr);
+				exd.update_currque(curr,stud.getStudId(),exam_code);
 				response.sendRedirect("StartExam.jsp");
 			} 
 			else {
@@ -123,11 +126,11 @@ public class SaveServlet extends HttpServlet {
 				for (int i1 = 1; i1 <= 8000; i1++) {
 					resultId = list.get(i1);
 				}
-				Student stud=(Student)sc.getAttribute("student-obj");
+				
 				int sid=stud.getStudId();
 				String sName=stud.getfName()+" "+stud.getlName();
 				System.out.println(sid+sName);
-				String exam_code=(String)sc.getAttribute("exam-code");
+				
 				examDAO ed=new examDAO();
 				System.out.println(exam_code);
 				
@@ -150,7 +153,7 @@ public class SaveServlet extends HttpServlet {
 				sc.setAttribute("result-id", resultId);	
 				RequestDAO rd1=new RequestDAO();
 				rd1.updateExamCompletedStatus("Yes",sid,exam_code);
-				exd.truncateAll();
+				exd.truncateAll(stud.getStudId(),exam_code);
 				session.removeAttribute("exam-time");
 				//int time=Integer.parseInt(request.getParameter("timer"));
 				//System.out.println(time);

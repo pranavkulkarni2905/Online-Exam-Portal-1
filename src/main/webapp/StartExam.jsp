@@ -122,13 +122,14 @@ if (session.getAttribute("token") == null) {
 	<%
 	ServletContext sc = request.getServletContext();
 	Question que[] = (Question[]) sc.getAttribute("que");
+	Student stud=(Student)sc.getAttribute("student-obj");
 	String exam_code = (String) sc.getAttribute("exam-code");
 	String cName = (String) sc.getAttribute("course-name");
 	String time = (String) session.getAttribute("exam-time");
 	System.out.print(time);
 	StartExamDAO exd = new StartExamDAO();
 	questionDAO qd = new questionDAO();
-	int size = qd.getLength();
+	int size = qd.getLength(stud.getStudId(),exam_code);
 	int i = exd.getCurr_que();
 	
 	sc.setAttribute("question", que[i]);
@@ -380,7 +381,7 @@ setTimeout("countDownTimer()",1000);
 				<hr>
 				<%
 				StartExamDAO sd = new StartExamDAO();
-				ResultSet rs = sd.getCounter();
+				ResultSet rs = sd.getCounter(stud.getStudId(),exam_code);
 				if (rs.next()) {
 				%>
 				<button type="button" style="background-color: green;"
