@@ -102,11 +102,11 @@
 				try {
 					int i=1;
 					RequestDAO rd=new RequestDAO();
-					ResultSet rs=rd.getDataByStatusFilter("Accepted", f.getFacId());
+					ResultSet rs=rd.getDataByStatusFilter2("Accepted", f.getFacId());
 					session.setAttribute("enroll-stud", i);
 					while (rs.next()){
 						studentDAO sd=new studentDAO();
-						Student s=sd.getDataById(rs.getInt(3));
+						Student s=sd.getDataById(rs.getInt(1));
 						
 				%>
 				<tr>
@@ -116,7 +116,7 @@
 					<td><%=s.getGender()%></td>
 					<td><%=s.getEmail()%></td>
 					<td><%=s.getMobNo()%></td>
-					<td><%=rs.getString(7)%></td>
+					<td><%=rs.getString(2)%></td>
 				</tr>
 
 				<%

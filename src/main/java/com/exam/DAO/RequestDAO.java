@@ -64,6 +64,20 @@ public class RequestDAO {
 		}
 		return rs;
 	}
+	public ResultSet getDataByStatusFilter2(String str, int id) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select distinct studid,cname  from exam_requests where status=? and facid=?");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
 	public ResultSet getDataByStudId(String str, int id) {
 		con=DBconnection.getConnection();
 		ResultSet rs=null;
