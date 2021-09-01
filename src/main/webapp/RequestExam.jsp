@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="com.exam.model.Request"%>
 <%@page import="com.exam.DAO.RequestDAO"%>
 <%@page import="com.exam.model.Student"%>
@@ -120,8 +121,11 @@ if (s2 == null) {
 
 				<li class="breadcrumb-item active" aria-current="page">View
 					Exams</li>
+					<button class="btn btn-warning" style="margin-left:65%;" data-toggle="modal"
+							data-target=".example"><i class="fa fa-camera-retro"></i> View All Exams</button>
 			</ol>
 		</nav>
+			<div class="text-center" style="color:red;">List of All Current & Upcoming Exams (You Can Only Send Request to Current and Upcoming Exams)</div><br>
 		<div class="modal-body">
 			<table class="table table-hover">
 				<tbody>
@@ -144,6 +148,14 @@ if (s2 == null) {
 					examDAO ed = new examDAO();
 					ResultSet rs = ed.getAllData();
 					while (rs.next()) {
+						LocalDate now=LocalDate.now();
+						
+						LocalDate date1=LocalDate.parse(rs.getString(3));
+						System.out.println(date1);
+						
+						if(date1.isAfter(now) || date1.isEqual(now) ){
+							
+						
 				%>
 				<tbody>
 					<tr>
@@ -164,6 +176,7 @@ if (s2 == null) {
 					</tr>
                 </tbody>
 					<%
+					}
 					}
 					int facid = rs.getInt(6);
 					sc1.setAttribute("facid", facid);

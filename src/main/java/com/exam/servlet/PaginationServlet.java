@@ -35,10 +35,10 @@ public class PaginationServlet extends HttpServlet {
 		//questionDAO qd = new questionDAO();
 		//int size = qd.getLength();
 		//int curr = Integer.parseInt(request.getParameter("curr"));
-		int curr = exd.getCurr_que();
+		int curr = exd.getCurr_que(stud.getStudId(),exam_code);
 		int que = Integer.parseInt(request.getParameter("que"));
 		System.out.println("curr : "+curr+"que : "+que);
-		boolean b = exd.check_que(que-1);
+		boolean b = exd.check_que(que-1,stud.getStudId(),exam_code);
 		if(b)
 		{
 			//message

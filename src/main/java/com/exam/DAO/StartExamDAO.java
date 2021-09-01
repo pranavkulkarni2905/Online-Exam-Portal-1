@@ -8,12 +8,14 @@ import java.sql.SQLException;
 public class StartExamDAO {
 	Connection con = null;
 	PreparedStatement ps = null;
-	public int getCurr_que()
+	public int getCurr_que(int id,String examcode)
 	{
 		int i = 0;
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("select * from exam_currentq");
+			ps = con.prepareStatement("select * from exam_currentq where studid=? and e_code=?");
+			ps.setInt(1, id);
+			ps.setString(2, examcode);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next());
 				i = rs.getInt(1);
@@ -43,8 +45,8 @@ public class StartExamDAO {
 		try {
 			ps = con.prepareStatement("update exam_currentq set curr = ? where e_code=? and studId=?");
 			ps.setInt(1, curr);
-			ps.setInt(2, StudId);
-			ps.setString(3, examcode);
+			ps.setInt(3, StudId);
+			ps.setString(2, examcode);
 			int i = ps.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -77,8 +79,8 @@ public class StartExamDAO {
 			ps.setInt(1, attempt);
 			ps.setInt(2, correct);
 			ps.setInt(3, incorrect);
-			ps.setInt(4, StudId);
-			ps.setString(5, examcode);
+			ps.setInt(5, StudId);
+			ps.setString(4, examcode);
 			//ps.setInt(4, non_attempt);
 			int i = ps.executeUpdate();
 			con.close();
@@ -142,13 +144,15 @@ public class StartExamDAO {
 			e.printStackTrace();
 		}
 	}
-	public boolean check_que(int que_id)
+	public boolean check_que(int que_id,int id,String examcode)
 	{
 		boolean b = false;
 		ResultSet rs = null;
 		con = DBconnection.getConnection();
 		try {
-			ps = con.prepareStatement("select * from exam_queid");
+			ps = con.prepareStatement("select * from exam_queid where studid=? and e_code=?");
+			ps.setInt(1, id);
+			ps.setString(2, examcode);
 			rs = ps.executeQuery();
 			while(rs.next())
 			{

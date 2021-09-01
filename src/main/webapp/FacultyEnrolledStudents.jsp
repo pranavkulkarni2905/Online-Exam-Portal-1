@@ -107,6 +107,7 @@
 					while (rs.next()){
 						studentDAO sd=new studentDAO();
 						Student s=sd.getDataById(rs.getInt(3));
+						
 				%>
 				<tr>
 				<td><%=i++ %></td>

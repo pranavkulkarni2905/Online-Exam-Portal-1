@@ -39,7 +39,7 @@ public class PrevServlet extends HttpServlet {
 			System.out.println(size);
 			Question q = (Question) sc.getAttribute("question");
 			//int que_id = q.getqId();
-			boolean b = exd.check_que(i-1);
+			boolean b = exd.check_que(i-1,stud.getStudId(),exam_code);
 			if(b)
 			{
 				//message

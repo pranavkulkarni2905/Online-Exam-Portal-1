@@ -130,7 +130,7 @@ if (session.getAttribute("token") == null) {
 	StartExamDAO exd = new StartExamDAO();
 	questionDAO qd = new questionDAO();
 	int size = qd.getLength(stud.getStudId(),exam_code);
-	int i = exd.getCurr_que();
+	int i = exd.getCurr_que(stud.getStudId(),exam_code);
 	
 	sc.setAttribute("question", que[i]);
 	%>
@@ -264,7 +264,7 @@ setTimeout("countDownTimer()",1000);
 						<div class="d-flex justify-content-center row">
 							<div class="col-md-10 col-lg-8">
 
-
+ bvc
 								<div
 									class="d-flex flex-row justify-content-between align-items-center mcq">
 									<h3>
@@ -408,7 +408,37 @@ setTimeout("countDownTimer()",1000);
 	</div>
 
 	</form>
-	
-
+	<script src="http://sibeeshpassion.com/content/scripts/jquery-1.11.1.min.js"></script> 
+	<script>  
+document.onkeypress = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+document.onmousedown = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+document.onkeydown = function (event) {  
+event = (event || window.event);  
+if (event.keyCode == 123) {  
+return false;  
+}  
+}  
+</script>  
+<script>
+document.addEventListener("keydown", function(e){
+  // USE THIS TO DISABLE CONTROL AND ALL FUNCTION KEYS
+  // if (e.ctrlKey || (e.keyCode>=112 && e.keyCode<=123)) {
+  // THIS WILL ONLY DISABLE CONTROL AND F12
+  if (e.ctrlKey || e.keyCode==123) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+});
+</script>
 </body>
 </html>
