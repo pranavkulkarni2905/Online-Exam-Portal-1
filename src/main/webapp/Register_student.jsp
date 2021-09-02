@@ -174,7 +174,7 @@ body {
 							</div>
 							<div class="col-sm-4 form-group">
 								<label>Profile Photo</label> <input type="file"
-									class="form-control" name="photo" required="required">
+									class="form-control" name="photo" accept="image/*" required="required"/>
 							</div>
 						</div>
 						<div class="row">
