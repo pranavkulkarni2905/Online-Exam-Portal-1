@@ -20,8 +20,11 @@
 <%
 StartExamDAO exd = new StartExamDAO();
 questionDAO qd = new questionDAO();
-int size = qd.getLength();
-ResultSet rs = exd.getCounter();
+ServletContext sc = request.getServletContext();
+Student stud=(Student)sc.getAttribute("student-obj");
+String exam_code=(String)sc.getAttribute("exam-code");
+int size = qd.getLength(stud.getStudId(),exam_code);
+ResultSet rs = exd.getCounter(stud.getStudId(), exam_code);
 int attempted=0;
 int corrected=0;
 int incorrected=0;
@@ -40,12 +43,9 @@ Collections.shuffle(list);
 for (int i1 = 1; i1 <= 8000; i1++) {
 	resultId = list.get(i1);
 }
-ServletContext sc=request.getServletContext();
-Student stud=(Student)sc.getAttribute("student-obj");
 int sid=stud.getStudId();
 String sName=stud.getfName()+" "+stud.getlName();
 System.out.println(sid+sName);
-String exam_code=(String)sc.getAttribute("exam-code");
 examDAO ed=new examDAO();
 System.out.println(exam_code);
 
@@ -68,7 +68,7 @@ rd.insertResult(resultId,sid,sName,exam_code,cName,total_marks,obtained_marks,si
 sc.setAttribute("result-id", resultId);	
 RequestDAO rd1=new RequestDAO();
 rd1.updateExamCompletedStatus("Yes",sid,exam_code);
-exd.truncateAll();
+exd.truncateAll(stud.getStudId(), exam_code);
 session.removeAttribute("exam-time");
 //int time=Integer.parseInt(request.getParameter("timer"));
 //System.out.println(time);
