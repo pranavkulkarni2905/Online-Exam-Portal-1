@@ -50,7 +50,53 @@ if (session.getAttribute("token") == null) {
 
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
 	onunload="">
- 
+ 	<%try{
+			boolean msg = (boolean) session.getAttribute("msg-sent");
+			if (msg ==true) {
+			%>
+			<script>
+			Swal.fire({
+		    		  title: "Done..!!",
+		    		  text: "Your Messgae Has Been Sent Successfully..",
+		    		  icon: 'success',
+		    		  confirmButtonColor: '#d33',
+		    		  //confirmButtonClass: "btn-danger",
+		    		  confirmButtonText: 'Okay!',
+		    		  closeOnConfirm: true
+		    		}
+		    	)
+		    	</script>
+			<%
+			}
+			session.removeAttribute("msg-sent");
+ 	}catch(Exception e){
+ 		//e.printStackTrace();
+ 	}
+			%>
+			<%try{
+			boolean msg1 = (boolean) session.getAttribute("invalid-email-addr");
+			if (msg1 ==false) {
+			%>
+			<script>
+			Swal.fire({
+		    		  title: "Error..!!",
+		    		  text: "Entered Email Id is Not Exist / It's an Invalid.",
+		    		  icon: 'error',
+		    		  confirmButtonColor: '#d33',
+		    		  //confirmButtonClass: "btn-danger",
+		    		  confirmButtonText: 'Okay!',
+		    		  closeOnConfirm: true
+		    		}
+		    	)
+		    	</script>
+			<%
+			}
+			session.removeAttribute("invalid-email-addr");
+			}catch(Exception e){
+				//e.printStackTrace();
+				
+			}
+			%>
 	<!-- Header Section Start -->
 	<header id="home" class="hero-area fixed-top">
 		<div class="overlay">
@@ -538,7 +584,7 @@ if (session.getAttribute("token") == null) {
 			<div class="row">
 				<!-- Start Col -->
 				<div class="col-lg-6 col-md-12">
-					<form id="contactForm">
+					<form id="contactForm" action="ContactFromServlet" method="post">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
