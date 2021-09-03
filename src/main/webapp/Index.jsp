@@ -435,9 +435,9 @@ if (session.getAttribute("token") == null) {
 				<div class="col-lg-3 col-md-6 col-xs-12">
 					<div class="single-team">
 						<div class="team-thumb">
-							<img src="images/sampada.jpg" class="img-fluid" alt="">
+							<img src="images/sam.jpg" class="img-fluid" alt="">
 						</div>
-
+						<br>
 						<div class="team-details">
 							<div class="team-social-icons">
 								<ul class="social-list">
@@ -447,6 +447,7 @@ if (session.getAttribute("token") == null) {
 								</ul>
 							</div>
 							<div class="team-inner text-center">
+							
 								<h5 class="team-title">Sampada Kothari</h5>
 								<p>Java Full Stack Developer</p>
 							</div>

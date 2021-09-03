@@ -13,7 +13,9 @@ public class DBconnection {
 			//connection to data Base
 
 
+
 			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","pranav2905");
+
 
 
 		} catch (ClassNotFoundException e) {
