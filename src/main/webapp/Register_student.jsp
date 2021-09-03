@@ -5,7 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Student Register | ThinkExam</title>
-<link href="css/register.css" rel="stylesheet">
+
+
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -20,25 +21,57 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
 <script src="sweetalert2.all.min.js"></script>
 <script src="sweetalert2.min.js"></script>
 <link rel="stylesheet" href="sweetalert2.min.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="sweetalert2.all.min.js"></script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+	crossorigin="anonymous"></script>
 <style>
 body {
-	background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+	background: background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(14,42,175,0.9727241238292192) 35%, rgba(0,212,255,1) 100%);;
+}
+.card-registration .select-input.form-control[readonly]:not([disabled])
+	{
+	font-size: 1rem;
+	line-height: 2.15;
+	padding-left: .75em;
+	padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+	top: 13px;
 }
 </style>
 </head>
 <body>
-
-	<div class="container">
-		<h1 class="well">
-			<img src="images/logo.png" class="logo" width="120px"> Student
-			Registration Form<br>
-			<%
+<section class="h-100">
+		<div class="container py-5 h-100">
+			<div
+				class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col">
+					<div class="card card-registration my-4">
+						<div class="row g-0">
+							<div class="col-xl-6 d-none d-xl-block">
+								<img src="images/1.jpg" alt="Sample photo" class="img-fluid"
+									style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; height: 600px;" />
+							</div>
+							<div class="col-xl-6">
+								<div class="card-body p-md-5 text-black">
+									<h3 class="mb-5 text-uppercase">Student registration form</h3>
+									<%
 			String msg = (String) session.getAttribute("stud-reg-success");
 			if (msg != null) {
 			%><script>
@@ -121,136 +154,138 @@ body {
 			}
 			session.removeAttribute("password-notMatch");
 			%>
+									
+									<form action="RegisterStudentServlet" method="post">
+										<div class="row">
+											<div class="col-md-6 mb-4">
+												<div class="form-outline">
+													<input type="text" id="form3Example1m"
+														class="form-control form-control-lg" name="fname"
+														required="required" id="fname" pattern="[A-Za-z]{1,20}"
+														title="First Name should only contain letters. e.g. john" />
+													<label class="form-label" for="form3Example1m">First
+														name</label>
+												</div>
+											</div>
+											<div class="col-md-6 mb-4">
+												<div class="form-outline">
+													<input type="text" id="form3Example1n"
+														class="form-control form-control-lg" name="lname"
+														required="required" id="lname" pattern="[A-Za-z]{1,20}"
+														title="Last Name should only contain letters. e.g. john" />
+													<label class="form-label" for="form3Example1n">Last
+														name</label>
+												</div>
+											</div>
+										</div>
 
-		</h1>
-		<div class="col-lg-12 well">
+										<div class="row">
+											<div class="col-md-6 mb-4">
+												<div class="form-outline">
+													<input type="text" id="form3Example1m1"
+														class="form-control form-control-lg" name="city"
+														required="required" /> <label class="form-label"
+														for="form3Example1m1">City</label>
+												</div>
+											</div>
+											<div class="col-md-6 mb-4">
+												<div class="form-outline">
+													<input type="text" id="form3Example1n1"
+														class="form-control form-control-lg" name="state"
+														required="required" /> <label class="form-label"
+														for="form3Example1n1">State</label>
+												</div>
+											</div>
+										</div>
 
-			<div class="row">
-				<form action="RegisterStudentServlet" method="post">
-					<div class="col-sm-12">
+										<div class="form-outline mb-4">
+											<input type="number" id="form3Example8"
+												class="form-control form-control-lg" name="mob"
+												maxlength="10" min="10" required="required" /> <label
+												class="form-label" for="form3Example8">Mobile No</label>
+										</div>
 
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>First Name</label> <input type="text"
-									placeholder="Enter First Name Here.." class="form-control"
-									name="fname" required="required" id="fname"
-									pattern="[A-Za-z]{1,20}"
-									title="First Name should only contain letters. e.g. john">
+										<div
+											class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+											<h6 class="mb-0 me-4">Gender:</h6>
+
+											<div class="form-check form-check-inline mb-0 me-4">
+												<input class="form-check-input" type="radio" name="gender"
+													id="femaleGender" value="Female" /> <label
+													class="form-check-label" for="femaleGender">Female</label>
+											</div>
+
+											<div class="form-check form-check-inline mb-0 me-4">
+												<input class="form-check-input" type="radio" name="gender"
+													id="maleGender" value="Male" /> <label
+													class="form-check-label" for="maleGender">Male</label>
+											</div>
+
+											<div class="form-check form-check-inline mb-0">
+												<input class="form-check-input" type="radio" name="gender"
+													id="otherGender" value="Other" /> <label
+													class="form-check-label" for="otherGender">Other</label>
+											</div>
+
+										</div>
+
+
+
+										<div class="row">
+											<div class="col-sm-6 form-group">
+												<label>Date Of Birth</label> <input type="date"
+													placeholder="." class="form-control" name="dob"
+													required="required">
+											</div>
+											<div class="col-sm-6 form-group">
+												<label>Profile Photo</label> <input type="file"
+													class="form-control" name="photo" accept="image/*"
+													required="required" />
+											</div>
+										</div>
+										<br>
+
+										<div class="form-outline mb-4">
+											<input type="email" id="form3Example97"
+												class="form-control form-control-lg" name="email"
+												required="required" /> <label class="form-label"
+												for="form3Example97">Email ID</label>
+										</div>
+										<div class="form-outline mb-4">
+											<input type="password" id="form3Example99"
+												class="form-control form-control-lg" name="pass"
+												pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+												title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
+												required="required" /> <label class="form-label"
+												for="form3Example99">Password</label>
+										</div>
+										<div class="form-outline mb-4">
+											<input type="password" id="form3Example99"
+												class="form-control form-control-lg" name="cnf_pass"
+												required="required" /> <label class="form-label"
+												for="form3Example99">Confirm Password</label>
+										</div>
+
+
+										<div class="d-flex justify-content-end pt-3">
+											<a href="Index.jsp"><button type="button" class="btn btn-primary btn-lg">Home
+												</button></a>
+											<button type="submit" class="btn btn-warning btn-lg ms-2">Register
+												</button>
+										</div>
+									</form>
+								</div>
+
 							</div>
-							<div class="col-sm-6 form-group">
-								<label>Last Name</label> <input type="text"
-									placeholder="Enter Last Name Here.." class="form-control"
-									name="lname" required="required" id="lname"
-									pattern="[A-Za-z]{1,20}"
-									title="Last Name should only contain letters. e.g. john">
-							</div>
+
 						</div>
 
-						<div class="row">
-							<div class="col-sm-4 form-group">
-								<label>City</label> <input type="text"
-									placeholder="Enter City Name Here.." class="form-control"
-									name="city" required="required">
-							</div>
-							<div class="col-sm-4 form-group">
-								<label>State</label> <input type="text"
-									placeholder="Enter State Name Here.." class="form-control"
-									name="state" required="required">
-							</div>
-
-							<div class="col-sm-4 form-group">
-								<label>Gender</label> <select class="form-control" name="gender"
-									required="required">
-									<option>Male</option>
-									<option>Female</option>
-									<option>Other</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4 form-group">
-								<label>Date Of Birth</label> <input type="date" placeholder="."
-									class="form-control" name="dob" required="required">
-							</div>
-							<div class="col-sm-4 form-group">
-								<label>Profile Photo</label> <input type="file"
-									class="form-control" name="photo" accept="image/*" required="required"/>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Phone Number</label> <input type="text"
-									placeholder="Enter Phone Number Here.." class="form-control"
-									name="mob" maxlength="10" min="10" required="required">
-							</div>
-							<div class="col-sm-6 form-group">
-								<label>Email Address</label> <input type="email"
-									placeholder="Enter Email Address Here.." class="form-control"
-									name="email" required="required">
-							</div>
-						</div>
-						<div class="form-group">
-
-							<label>Password</label> <input type="password" id="psw"
-								placeholder="Enter Password Here.." class="form-control"
-								name="pass" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-								title="Password must contain: Minimum 8 characters atleast 1 Alphabet and 1 Number"
-								required="required">
-
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Confirm Password</label> <input type="password"
-									placeholder="Confirm Password Here.." class="form-control"
-									name="cnf_pass" required="required">
-							</div>
-							<div class="col-sm-6 form-group" id="div1"></div>
-						</div>
-						<button onclick="validate()" type="submit"
-							class="btn btn-success ">Register</button>
-						&nbsp&nbsp&nbsp <a href="Index.jsp" class="btn btn-info">Home</a>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	<script>
-		function validate() {
-			var regName = '/^[a-zA-Z]+ [a-zA-Z]+$/';
-			var fname = document.getElementById('fname').value;
-			var lname = document.getElementById('lname').value;
-			if (!regName.test(fname)) {
-				Swal.fire({
-					title : "Error!!!",
-					text : "Please Enter Proper & Correct Name..",
-					icon : "error",
-					confirmButtonClass : "btn-danger",
-					confirmButtonText : "Okay..Noted it.!",
-					closeOnConfirm : true
-				})
-				document.getElementById('fname').focus();
-				return false;
-			} else {
-				//alert('Valid name given.');
-				return true;
-			}
-
-			if (!regName.test(lname)) {
-				Swal.fire({
-					title : "Error!!!",
-					text : "Please Enter Proper & Correct Name..",
-					icon : "error",
-					confirmButtonClass : "btn-danger",
-					confirmButtonText : "Okay..Noted it.!",
-					closeOnConfirm : true
-				})
-				document.getElementById('lname').focus();
-				return false;
-			} else {
-				//alert('Valid name given.');
-				return true;
-			}
-		}
-	</script>
+	</section>
+	
 </body>
 </html>
