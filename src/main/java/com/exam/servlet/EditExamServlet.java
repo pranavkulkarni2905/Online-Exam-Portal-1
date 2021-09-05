@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exam.DAO.RequestDAO;
 import com.exam.DAO.examDAO;
 import com.exam.model.Exam;
 
@@ -40,6 +41,9 @@ public class EditExamServlet extends HttpServlet {
 			e.setExamTime(e_time);
 			System.out.println("In servlet");
 			boolean b = ed.editExam(e);
+			RequestDAO rd=new RequestDAO();
+			rd.updateDate(e);
+			//rd.updateFlag(0, 0);
 			if(b)
 			{
 				session.setAttribute("exam-edit-success",true);

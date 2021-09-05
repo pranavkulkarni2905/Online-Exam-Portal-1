@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.exam.model.Exam;
 import com.exam.model.Request;
 
 public class RequestDAO {
@@ -265,6 +266,19 @@ public class RequestDAO {
 			e.printStackTrace();
 		}
 		return count;
+	}
+	public void updateDate(Exam e) {
+		con=DBconnection.getConnection();
+		try {
+			ps=con.prepareStatement("update exam_requests set e_date=? , e_name=? where exam_code=?");
+			ps.setString(1, e.getExamDate());
+			ps.setString(2, e.getExamName());
+			ps.setString(3,e.getExamCode());
+			int i=ps.executeUpdate();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }

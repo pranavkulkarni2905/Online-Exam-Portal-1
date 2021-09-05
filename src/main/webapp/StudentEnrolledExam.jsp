@@ -152,7 +152,7 @@ if (s2 == null) {
 					<td><%=rs1.getString(9)%></td>
 					<td><%=rs1.getString(10)%></td>
 					<td><%=rs1.getString(7)%></td>
-					<td><a href="StartExam?exam_code=<%=rs1.getString(2) %>" class="btn btn-success"><i class="fa fa-unlock"></i> Start Exam</a></td>
+					<td><a href="Instructions.jsp?exam_code=<%=rs1.getString(2) %>" class="btn btn-success"><i class="fa fa-unlock"></i> Start Exam</a></td>
 							</tr>
 						</tbody>
 
@@ -273,6 +273,9 @@ if (s2 == null) {
 							RequestDAO rd3=new RequestDAO();
 							ResultSet rs3=rd3.getDataByFlag(1, s2.getStudId(),"No");
 							 while(rs3.next()) {
+								 LocalDate now=LocalDate.now();
+								 LocalDate date1=LocalDate.parse(rs3.getString(10));
+								 if(date1.isBefore(now)){
 						%>
 
 						<tbody>
@@ -288,7 +291,7 @@ if (s2 == null) {
 
 						<%
 						}
-						
+							 }
 						} catch (Exception e) {
 						e.printStackTrace();
 						}
@@ -391,6 +394,9 @@ if (s2 == null) {
 						RequestDAO rd=new RequestDAO();
 						ResultSet rs=rd.getDataByStudId2("Accepted", s2.getStudId());
 						while(rs.next()){
+							 LocalDate now=LocalDate.now();
+							 LocalDate date1=LocalDate.parse(rs.getString(10));
+							 if(date1.isEqual(now)){
 				%>
 				<tr>
 					<th scope="row"><%=i++%></th>
@@ -405,7 +411,7 @@ if (s2 == null) {
 				
 				
 						}
-				
+						}
 					
 				} catch (Exception e) {
 
