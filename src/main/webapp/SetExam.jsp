@@ -230,6 +230,19 @@ input, label {
 	}
 	
 	%>
+	<%
+			String msg = (String) session.getAttribute("invalid-date");
+			if (msg != null) {
+			%>
+
+			<div class="alert alert-danger alert-dismissible text-center">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<h5><%=msg%></h5>
+			</div>
+			<%
+			}
+			session.removeAttribute("invalid-date");
+			%>
 	<div class="card">
 		<div class="class">
 			<form action="AddExamServlet" method="post">

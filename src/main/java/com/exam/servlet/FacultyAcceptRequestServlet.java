@@ -48,12 +48,12 @@ public class FacultyAcceptRequestServlet extends HttpServlet {
 			studentDAO sd = new studentDAO();
 			Student stud = sd.getDataById(r.getStudId());
 			String mobNO = stud.getMobNo();
-//			String msg = "Congratulations !!!\n Your Request Successfully Accepted By Faculty (" + r.getFacId()
-//					+ ") for Exam Code '" + r.getExamCode() + "' and Course Name '" + r.getCourseName() + "'\n."
-//					+ new Date().toLocaleString() + "\nRegards,\nThinkExam Online Portal.";
-//			SendOtp s = new SendOtp();
-//			s.sendSms(msg, mobNO);
-//			
+			String msg = "Congratulations !!!\n Your Request Successfully Accepted By Faculty (" + r.getFacId()
+					+ ") for Exam Code '" + r.getExamCode() + "' and Course Name '" + r.getCourseName() + "'\n."
+					+ new Date().toLocaleString() + "\nRegards,\nThinkExam Online Portal.";
+			SendOtp s = new SendOtp();
+			s.sendSms(msg, mobNO);
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("req-accept", "Request Successfully Accepted...");
 			response.sendRedirect("FacultyNotification.jsp");

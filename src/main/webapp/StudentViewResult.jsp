@@ -94,6 +94,7 @@
 						<th scope="col">Total Marks</th>
 						<th scope="col">Result</th>
 						<th scope="col">Details</th>
+						<th scope="col">Certification</th>
 					</tr>
 				</thead>
 
@@ -123,6 +124,9 @@
 					
 					<td><a href="ViewResultDetails.jsp?res_id=<%=rs.getInt(1)%>&stud_id=<%=rs.getInt(2)%>"><button
 								class="btn btn-primary" > <i class="fa fa-eye"></i> View More</button> </a></td>
+								&nbsp&nbsp&nbsp
+								<td><a href="Certificate.jsp?res_id=<%=rs.getInt(1)%>&stud_id=<%=rs.getInt(2)%>"><button
+								class="btn btn-warning" > <i class="fa fa-certificate"></i> View Certificate</button> </a></td>
 					
 				</tr>
 
