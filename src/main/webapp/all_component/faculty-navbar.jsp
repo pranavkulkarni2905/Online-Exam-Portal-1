@@ -195,6 +195,12 @@ try{
 										<p>View Results</p>
 								</a></li>
 								<hr>
+								<li class="nav-item"><a href="FacultyAddStudent.jsp"
+									class="nav-link"> <i class="fa fa-plus"></i>
+										<p>Add New Student</p>
+
+								</a></li>
+								
 								<li class="nav-item"><a href="FacultyEnrolledStudents.jsp"
 									class="nav-link"> <i class="fa fa-registered"></i>
 										<p>Enrolled Students<br><i style="font-size:12px;">(For Your Courses)</i></p>

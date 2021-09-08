@@ -264,7 +264,7 @@ setTimeout("countDownTimer()",1000);
 						<div class="d-flex justify-content-center row">
 							<div class="col-md-10 col-lg-8">
 
- bvc
+ 
 								<div
 									class="d-flex flex-row justify-content-between align-items-center mcq">
 									<h3>

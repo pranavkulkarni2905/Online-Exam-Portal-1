@@ -69,6 +69,25 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<%try{
+			boolean msg2 = (boolean) session.getAttribute("certificate-invalid");
+			if (msg2==false) {
+			%>
+			<div id="div1">
+				<script type="text/javascript">
+					Swal.fire('Ooops.!!',
+				'Sorry..Your Score is less than 40 %.'
+					, 'error')
+				</script>
+			</div>
+
+			<%
+			}
+			}catch(Exception e){
+				//e.printStackTrace();
+			}
+			session.removeAttribute("certificate-invalid");
+			%>
 <div class="wrapper">
 		<%@ include file="all_component/student-navbar.jsp"%>
 

@@ -116,7 +116,7 @@ p {
 <body>
 
 			
-				<div class="border-pattern">
+				
 					<%
 					try {
 						ServletContext sc = request.getServletContext();
@@ -128,9 +128,10 @@ p {
 						resultDAO rd = new resultDAO();
 						ResultSet rs = rd.getResult(resId, studId);
 						if (rs.next()) {
+							if(rs.getFloat(13)>=40){
 					%>
 
-
+<div class="border-pattern">
 					<div class="content">
 <div id="abc">
 						<div class="inner-content">
@@ -159,7 +160,12 @@ p {
 			</div>
 
 	<%
+	}else{
+		HttpSession session1=request.getSession();
+		session1.setAttribute("certificate-invalid", false);
+		response.sendRedirect("StudentViewResult.jsp");
 	}
+						}
 	} catch (Exception e) {
 	e.printStackTrace();
 	}

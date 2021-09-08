@@ -56,9 +56,9 @@ public class SendMail {
 
 		// Sender's email ID and password needs to be mentioned
 
-		final String from = "thinkexamportal@gmail.com";
+		final String from = "exam.webportal12@gmail.com";
 
-		final String pass = "Think_Exam21";
+		final String pass = "examportal@12";
 
 		// Defining the gmail host
 
@@ -120,8 +120,8 @@ public class SendMail {
 
 			// Now set the actual message
 
-			//message.setText(messg);
-			message.setContent(messg,"text/html" ); 
+			message.setText(messg);
+			//message.setContent(messg,"text/html" ); 
 			// Send message
 
 			Transport.send(message);

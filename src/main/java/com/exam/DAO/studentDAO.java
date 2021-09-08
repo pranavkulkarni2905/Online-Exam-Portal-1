@@ -201,4 +201,21 @@ public class studentDAO {
 		}
 		return count;
 	}
+	public boolean updateFlag(int studId) {
+		boolean b=false;
+		con=DBconnection.getConnection();
+		int i=0;
+		try {
+			ps=con.prepareStatement("update exam_student set flag=1 where studId=?");
+			ps.setInt(1, studId);
+			i = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(i>0) {
+			b=true;
+		}
+		return b;
+	}
 }
