@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.exam.verify.ExistMail;
+import com.exam.verify.SendMail;
 import com.exam.verify.sendHtmlMail;
 
 /**
@@ -47,8 +48,8 @@ public class ContactFromServlet extends HttpServlet {
 					+ msg;
 			ExistMail em = new ExistMail();
 			if (em.isAddressValid(email)) {
-				sendHtmlMail s = new sendHtmlMail();
-				s.sendMail("exam.webportal12@gmail.com", sub, content);
+				SendMail s = new SendMail();
+				s.sendEmail("exam.webportal12@gmail.com", sub, content);
 				session.setAttribute("msg-sent", true);
 				response.sendRedirect("Index.jsp");
 

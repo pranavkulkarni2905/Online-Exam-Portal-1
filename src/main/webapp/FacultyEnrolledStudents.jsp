@@ -66,11 +66,23 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
+<%
 
-</style>
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Cache-Control","no-store");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", 0);
+    if(session.getAttribute("token")==null){
+    //response.sendRedirect(request.getContextPath() + "/LogOut.jsp");
+
+}
+%>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 
 
 	<div class="wrapper">

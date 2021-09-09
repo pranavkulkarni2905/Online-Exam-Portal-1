@@ -24,8 +24,23 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/profile.css">
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
+<%
+
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Cache-Control","no-store");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", 0);
+    if(session.getAttribute("token")==null){
+    //response.sendRedirect(request.getContextPath() + "/LogOut.jsp");
+
+}
+%>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <%
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 %>

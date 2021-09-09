@@ -185,7 +185,7 @@ public class RequestDAO {
 		boolean b=false;
 		con=DBconnection.getConnection();
 		try {
-			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and exam_code=?");
+			ps=con.prepareStatement("update exam_requests set exam_completed=? where studid=? and e_code=?");
 			ps.setString(1, string);
 			ps.setInt(2, sid);
 			ps.setString(3, examCode);
@@ -270,7 +270,7 @@ public class RequestDAO {
 	public void updateDate(Exam e) {
 		con=DBconnection.getConnection();
 		try {
-			ps=con.prepareStatement("update exam_requests set e_date=? , e_name=? where exam_code=?");
+			ps=con.prepareStatement("update exam_requests set e_date=? , e_name=? where e_code=?");
 			ps.setString(1, e.getExamDate());
 			ps.setString(2, e.getExamName());
 			ps.setString(3,e.getExamCode());

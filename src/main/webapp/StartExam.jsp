@@ -99,6 +99,26 @@ if (session.getAttribute("token") == null) {
 	    }
 	   
 	</script>
+	 <script>
+            if (navigator.onLine)
+            {
+                // alert('Online');
+            }
+            else
+            {
+                alert('Offline');
+                window.location.href="ErrorPage.jsp";
+            }
+        window.addEventListener('online', function (e)
+        {
+            alert('You Are Back Online');
+        }, false);
+        window.addEventListener('offline', function (e)
+        {
+            alert('You went offline');
+            window.location.href="ErrorPage.jsp";
+        }, false);
+    </script>
 <script>
 	document.addEventListener('visibilitychange',function(){
 		document.title=document.visibilityState;

@@ -440,11 +440,6 @@ if (session.getAttribute("token") == null) {
 					<div class="team-text section-header text-center">
 						<div>
 							<h2 class="section-title" style="font-family: Algerian;">Team Members</h2>
-							<div class="desc-text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do</p>
-								<p>eiusmod tempor incididunt ut labore et dolore.</p>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -569,11 +564,6 @@ if (session.getAttribute("token") == null) {
 					<div class="contact-text section-header text-center">
 						<div>
 							<h2 class="section-title" style="font-family: Algerian;">Get In Touch</h2>
-							<div class="desc-text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do</p>
-								<p>eiusmod tempor incididunt ut labore et dolore.</p>
-							</div>
 						</div>
 					</div>
 				</div>

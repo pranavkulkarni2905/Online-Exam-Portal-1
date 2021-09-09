@@ -9,7 +9,8 @@ dob varchar2(400),
 stud_photo varchar2(3000),
 email varchar2(100),
 mobno varchar2(10),
-password varchar2(20)
+password varchar2(20),
+flag number
 )
 
 create table exam_faculty(
@@ -69,7 +70,8 @@ studname varchar2(4000),
 cName varchar2(4000),
 status varchar2(4000),
 eName varchar2(4000),
-e_date varchar2(4000)
+e_date varchar2(4000),
+exam_completed varchar2(2000)
 );
 
 create table exam_currentq
