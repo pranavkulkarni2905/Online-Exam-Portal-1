@@ -91,13 +91,14 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 			facultyDAO sd = new facultyDAO();
 				Faculty fac1 = sd.getDataById(s.getFacId());
 				if (fac1 != null) {
+					//https://bootdey.com/img/Content/avatar/avatar7.png
 				%>
 				<div class="row gutters-sm">
 					<div class="col-md-4 mb-3">
 						<div class="card">
 							<div class="card-body">
 								<div class="d-flex flex-column align-items-center text-center">
-									<img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+									<img src="profile_images/<%=fac1.getPhoto() %>"
 										alt="Admin" class="rounded-circle" width="150">
 									<div class="mt-3">
 										<h4><%=fac1.getFname()%>&nbsp<%=fac1.getLname()%></h4>

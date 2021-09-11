@@ -155,7 +155,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(14,42,175,0.972724123
 			}
 			session.removeAttribute("password-notMatch");
 			%>						
-									<form action="RegisterFacultyServlet" method="post">
+									<form action="RegisterFacultyServlet" method="post" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-md-6 mb-4">
 												<div class="form-outline">

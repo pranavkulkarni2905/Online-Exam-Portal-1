@@ -125,6 +125,7 @@ body {
 														<tr>
 															<th scope="row">#</th>
 															<th scope="row">StudId</th>
+															<th scope="row">Profile</th>
 															<th scope="row">Stud Name</th>
 															<th scope="row">Email</th>
 															<th scope="row">Phone No</th>
@@ -148,6 +149,7 @@ body {
 														<tr>
 															<td><%=sr1++%></td>
 															<td><%=rs1.getInt(1)%></td>
+															<td><img src="profile_images/<%=rs1.getString(8)%>" style="border-radius: 50%; width: 100px; height: 100px;"></td>
 															<td><%=rs1.getString(2)%>&nbsp<%=rs1.getString(3)%></td>
 															<td><%=rs1.getString(9)%></td>
 															<td><%=rs1.getString(10)%></td>
@@ -205,6 +207,7 @@ body {
 														<tr>
 															<th scope="row">#</th>
 															<th scope="row">FacId</th>
+															<th scope="row">Profile</th>
 															<th scope="row">Fac Name</th>
 															<th scope="row">Email</th>
 															<th scope="row">Phone No</th>
@@ -228,6 +231,7 @@ body {
 														<tr>
 															<td><%=sr1++%></td>
 															<td><%=rs1.getInt(1)%></td>
+															<td><img src="profile_images/<%=rs1.getString(7)%>" style="border-radius: 50%; width: 100px; height: 100px;"></td>
 															<td><%=rs1.getString(2)%>&nbsp<%=rs1.getString(3)%></td>
 															<td><%=rs1.getString(9)%></td>
 															<td><%=rs1.getString(10)%></td>

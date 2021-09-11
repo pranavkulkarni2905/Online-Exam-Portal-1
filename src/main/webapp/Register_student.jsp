@@ -155,7 +155,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(14,42,175,0.972724123
 			session.removeAttribute("password-notMatch");
 			%>
 									
-									<form action="RegisterStudentServlet" method="post">
+									<form action="RegisterStudentServlet" method="post" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-md-6 mb-4">
 												<div class="form-outline">
@@ -240,7 +240,7 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(14,42,175,0.972724123
 											</div>
 											<div class="col-sm-6 form-group">
 												<label>Profile Photo</label> <input type="file"
-													class="form-control" name="photo" accept="image/*"
+													class="form-control" name="image" accept="image/*" 
 													required="required" />
 											</div>
 										</div>

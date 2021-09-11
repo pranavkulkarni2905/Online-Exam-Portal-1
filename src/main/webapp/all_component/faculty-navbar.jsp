@@ -105,15 +105,15 @@
 			<div class="sidebar">
 				<!-- Sidebar user panel (optional) -->
 				<div class="image">
-					<img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-						style="border-radius: 50%; width: 100px; height: 100px; margin-left: 30px;"
-						alt="User Image">
+					
 					<%
 					ServletContext sc = request.getServletContext();
 					Faculty fac = (Faculty) sc.getAttribute("faculty-obj");
 					if (fac != null) {
 					%>
-
+<img src="profile_images/<%=fac.getPhoto() %>"
+						style="border-radius: 50%; width: 100px; height: 100px; margin-left: 30px;"
+						alt="User Image">
 					<h3 style="color: white;"><%=fac.getFname()%>&nbsp<%=fac.getLname()%></h3>
 
 					<%

@@ -106,7 +106,16 @@ if (session.getAttribute("token") == null) {
             }
             else
             {
-                alert('Offline');
+            	Swal.fire({
+  	    		  title: "Error!!!",
+  	    		  text: "You Are Offline..",
+  	    		  icon: 'error',
+  	    		  confirmButtonColor: '#d33',
+  	    		  //confirmButtonClass: "btn-danger",
+  	    		  confirmButtonText: 'Okay..Noted it.!',
+  	    		  closeOnConfirm: true
+  	    		}
+  	    	)
                 window.location.href="ErrorPage.jsp";
             }
         window.addEventListener('online', function (e)

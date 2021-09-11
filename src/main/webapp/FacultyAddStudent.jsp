@@ -155,7 +155,7 @@
 			session.removeAttribute("password-notMatch");
 			%>
 									
-									<form action="FacultyAddStudentServlet" method="post">
+									<form action="FacultyAddStudentServlet" method="post" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-md-6 mb-4">
 												<div class="form-outline">

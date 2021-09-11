@@ -83,7 +83,7 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 						<div class="card">
 							<div class="card-body">
 								<div class="d-flex flex-column align-items-center text-center">
-									<img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+									<img src="profile_images/<%=stud1.getPhoto() %>"
 										alt="Admin" class="rounded-circle" width="150">
 									<div class="mt-3">
 										<h4><%=stud1.getfName()%>&nbsp<%=stud1.getlName()%></h4>

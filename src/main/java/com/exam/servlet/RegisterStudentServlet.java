@@ -1,7 +1,9 @@
 package com.exam.servlet;
 
-import java.io.IOException;
+import java.io.FileOutputStream;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.regex.Pattern;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +33,7 @@ import com.exam.verify.sendHtmlMail;
 /**
  * Servlet implementation class StudentServlet
  */
+@MultipartConfig
 @WebServlet("/RegisterStudentServlet")
 public class RegisterStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -83,11 +87,42 @@ public class RegisterStudentServlet extends HttpServlet {
 			String state = request.getParameter("state");
 			String gender = request.getParameter("gender");
 			String dob = request.getParameter("dob");
-			String photo = request.getParameter("photo");
+			// String photo = request.getParameter("photo");
 			String email = request.getParameter("email");
 			String mobNo = request.getParameter("mob");
 			String password = request.getParameter("pass");
 			String cnf_pass = request.getParameter("cnf_pass");
+
+			Part file = request.getPart("image");
+			// Part file=request.getPart("image");
+			System.out.println(file);
+			// file.getSubmittedFileName();
+			String imageFileName = file.getSubmittedFileName();
+			// get selected image file name
+
+			System.out.println("Selected Image File Name : " + imageFileName);
+
+			String uploadPath = "C:/Users/lookp/Desktop/Online Exam Portal1/src/main/webapp/profile_images/"
+					+ imageFileName; // upload path where we have to upload our actual image
+			System.out.println("Upload Path : " + uploadPath);
+
+			// Uploading our selected image into the images folder
+
+			try {
+
+				FileOutputStream fos = new FileOutputStream(uploadPath);
+				InputStream is = file.getInputStream();
+
+				byte[] data = new byte[is.available()];
+				is.read(data);
+				fos.write(data);
+				fos.close();
+
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			HttpSession session = null;
 			ExistMail em = new ExistMail();
@@ -117,8 +152,8 @@ public class RegisterStudentServlet extends HttpServlet {
 						if (isValid(mobNo)) {
 							// password ecrypted
 							String ecryptedPass = Base64.getEncoder().encodeToString(password.getBytes());
-							Student stud = new Student(studId, fName, lName, city, state, gender, dob, photo, email,
-									mobNo, ecryptedPass);
+							Student stud = new Student(studId, fName, lName, city, state, gender, dob, imageFileName,
+									email, mobNo, ecryptedPass);
 							boolean b = sd.registerStudent(stud);
 							int count = 1;
 							if (b) {
@@ -175,7 +210,7 @@ public class RegisterStudentServlet extends HttpServlet {
 					response.sendRedirect("Register_student.jsp");
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | NullPointerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

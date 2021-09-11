@@ -103,6 +103,7 @@ response.setDateHeader ("Expires", 0);
 					<tr>
 					<th scope="col">#</th>
 						<th scope="col">Student ID</th>
+						<th scope="col">Profile</th>
 						<th scope="col">Student name</th>
 						<th scope="col">Gender</th>
 						<th scope="col">Email</th>
@@ -124,6 +125,7 @@ response.setDateHeader ("Expires", 0);
 				<tr>
 				<td><%=i++ %></td>
 					<td><%=s.getStudId()%></td>
+					<td><img src="profile_images/<%=s.getPhoto()%>" style="border-radius: 50%; width: 60px; height: 60px;"></td>
 					<td><%=s.getfName()%>&nbsp<%=s.getlName()%></td>
 					<td><%=s.getGender()%></td>
 					<td><%=s.getEmail()%></td>

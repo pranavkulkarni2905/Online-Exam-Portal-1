@@ -1,6 +1,8 @@
 package com.exam.servlet;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,11 +15,13 @@ import javax.net.ssl.SSLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.exam.DAO.studentDAO;
 import com.exam.model.Student;
@@ -28,6 +32,7 @@ import com.exam.verify.sendHtmlMail;
 /**
  * Servlet implementation class FacultyAddStudentServlet
  */
+@MultipartConfig
 @WebServlet("/FacultyAddStudentServlet")
 public class FacultyAddStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -79,12 +84,42 @@ public class FacultyAddStudentServlet extends HttpServlet {
 			String state = request.getParameter("state");
 			String gender = request.getParameter("gender");
 			String dob = request.getParameter("dob");
-			String photo = request.getParameter("photo");
+			//String photo = request.getParameter("photo");
 			String email = request.getParameter("email");
 			String mobNo = request.getParameter("mob");
 //			String password = request.getParameter("pass");
 //			String cnf_pass = request.getParameter("cnf_pass");
 
+            Part file=request.getPart("photo");
+			
+			String imageFileName=file.getSubmittedFileName();  // get selected image file name
+			System.out.println("Selected Image File Name : "+imageFileName);
+			
+			String uploadPath="C:/Users/lookp/Desktop/Online Exam Portal1/src/main/webapp/profile_images/"+imageFileName;  // upload path where we have to upload our actual image
+			System.out.println("Upload Path : "+uploadPath);
+			
+			// Uploading our selected image into the images folder
+			
+			try
+			{
+			
+			FileOutputStream fos=new FileOutputStream(uploadPath);
+			InputStream is=file.getInputStream();
+			
+			byte[] data=new byte[is.available()];
+			is.read(data);
+			fos.write(data);
+			fos.close();
+			
+			}
+			
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			
+			
 			HttpSession session = null;
 			ExistMail em = new ExistMail();
 			studentDAO sd = new studentDAO();
@@ -115,7 +150,7 @@ public class FacultyAddStudentServlet extends HttpServlet {
 							SendMail s=new SendMail();
 							String password=s.generateRandomPassword();
 							String ecryptedPass = Base64.getEncoder().encodeToString(password.getBytes());
-							Student stud = new Student(studId, fName, lName, city, state, gender, dob, photo, email,
+							Student stud = new Student(studId, fName, lName, city, state, gender, dob, imageFileName, email,
 									mobNo, ecryptedPass);
 							boolean b = sd.registerStudent(stud);
 							int count = 1;
