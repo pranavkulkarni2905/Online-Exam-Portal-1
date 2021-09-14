@@ -183,7 +183,7 @@ public class RegisterStudentServlet extends HttpServlet {
 								sc.setAttribute("stud-count", count);
 								// System.out.println("inserted");
 								session = request.getSession();
-
+								
 								session.setAttribute("stud-reg-success",
 										"Registration Successfully..We Have Sent a Mail On " + email
 												+ " To Verify Your Account.Please Verify Before Login");

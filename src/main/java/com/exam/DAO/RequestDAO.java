@@ -93,14 +93,29 @@ public class RequestDAO {
 		}
 		return rs;
 	}
-	public ResultSet getDataOfCompletedExamByStudId(String str, int id,String complete) {
+	public ResultSet getDataForCheckStatus(int id,String str) {
 		con=DBconnection.getConnection();
 		ResultSet rs=null;
 		try {
-			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and exam_completed=?");
+			ps=con.prepareStatement("select * from exam_requests where exam_code=? and studid=?");
+			ps.setString(1, str);
+			ps.setInt(2, id);
+			rs=ps.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public ResultSet getDataOfCompletedExamByStudId(String str, int id,String complete,String status) {
+		con=DBconnection.getConnection();
+		ResultSet rs=null;
+		try {
+			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and exam_completed=? or exam_completed=? ");
 			ps.setString(1, str);
 			ps.setInt(2, id);
 			ps.setString(3, complete);
+			ps.setString(4, status);
 			rs=ps.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -113,10 +128,11 @@ public class RequestDAO {
 		String complete="No";
 		ResultSet rs=null;
 		try {
-			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and flag=0 and exam_completed=?");
+			ps=con.prepareStatement("select * from exam_requests where status=? and studid=? and flag=0 and exam_completed=? or exam_completed=?");
 			ps.setString(1, str);
 			ps.setInt(2, id);
 			ps.setString(3, complete);
+			ps.setString(4, "Resume");
 			rs=ps.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

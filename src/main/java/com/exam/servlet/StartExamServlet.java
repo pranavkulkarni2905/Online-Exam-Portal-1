@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.exam.DAO.RequestDAO;
 import com.exam.DAO.StartExamDAO;
 import com.exam.DAO.examDAO;
 import com.exam.DAO.questionDAO;
@@ -78,14 +79,18 @@ public class StartExamServlet extends HttpServlet {
 		            que[j] = temp;
 		        }
 		        // Prints the random array
-		        System.out.println(Arrays.toString(que));
+		    System.out.println(Arrays.toString(que));
 			qd.setLength(size,s.getStudId(),exam_code);
 			session.setAttribute("exam-time", time);
 			StartExamDAO std = new StartExamDAO();
 			std.setValue(s.getStudId(),exam_code);
 			std.setValue_counter(s.getStudId(),exam_code);
 			sc.setAttribute("que", que);
-
+			
+			RequestDAO rd=new RequestDAO();
+			
+			rd.updateExamCompletedStatus("Started",s.getStudId() , exam_code);
+			
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 
 			response.setHeader("Pragma", "no-cache"); // HTTP 1.0.

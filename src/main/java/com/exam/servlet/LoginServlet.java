@@ -55,12 +55,16 @@ public class LoginServlet extends HttpServlet {
 		if (stud != null) {
 			boolean b = sd.checkFlag(email);
 			if (b  && verify) {
+				HttpSession session2=request.getSession();
+				session2.setAttribute("stud-obj", stud);
+				
 				ServletContext sc=request.getServletContext();
 				sc.setAttribute("student-obj", stud);
-				session.setAttribute("stud-obj", stud);
 				System.out.println(stud.getfName());
 				//System.out.println("aaaaa");
+				
 				response.sendRedirect("StudentDashboard.jsp");
+				
 				} else {
 				session.setAttribute("not-verify", false);
 				//System.out.println("bbbbbb");
